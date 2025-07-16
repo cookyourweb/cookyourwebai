@@ -4,6 +4,74 @@
   padding: 2rem;
   text-align: center;
 }
+/* Animación personalizada para efecto neon pulse */
+@keyframes pulse-neon {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(236, 50, 199, 0.8));
+    opacity: 1;
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(236, 50, 199, 0.4));
+    opacity: 0.6;
+  }
+}
+
+/* Clase Tailwind extendida */
+.animate-pulse-neon {
+  animation: pulse-neon 2s infinite ease-in-out;
+}
+/* Animación tipo pulso neón */
+@keyframes pulse-neon {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(236, 50, 199, 0.8));
+    opacity: 1;
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(236, 50, 199, 0.4));
+    opacity: 0.6;
+  }
+}
+
+/* Clase personalizada para fondo neón con animación */
+.neon-label {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  color: #ffffff;
+  background: linear-gradient(90deg, #EC32C7 0%, #BB60D1 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(236, 50, 199, 0.8);
+  animation: pulse-neon 2s infinite ease-in-out;
+}
+/* Animación tipo pulso neón */
+@keyframes pulse-neon {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(236, 50, 199, 0.8));
+    opacity: 1;
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(236, 50, 199, 0.4));
+    opacity: 0.6;
+  }
+}
+
+/* Clase personalizada para fondo neón con animación */
+.neon-label {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  color: #ffffff;
+  background: linear-gradient(90deg, #EC32C7 0%, #BB60D1 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(236, 50, 199, 0.8);
+  animation: pulse-neon 2s infinite ease-in-out;
+}
 
 .logo {
   height: 6em;
