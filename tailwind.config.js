@@ -33,6 +33,13 @@ module.exports = {
         "sidebar-accent-foreground": "hsl(var(--sidebar-accent-foreground))",
         "sidebar-border": "hsl(var(--sidebar-border))",
         "sidebar-ring": "hsl(var(--sidebar-ring))",
+        neonblue: "#32e2ec",
+        neonpink: "#ec32c7",
+        neonviolet: "#8f32ec",
+        neongreen: "#3fec71",
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
       },
     },
   },

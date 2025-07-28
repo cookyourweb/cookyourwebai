@@ -108,3 +108,110 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+
+## Project Summary
+
+This project is a React application built with TypeScript and Vite as the build tool. It uses Tailwind CSS for styling and the shadcn-ui component library for UI elements. The application is structured with a clear separation of concerns, organizing components, hooks, and utility functions in the `src` directory. The `public` directory contains static assets such as images and icons. The project is configured with ESLint for code quality and includes TypeScript configuration files for type checking.
+
+## Project Directory Structure
+
+```
+.
+├── public/
+│   ├── openai-original.svg
+│   ├── placeholder.png
+│   └── placeholder.svg
+├── src/
+│   ├── App.css
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   ├── vite-env.d.ts
+│   ├── components/
+│   │   ├── ArticleSearch.tsx
+│   │   ├── BusinessContactForm.tsx
+│   │   ├── ContactDialog.tsx
+│   │   ├── DeveloperContactForm.tsx
+│   │   ├── Header.tsx
+│   │   ├── SectionCard.tsx
+│   │   ├── icons/
+│   │   │   ├── AiChatbotIcon.tsx
+│   │   │   ├── ChatGPTIcon.tsx
+│   │   │   ├── OpenAIColorIcon.tsx
+│   │   │   └── OpenAIIcon.tsx
+│   │   └── ui/
+│   │       ├── accordion.tsx
+│   │       ├── alert-dialog.tsx
+│   │       ├── alert.tsx
+│   │       ├── aspect-ratio.tsx
+│   │       ├── avatar.tsx
+│   │       ├── badge.tsx
+│   │       ├── breadcrumb.tsx
+│   │       ├── button.tsx
+│   │       ├── calendar.tsx
+│   │       ├── card.tsx
+│   │       ├── carousel.tsx
+│   │       ├── chart.tsx
+│   │       ├── checkbox.tsx
+│   │       ├── collapsible.tsx
+│   │       ├── command.tsx
+│   │       ├── context-menu.tsx
+│   │       ├── dialog.tsx
+│   │       ├── drawer.tsx
+│   │       ├── dropdown-menu.tsx
+│   │       ├── form.tsx
+│   │       ├── hover-card.tsx
+│   │       ├── input-otp.tsx
+│   │       ├── input.tsx
+│   │       ├── label.tsx
+│   │       ├── menubar.tsx
+│   │       ├── navigation-menu.tsx
+│   │       ├── pagination.tsx
+│   │       ├── popover.tsx
+│   │       ├── progress.tsx
+│   │       ├── radio-group.tsx
+│   │       ├── resizable.tsx
+│   │       ├── scroll-area.tsx
+│   │       ├── select.tsx
+│   │       ├── separator.tsx
+│   │       ├── sheet.tsx
+│   │       ├── sidebar.tsx
+│   │       ├── skeleton.tsx
+│   │       ├── slider.tsx
+│   │       ├── sonner.tsx
+│   │       ├── switch.tsx
+│   │       ├── table.tsx
+│   │       ├── tabs.tsx
+│   │       ├── textarea.tsx
+│   │       ├── toast.tsx
+│   │       ├── toaster.tsx
+│   │       ├── toggle-group.tsx
+│   │       ├── toggle.tsx
+│   │       ├── tooltip.tsx
+│   │       └── use-toast.ts
+│   ├── hooks/
+│   │   ├── use-mobile.tsx
+│   │   └── use-toast.ts
+│   ├── lib/
+│   │   └── utils.ts
+│   └── pages/
+│       ├── Index.tsx
+│       └── NotFound.tsx
+├── .gitignore
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── postcss.config.js.bak
+├── README.md
+├── tailwind.config.js
+├── tailwind.config.ts
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+```
+## Project Directory Structure
+

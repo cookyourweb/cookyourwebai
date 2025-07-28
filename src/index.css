@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -37,19 +35,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -81,6 +72,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -97,9 +89,15 @@
     /* @apply border-border; <-- Removed because it causes a build error */
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Compensar el header fijo */
+  }
+
   body {
-    background-color: hsl(var(--background));
+    background-color: #000000; /* Negro sólido */
     color: hsl(var(--foreground));
+    padding-top: 0; /* Sin padding superior */
   }
 }
 
@@ -221,6 +219,27 @@
   .to-neonpink {
     --tw-gradient-to: #ec32c7 var(--tw-gradient-to-position);
   }
+  .from-neonpink {
+    --tw-gradient-from: #ec32c7 var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(236 50 199 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+  .from-neonviolet {
+    --tw-gradient-from: #8f32ec var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(143 50 236 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+  .via-neongreen {
+    --tw-gradient-to: rgb(63 236 113 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), #3fec71 var(--tw-gradient-via-position), var(--tw-gradient-to);
+  }
+  .via-neonviolet {
+    --tw-gradient-to: rgb(143 50 236 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), #8f32ec var(--tw-gradient-via-position), var(--tw-gradient-to);
+  }
+  .to-neonblue {
+    --tw-gradient-to: #32e2ec var(--tw-gradient-to-position);
+  }
 
   /* Gradient background utilities */
   .bg-gradient-to-r {
@@ -247,12 +266,6 @@
   .bg-gradient-to-bl {
     background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
   }
-  .bg-gradient-radial {
-    background-image: radial-gradient(var(--tw-gradient-stops));
-  }
-  .bg-gradient-conic {
-    background-image: conic-gradient(var(--tw-gradient-stops));
-  }
 
   /* Animation pulse neon */
   @keyframes pulse {
@@ -268,105 +281,330 @@
   .animate-pulse-neon {
     animation: pulse 1.5s infinite alternate;
   }
-
-  /* Padding utilities */
-  .py-1 {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+  
+  /* Animation fade in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  .py-3 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-  }
-  .px-3 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-  .px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-  .px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-  .p-8 {
-    padding: 2rem;
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
   }
 
-  /* Border radius utilities */
-  .rounded-full {
-    border-radius: 9999px;
-  }
-  .rounded-3xl {
-    border-radius: 1.5rem;
-  }
-
-  /* Shadow utilities */
-  .shadow {
-    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  }
-  .shadow-xl {
-    --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  }
-
-  /* Transition utilities */
-  .transition {
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-  .transition-transform {
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-
-  /* Text and font utilities */
-  .text-black {
-    --tw-text-opacity: 1;
-    color: rgb(0 0 0 / var(--tw-text-opacity, 1));
-  }
-  .text-white {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-  }
-  .text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-  .py-2 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  .px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .shadow-lg {
-    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-  }
-  .to-neonviolet {
-    --tw-gradient-to: #8f32ec var(--tw-gradient-to-position);
-  }
-  .from-neonpink {
-    --tw-gradient-from: #ec32c7 var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(236 50 199 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-  }
-  .rounded-full {
-    border-radius: 9999px;
-  }
-  .font-bold {
-    font-weight: 700;
+  /* Font utilities */
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
   }
   .font-inter {
-    font-family: Inter, sans-serif;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* === CLASES ESPECÍFICAS DEL PROYECTO === */
+  
+  /* Cards de servicios */
+  .card-service {
+    background: linear-gradient(to bottom right, rgba(50, 226, 236, 0.1), rgba(236, 50, 199, 0.05), rgba(63, 236, 113, 0.1));
+    border-radius: 1.5rem;
+    border: 2px solid rgb(39, 39, 42);
+    padding: 1.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+  }
+
+  .btn-developer-backend:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Otras utilidades necesarias */
+  .border-neonblue {
+    border-color: #32e2ec;
+  }
+  
+  .border-neonpink {
+    border-color: #ec32c7;
+  }
+  
+  .border-neongreen {
+    border-color: #3fec71;
+  }
+  
+  .border-neonviolet {
+    border-color: #8f32ec;
+  }
+
+  /* Sombras neón */
+  .shadow-neon {
+    box-shadow: 0 0 20px rgba(50, 226, 236, 0.3);
+  }
+  
+  .shadow-neon-pink {
+    box-shadow: 0 0 20px rgba(236, 50, 199, 0.3);
+  }
+  
+  .shadow-neon-green {
+    box-shadow: 0 0 20px rgba(63, 236, 113, 0.3);
+  }
+
+  /* Texto con gradiente */
+  .text-gradient {
+    background: linear-gradient(to right, #32e2ec, #ec32c7, #8f32ec);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-green {
+    background: linear-gradient(to right, #3fec71, #32e2ec);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-pink {
+    background: linear-gradient(to right, #ec32c7, #8f32ec);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Espaciado de secciones */
+  .section-spacing {
+    margin-bottom: 8rem;
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .section-contacto-empresarial {
+    text-align: center;
+    margin-bottom: 8rem;
+  }
+  
+  .section-contacto-dev {
+    text-align: center;
+    margin-bottom: 8rem;
+  }
+
+  /* Hero y contenido principal */
+  .hero-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 6rem;
+    text-align: center;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .main-content {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 4rem 2rem 6rem 2rem;
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  /* Fondos con gradientes */
+  .bg-hero {
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(50, 226, 236, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(236, 50, 199, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(143, 50, 236, 0.1) 0%, transparent 50%),
+      #0a0a0a;
+  }
+  
+  .bg-section {
+    background: 
+      radial-gradient(circle at 30% 40%, rgba(63, 236, 113, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(236, 50, 199, 0.08) 0%, transparent 50%),
+      transparent;
+  }
+
+  /* === CORRECCIONES PARA LOS PROBLEMAS MENCIONADOS === */
+
+  /* 1. ELIMINADAS las clases card-service-featured ya que no se usan */
+
+  /* 2. Cards de servicios unificadas - SIN fondos especiales */
+  .card-service,
+  .card-service-main {
+    background: rgba(39, 39, 42, 0.3);
+    border-radius: 1.5rem;
+    border: 2px solid rgba(63, 236, 113, 0.3);
+    padding: 1.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+  }
+
+  .card-service:hover,
+  .card-service-main:hover {
+    transform: scale(1.02);
+    border-color: rgba(63, 236, 113, 0.6);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* 3. Mejorar legibilidad en los paquetes completos */
+  .card-pricing-main {
+    background: rgba(39, 39, 42, 0.4);
+    border-radius: 1.5rem;
+    border: 2px solid;
+    padding: 2rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .card-pricing-inner {
+    background-color: rgba(0, 0, 0, 0.8); /* Aumentar opacidad */
+    padding: 1.5rem;
+    border-radius: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-pricing-main .text-white {
+    color: #ffffff !important;
+  }
+
+  .card-pricing-main .text-zinc-300 {
+    color: #e4e4e7 !important;
+  }
+
+  /* 4. Header sticky que persista en toda la página */
+  .header-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999; /* Aumentar z-index */
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .header-scrolled {
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* 5. Corregir altura de iframes y espaciado */
+  .iframe-contacto,
+  .iframe-contacto-dev {
+    width: 100%;
+    min-height: 800px;
+    height: auto;
+    border-radius: 1rem;
+    border: 2px solid;
+    overflow: hidden;
+    display: block;
+  }
+
+  .iframe-contacto {
+    border-color: #32e2ec;
+    box-shadow: 0 0 20px rgba(50, 226, 236, 0.3);
+  }
+
+  .iframe-contacto-dev {
+    border-color: #3fec71;
+    box-shadow: 0 0 20px rgba(63, 236, 113, 0.3);
+  }
+
+  /* Contenedor para iframes que se ajuste al contenido */
+  .iframe-wrapper {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin: 0 auto;
+  }
+
+  .iframe-wrapper iframe {
+    width: 100%;
+    min-height: 800px;
+    border: none;
+    display: block;
+  }
+
+  /* 6. Espaciado mejorado para las secciones */
+  section {
+    margin-bottom: 8rem;
+    scroll-margin-top: 100px; /* Para compensar el header fijo */
+  }
+
+  /* Asegurar que el texto en todas las cards sea legible */
+  .card-service h3,
+  .card-service-main h3 {
+    color: #32e2ec;
+    font-weight: 700;
+  }
+
+  /* Ajustes adicionales para mejorar la legibilidad */
+  .service-bullet-list {
+    color: rgb(229, 229, 229); /* Texto más claro */
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
+    list-style-type: disc;
+    padding-left: 1.25rem;
+    text-align: left;
+    margin-top: 0.5rem;
+  }
+
+  /* Responsive para móviles */
+  @media (max-width: 768px) {
+    body {
+      padding-top: 70px; /* Menos padding en móviles */
+    }
+
+    section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 80px;
+    }
+
+    .btn-gradient-primary,
+    .btn-gradient-secondary,
+    .btn-gradient-accent,
+    .btn-developer-frontend,
+    .btn-developer-backend,
+    .btn-cta-link,
+    .btn-cta-final {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .card-service,
+    .card-service-main,
+    .card-pricing-main,
+    .card-individual-service {
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .iframe-contacto,
+    .iframe-contacto-dev {
+      min-height: 600px;
+    }
+
+    .iframe-wrapper iframe {
+      min-height: 600px;
+    }
+
+    .hero-container {
+      padding-top: 2rem;
+    }
+
+    .main-content {
+      padding: 2rem 1rem 4rem 1rem;
+    }
   }
 }

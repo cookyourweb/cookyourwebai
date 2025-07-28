@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import ContactDialog from "./ContactDialog";
 
 const sections = [
-  { label: "Automatización", anchor: "#automatizacion" },
-  { label: "Funnels IA", anchor: "#funnels" },
-  { label: "Avatares IA", anchor: "#avatares" },
-  { label: "Asesoría IA Gratis", anchor: "#contacto" },
-];
+  { label: "Automatización", anchor: "#automatizacion-empresarial", isService: true },
+  { label: "Funnels AI", anchor: "#funnels-ia-avanzados", isService: true },
+  { label: "Avatares AI", anchor: "#ia-influencer-avatares", isService: true },
+  { label: "Servicios Individuales", anchor: "#servicios-individuales", isService: false },
+  { label: "Paquetes", anchor: "#paquetes", isService: false },
+  { label: "Asesoría AI Gratis", anchor: "#consultoria-transformacion-ia", isService: true }];
 
 export default function Header() {
   const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
@@ -38,7 +39,7 @@ export default function Header() {
         <button
           onClick={() => setIsContactDialogOpen(true)}
           className="text-zinc-200 hover:text-green-400 transition-colors"
-          title="Contactar por WhatsApp"
+          title="Contactar por WhatsApp"s
         >
           <MessageCircle className="w-6 h-6 stroke-2" />
         </button>
