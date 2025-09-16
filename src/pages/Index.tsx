@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Check, MessageCircle, X, Menu } from "lucide-react";
+import LegalModal from '../components/LegalModal';
+import { PrivacyPolicyContent, CookiePolicyContent, LegalNoticeContent } from '../components/LegalContent';
 
 // Iconos originales del proyecto
 const OpenAIColorIcon = ({ className }: { className?: string }) => (
@@ -757,6 +759,47 @@ export default function OptimizedLandingPage() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [showDevForm, setShowDevForm] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [cookieConsent, setCookieConsent] = useState(localStorage.getItem('cookieConsent') === 'true');
+  const [showPreferencesModal, setShowPreferencesModal] = useState(false);
+  const [statisticsCookies, setStatisticsCookies] = useState(localStorage.getItem('statisticsCookies') === 'true');
+  const [legalModal, setLegalModal] = useState<{ isOpen: boolean; title: string; content: React.ReactNode }>({
+    isOpen: false,
+    title: '',
+    content: null
+  });
+
+  const acceptCookies = () => {
+    setCookieConsent(true);
+    setStatisticsCookies(true);
+    localStorage.setItem('cookieConsent', 'true');
+    localStorage.setItem('statisticsCookies', 'true');
+    // Aquí se puede cargar Google Analytics u otros scripts de analytics
+  };
+
+  const rejectCookies = () => {
+    setCookieConsent(false);
+    setStatisticsCookies(false);
+    localStorage.setItem('cookieConsent', 'false');
+    localStorage.setItem('statisticsCookies', 'false');
+  };
+
+  const savePreferences = () => {
+    localStorage.setItem('cookieConsent', 'true');
+    localStorage.setItem('statisticsCookies', statisticsCookies ? 'true' : 'false');
+    setCookieConsent(true);
+    setShowPreferencesModal(false);
+    // Cargar analytics si statisticsCookies es true
+  };
+
+  const acceptAll = () => {
+    setStatisticsCookies(true);
+    savePreferences();
+  };
+
+  const rejectAll = () => {
+    setStatisticsCookies(false);
+    savePreferences();
+  };
 
   return (
     <div className="relative min-h-screen w-full bg-black text-white font-sans">
@@ -793,7 +836,7 @@ export default function OptimizedLandingPage() {
           
           {/* VIDEO DEMO */}
           <div className="w-full flex items-center justify-center mb-12">
-            <div 
+            <div
               onClick={() => setShowVideoModal(true)}
               className="relative cursor-pointer group"
             >
@@ -814,7 +857,13 @@ export default function OptimizedLandingPage() {
               </div>
             </div>
           </div>
-          
+
+          <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              ¿Sigues perdiendo clientes mientras tu competencia Automatiza con IA?
+            </span>
+          </h3>
+
           {/* TECH LOGOS */}
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8 mb-12 opacity-70">
             {techLogos.map(logo => (
@@ -849,8 +898,43 @@ export default function OptimizedLandingPage() {
               ))}
             </div>
           </div>
+          </div>
+      </section>
+
+      {/* LEGAL LINKS */}
+      <section id="legal-links" className="max-w-4xl mx-auto px-4 md:px-8 mb-20 md:mb-32 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Información Legal</h2>
+        <div className="flex flex-wrap justify-center gap-6">
+          <button
+            onClick={() => setLegalModal({ isOpen: true, title: 'Política de Privacidad', content: <PrivacyPolicyContent /> })}
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold hover:scale-105 transition-transform"
+          >
+            Política de Privacidad
+          </button>
+          <button
+            onClick={() => setLegalModal({ isOpen: true, title: 'Política de Cookies', content: <CookiePolicyContent /> })}
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 via-teal-500 to-cyan-500 text-white font-bold hover:scale-105 transition-transform"
+          >
+            Política de Cookies
+          </button>
+          <button
+            onClick={() => setLegalModal({ isOpen: true, title: 'Aviso Legal', content: <LegalNoticeContent /> })}
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white font-bold hover:scale-105 transition-transform"
+          >
+            Aviso Legal
+          </button>
         </div>
       </section>
+
+      {/* LEGAL MODAL */}
+      {legalModal.isOpen && (
+        <LegalModal
+          isOpen={legalModal.isOpen}
+          onClose={() => setLegalModal({ isOpen: false, title: '', content: null })}
+          title={legalModal.title}
+          content={legalModal.content}
+        />
+      )}
 
       <main className="container mx-auto px-4 md:px-8 pb-24">
         
@@ -1154,9 +1238,40 @@ export default function OptimizedLandingPage() {
           </div>
         </section>
         
-        <footer className="mt-24 pt-12 pb-8 text-center text-zinc-500 text-sm border-t border-zinc-800">
-          <p>© {new Date().getFullYear()} cookYourWeb.es · Agencia de AI & Automatización Empresarial</p>
-          <p className="mt-2">Hecho con <span className="text-purple-400">❤</span> y mucha AI</p>
+       
+
+        <footer className="mt-24 pt-12 pb-8 border-t border-zinc-800">
+          <div className="container mx-auto max-w-4xl flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left">
+            <div>
+              <h4 className="text-lg font-semibold mb-2 text-white">Contacto</h4>
+              <p className="text-sm text-zinc-300">Teléfono: <a href="tel:+34688757782" className="text-purple-400 hover:underline">34 688 75 77 82</a></p>
+              <p className="text-sm text-zinc-300">Email: <a href="mailto:veronica@usecookyourwebai.es" className="text-purple-400 hover:underline">veronica@usecookyourwebai.es</a></p>
+            </div>
+            <div className="text-center md:text-right text-xs text-zinc-400">
+              <p>© {new Date().getFullYear()} CookYourWeb. Todos los derechos reservados.</p>
+              <div className="mt-2 space-x-4">
+                <button
+                  onClick={() => setLegalModal({ isOpen: true, title: 'Política de Privacidad', content: <PrivacyPolicyContent /> })}
+                  className="underline hover:text-purple-400 cursor-pointer"
+                >
+                  Política de Privacidad
+                </button>
+                <button
+                  onClick={() => setLegalModal({ isOpen: true, title: 'Política de Cookies', content: <CookiePolicyContent /> })}
+                  className="underline hover:text-purple-400 cursor-pointer"
+                >
+                  Política de Cookies
+                </button>
+                <button
+                  onClick={() => setLegalModal({ isOpen: true, title: 'Aviso Legal', content: <LegalNoticeContent /> })}
+                  className="underline hover:text-purple-400 cursor-pointer"
+                >
+                  Aviso Legal
+                </button>
+              </div>
+            </div>
+          </div>
+          <p className="mt-4 text-center text-zinc-500 text-sm">Hecho con <span className="text-purple-400">❤</span> y mucha AI</p>
         </footer>
       </main>
 
@@ -1233,6 +1348,102 @@ export default function OptimizedLandingPage() {
               className="w-full h-full rounded-2xl"
               title="Demo AI Empresarial"
             />
+          </div>
+        </div>
+      )}
+
+      {/* BANNER DE CONSENTIMIENTO DE COOKIES */}
+      {!cookieConsent && (
+        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:bottom-8 z-50 bg-zinc-900 rounded-xl border border-zinc-700 p-4 max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-4 shadow-lg">
+          <p className="text-zinc-300 text-sm flex-1">
+            Usamos cookies para mejorar tu experiencia, analizar el tráfico y personalizar contenido. Más info en nuestra{' '}
+            <a href="/cookie-policy" className="underline text-purple-400 hover:text-purple-600" target="_blank" rel="noopener noreferrer">
+              Política de cookies
+            </a>.
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={acceptAll}
+              className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              Aceptar
+            </button>
+            <button
+              onClick={rejectAll}
+              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              Denegar
+            </button>
+            <button
+              onClick={() => setShowPreferencesModal(true)}
+              className="bg-zinc-700 hover:bg-zinc-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              Ver preferencias
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL DE PREFERENCIAS DE COOKIES */}
+      {showPreferencesModal && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-zinc-900 rounded-xl border border-zinc-700 p-6 max-w-md w-full mx-auto shadow-lg">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-white">Preferencias de Cookies</h3>
+              <button
+                onClick={() => setShowPreferencesModal(false)}
+                className="text-zinc-400 hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-lg font-semibold text-white mb-2">Funcional</h4>
+                <p className="text-zinc-300 text-sm mb-2">
+                  El almacenamiento o acceso técnico es estrictamente necesario para el propósito legítimo de permitir el uso de un servicio específico explícitamente solicitado por el abonado o usuario, o con el único propósito de llevar a cabo la transmisión de una comunicación a través de una red de comunicaciones electrónicas.
+                </p>
+                <p className="text-green-400 text-sm font-bold">Siempre activo</p>
+              </div>
+
+              <div>
+                <h4 className="text-lg font-semibold text-white mb-2">Estadísticas</h4>
+                <p className="text-zinc-300 text-sm mb-2">
+                  El almacenamiento o acceso técnico que es utilizado exclusivamente con fines estadísticos.
+                </p>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={statisticsCookies}
+                    onChange={(e) => setStatisticsCookies(e.target.checked)}
+                    className="mr-2"
+                  />
+                  <span className="text-zinc-300">Aceptar cookies de estadísticas</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="flex gap-2 mt-6">
+              <button
+                onClick={savePreferences}
+                className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition flex-1"
+              >
+                Guardar preferencias
+              </button>
+              <button
+                onClick={acceptAll}
+                className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition flex-1"
+              >
+                Aceptar todas
+              </button>
+              <button
+                onClick={rejectAll}
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition flex-1"
+              >
+                Rechazar todas
+              </button>
+            </div>
           </div>
         </div>
       )}
