@@ -16,9 +16,14 @@ export default function Header() {
   return (
     <header className="w-full py-4 flex items-center justify-between border-b border-zinc-800 bg-black/60 backdrop-blur sticky top-0 z-30">
       <div className="flex flex-col items-start gap-1 px-8">
-        <span className="font-playfair text-2xl text-neonblue tracking-widest brightness-125 select-none">
+        <a
+          href="https://usecookyourwebai.es/home"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-playfair text-2xl text-neonblue tracking-widest brightness-125 select-none hover:text-neonblue/80 transition-colors"
+        >
           cookYourWebAi
-        </span>
+        </a>
         <span className="px-2 py-1 text-xs rounded-full bg-neonpink text-white font-semibold tracking-wide animate-pulse-neon shadow-md">
           Agencia IA
         </span>
@@ -39,7 +44,7 @@ export default function Header() {
         <button
           onClick={() => setIsContactDialogOpen(true)}
           className="text-zinc-200 hover:text-green-400 transition-colors"
-          title="Contactar por WhatsApp"s
+          title="Contactar por WhatsApp"
         >
           <MessageCircle className="w-6 h-6 stroke-2" />
         </button>

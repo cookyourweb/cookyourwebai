@@ -4,7 +4,7 @@ export const PrivacyPolicyContent = () => (
   <>
     <section>
       <h2 className="text-xl font-bold text-white mb-4">Responsable del Tratamiento</h2>
-      <p>CookYourWeb, con domicilio en [añadir dirección legal] y correo electrónico de contacto veronica@usecookyourwebai.es, es responsable del tratamiento de los datos personales recabados a través de sus formularios y canales de contacto.</p>
+      <p>CookYourWeb es una marca gestionada por Verónica Serna Pérez, con NIF 52474139F y domicilio en C/ Tejera 35 1b, 28210 Madrid. Correo de contacto: veronica@usecookyourwebai.es.</p>
     </section>
 
     <section>
@@ -141,10 +141,14 @@ export const LegalNoticeContent = () => (
     <section>
       <h2 className="text-xl font-bold text-white mb-4">I. INFORMACIÓN GENERAL</h2>
       <p>En cumplimiento con el deber de información dispuesto en la Ley 34/2002 de Servicios de la Sociedad de la Información y el Comercio Electrónico (LSSI-CE) de 11 de julio, se facilitan a continuación los siguientes datos de información general de este sitio web:</p>
-      <p>La titularidad de este sitio web, https://cookyourweb.es/, (en adelante, Sitio Web) la ostenta: cookyourweb, con NIF: [NIF], y cuyos datos de contacto son:</p>
-      <p>Dirección: [Dirección].</p>
-      <p>Teléfono de contacto: 34 688 75 77 82</p>
-      <p>Email de contacto: info@cookyourweb.es</p>
+      <p>Titular del sitio web:</p>
+      <p>En cumplimiento de la Ley 34/2002 (LSSI-CE), se informa que el presente sitio web es titularidad de:</p>
+      <p>Verónica Serna Pérez</p>
+      <p>NIF: 52474139F</p>
+      <p>Domicilio: C/ Tejera 35 1b, 28210 Madrid</p>
+      <p>Email de contacto: veronica@usecookyourwebai.es</p>
+      <p>Marca comercial utilizada: CookYourWeb</p>
+      <p>En adelante, "CookYourWeb".</p>
     </section>
 
     <section>

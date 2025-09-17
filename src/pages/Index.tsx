@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Check, MessageCircle, X, Menu } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import LegalModal from '../components/LegalModal';
 import { PrivacyPolicyContent, CookiePolicyContent, LegalNoticeContent } from '../components/LegalContent';
 
@@ -803,6 +804,27 @@ export default function OptimizedLandingPage() {
 
   return (
     <div className="relative min-h-screen w-full bg-black text-white font-sans">
+      <Helmet>
+        <script>
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P9J6QN6T');`}
+        </script>
+      </Helmet>
+
+      {/* Google Tag Manager (noscript) */}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-P9J6QN6T"
+          height="0"
+          width="0"
+          style={{ display: 'none', visibility: 'hidden' }}
+          title="Google Tag Manager"
+        />
+      </noscript>
+
       <Header />
       
       {/* HERO SECTION */}
@@ -837,7 +859,7 @@ export default function OptimizedLandingPage() {
           {/* VIDEO DEMO */}
           <div className="w-full flex items-center justify-center mb-12">
             <div
-              onClick={() => setShowVideoModal(true)}
+              onClick={() => window.open('https://usecookyourwebai.es/home', '_blank')}
               className="relative cursor-pointer group"
             >
               <img
@@ -899,31 +921,6 @@ export default function OptimizedLandingPage() {
             </div>
           </div>
           </div>
-      </section>
-
-      {/* LEGAL LINKS */}
-      <section id="legal-links" className="max-w-4xl mx-auto px-4 md:px-8 mb-20 md:mb-32 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Información Legal</h2>
-        <div className="flex flex-wrap justify-center gap-6">
-          <button
-            onClick={() => setLegalModal({ isOpen: true, title: 'Política de Privacidad', content: <PrivacyPolicyContent /> })}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold hover:scale-105 transition-transform"
-          >
-            Política de Privacidad
-          </button>
-          <button
-            onClick={() => setLegalModal({ isOpen: true, title: 'Política de Cookies', content: <CookiePolicyContent /> })}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 via-teal-500 to-cyan-500 text-white font-bold hover:scale-105 transition-transform"
-          >
-            Política de Cookies
-          </button>
-          <button
-            onClick={() => setLegalModal({ isOpen: true, title: 'Aviso Legal', content: <LegalNoticeContent /> })}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white font-bold hover:scale-105 transition-transform"
-          >
-            Aviso Legal
-          </button>
-        </div>
       </section>
 
       {/* LEGAL MODAL */}
@@ -1250,24 +1247,24 @@ export default function OptimizedLandingPage() {
             <div className="text-center md:text-right text-xs text-zinc-400">
               <p>© {new Date().getFullYear()} CookYourWeb. Todos los derechos reservados.</p>
               <div className="mt-2 space-x-4">
-                <button
+                <a
                   onClick={() => setLegalModal({ isOpen: true, title: 'Política de Privacidad', content: <PrivacyPolicyContent /> })}
                   className="underline hover:text-purple-400 cursor-pointer"
                 >
                   Política de Privacidad
-                </button>
-                <button
+                </a>
+                <a
                   onClick={() => setLegalModal({ isOpen: true, title: 'Política de Cookies', content: <CookiePolicyContent /> })}
                   className="underline hover:text-purple-400 cursor-pointer"
                 >
                   Política de Cookies
-                </button>
-                <button
+                </a>
+                <a
                   onClick={() => setLegalModal({ isOpen: true, title: 'Aviso Legal', content: <LegalNoticeContent /> })}
                   className="underline hover:text-purple-400 cursor-pointer"
                 >
                   Aviso Legal
-                </button>
+                </a>
               </div>
             </div>
           </div>
