@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Header />
-      <div className="container mx-auto px-4 py-16 max-w-4xl">
+      <div className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Política de <span className="text-purple-400">Privacidad</span>
         </h1>

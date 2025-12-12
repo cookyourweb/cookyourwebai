@@ -63,7 +63,7 @@ export default function Unsubscribe() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Header />
-      <div className="container mx-auto px-4 py-16 max-w-2xl">
+      <div className="container mx-auto px-4 pt-8 pb-16 max-w-2xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Baja de <span className="text-purple-400">Comunicaciones</span>
         </h1>
