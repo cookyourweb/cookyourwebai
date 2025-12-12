@@ -11,30 +11,31 @@ export default function Footer() {
         </div>
         <div className="text-center md:text-right text-xs text-zinc-400">
           <p>© {new Date().getFullYear()} CookYourWeb. Todos los derechos reservados.</p>
-          <div className="mt-2 space-x-4">
+          <div className="mt-2 space-x-2">
             <a
               href="/politicadeprivacidad"
               className="underline hover:text-purple-400 cursor-pointer"
             >
               Política de Privacidad
             </a>
+            <span>·</span>
             <a
               href="/cookie-policy"
               className="underline hover:text-purple-400 cursor-pointer"
             >
               Política de Cookies
             </a>
+            <span>·</span>
             <a
               href="/avisolegal"
               className="underline hover:text-purple-400 cursor-pointer"
             >
               Aviso Legal
             </a>
-          </div>
-          <div className="mt-3">
+            <span>·</span>
             <a
               href="/baja"
-              className="text-xs underline hover:text-red-400 cursor-pointer text-zinc-500"
+              className="underline hover:text-red-400 cursor-pointer"
             >
               Darme de baja
             </a>
