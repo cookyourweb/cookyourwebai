@@ -1248,19 +1248,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <p>© {new Date().getFullYear()} CookYourWeb. Todos los derechos reservados.</p>
               <div className="mt-2 space-x-4">
                 <a
-                  onClick={() => setLegalModal({ isOpen: true, title: 'Política de Privacidad', content: <PrivacyPolicyContent /> })}
+                  href="/politicadeprivacidad"
                   className="underline hover:text-purple-400 cursor-pointer"
                 >
                   Política de Privacidad
                 </a>
                 <a
-                  onClick={() => setLegalModal({ isOpen: true, title: 'Política de Cookies', content: <CookiePolicyContent /> })}
+                  href="/cookie-policy"
                   className="underline hover:text-purple-400 cursor-pointer"
                 >
                   Política de Cookies
                 </a>
                 <a
-                  onClick={() => setLegalModal({ isOpen: true, title: 'Aviso Legal', content: <LegalNoticeContent /> })}
+                  href="/avisolegal"
                   className="underline hover:text-purple-400 cursor-pointer"
                 >
                   Aviso Legal

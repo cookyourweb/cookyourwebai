@@ -42,7 +42,7 @@ export default function CookiePolicy() {
           <p>Cuando visites nuestra web por primera vez, te mostraremos una ventana emergente con una explicación sobre las cookies. Tan pronto como hagas clic en «Guardar preferencias», aceptas que usemos las categorías de cookies y plugins que has seleccionado en la ventana emergente, tal y como se describe en esta política de cookies. Puedes desactivar el uso de cookies a través de tu navegador, pero, por favor, ten en cuenta que nuestra web puede dejar de funcionar correctamente.</p>
 
           <p><strong>7.1 Gestiona tus ajustes de consentimiento</strong></p>
-          <p>[object Object]</p>
+          <p>Puedes gestionar tus preferencias de cookies en cualquier momento desde el banner de cookies que aparece en la página principal, donde podrás aceptar, denegar o personalizar las cookies que se utilizan en este sitio web.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">8. Activación/desactivación y borrado de cookies</h2>
           <p>Puedes utilizar tu navegador de Internet para eliminar las cookies de forma automática o manual. También puedes especificar que ciertas cookies no pueden ser colocadas. Otra opción es cambiar los ajustes de tu navegador de Internet para que recibas un mensaje cada vez que se coloca una cookie. Para obtener más información sobre estas opciones, consulta las instrucciones de la sección «Ayuda» de tu navegador.</p>
@@ -62,9 +62,12 @@ export default function CookiePolicy() {
 
           <h2 className="text-2xl font-bold text-white mb-4">10. Datos de contacto</h2>
           <p>Para preguntas y/o comentarios sobre nuestra política de cookies y esta declaración, por favor, contacta con nosotros usando los siguientes datos de contacto:</p>
-          <p>Andorra<br/>
+          <p>CookYourWeb - Verónica Serna Pérez<br/>
+          NIF: 52474139F<br/>
+          Dirección: C/ Tejera 35 1B, 28210 Valdemorillo, Madrid<br/>
           Web: https://cookyourweb.es<br/>
-          Correo electrónico: <a href='mailto: veronica@usecookyourwebai.es'>veronica@usecookyourwebai.es</a></p>
+          Correo electrónico: <a href='mailto:veronica@usecookyourwebai.es'>veronica@usecookyourwebai.es</a><br/>
+          Teléfono: +34 688 75 77 82</p>
           <p>Esta política de cookies se ha sincronizado con cookiedatabase.org el 28 de diciembre de 2024</p>
         </div>
       </div>

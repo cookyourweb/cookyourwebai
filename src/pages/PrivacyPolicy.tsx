@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
         <div className="text-zinc-300 text-sm leading-relaxed space-y-6">
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Responsable del Tratamiento</h2>
-            <p>CookYourWeb, con domicilio en [añadir dirección legal] y correo electrónico de contacto veronica@usecookyourwebai.es, es responsable del tratamiento de los datos personales recabados a través de sus formularios y canales de contacto.</p>
+            <p>CookYourWeb, titular Verónica Serna Pérez con NIF 52474139F, con domicilio en C/ Tejera 35 1B, 28210 Valdemorillo, Madrid, y correo electrónico de contacto veronica@usecookyourwebai.es, es responsable del tratamiento de los datos personales recabados a través de sus formularios y canales de contacto.</p>
           </section>
 
           <section>
