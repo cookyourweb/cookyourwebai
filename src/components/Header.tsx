@@ -1,17 +1,20 @@
 import { Contact, MessageCircle } from "lucide-react";
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import ContactDialog from "./ContactDialog";
 
 const sections = [
-  { label: "Automatización", anchor: "#automatizacion-empresarial", isService: true },
-  { label: "Funnels AI", anchor: "#funnels-ia-avanzados", isService: true },
-  { label: "Avatares AI", anchor: "#ia-influencer-avatares", isService: true },
-  { label: "Servicios Individuales", anchor: "#servicios-individuales", isService: false },
-  { label: "Paquetes", anchor: "#paquetes", isService: false },
-  { label: "Asesoría AI Gratis", anchor: "#consultoria-transformacion-ia", isService: true }];
+  { label: "Automatización", anchor: "automatizacion-empresarial", isService: true },
+  { label: "Funnels AI", anchor: "funnels-ia-avanzados", isService: true },
+  { label: "Avatares AI", anchor: "ia-influencer-avatares", isService: true },
+  { label: "Servicios Individuales", anchor: "servicios-individuales", isService: false },
+  { label: "Paquetes", anchor: "paquetes", isService: false },
+  { label: "Asesoría AI Gratis", anchor: "consultoria-transformacion-ia", isService: true }];
 
 export default function Header() {
   const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   return (
     <header className="w-full py-4 flex items-center justify-between border-b border-zinc-800 bg-black/60 backdrop-blur sticky top-0 z-30">
@@ -30,7 +33,7 @@ export default function Header() {
         {sections.map((section) => (
           <a
             key={section.label}
-            href={section.anchor}
+            href={isHomePage ? `#${section.anchor}` : `/#${section.anchor}`}
             className="relative px-2 py-1 group text-zinc-200 hover:text-neonviolet transition-colors"
           >
             <span>{section.label}</span>
