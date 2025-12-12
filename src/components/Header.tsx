@@ -17,9 +17,7 @@ export default function Header() {
     <header className="w-full py-4 flex items-center justify-between border-b border-zinc-800 bg-black/60 backdrop-blur sticky top-0 z-30">
       <div className="flex flex-col items-start gap-1 px-8">
         <a
-          href="https://usecookyourwebai.es/home"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/"
           className="font-playfair text-2xl text-neonblue tracking-widest brightness-125 select-none hover:text-neonblue/80 transition-colors"
         >
           cookYourWebAi
