@@ -56,7 +56,59 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Derechos del interesado</h2>
-            <p>Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a veronica@usecookyourwebai.es.</p>
+            <p className="mb-4">Puedes ejercer los siguientes derechos en cualquier momento:</p>
+            <ul className="list-disc list-inside ml-4 mt-2 space-y-2">
+              <li><strong>Derecho de acceso:</strong> Solicitar información sobre qué datos tuyos estamos tratando</li>
+              <li><strong>Derecho de rectificación:</strong> Corregir datos incorrectos o incompletos</li>
+              <li><strong>Derecho de supresión:</strong> Solicitar la eliminación de tus datos personales</li>
+              <li><strong>Derecho de oposición:</strong> Oponerte al tratamiento de tus datos para fines de marketing</li>
+              <li><strong>Derecho de limitación:</strong> Solicitar que limitemos el tratamiento de tus datos</li>
+              <li><strong>Derecho de portabilidad:</strong> Recibir tus datos en formato estructurado</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">Cómo ejercer tu derecho de supresión (darse de baja)</h2>
+            <p className="mb-4">
+              Tienes derecho a solicitar la eliminación de tus datos personales en cualquier momento. Puedes hacerlo de las siguientes formas:
+            </p>
+            <div className="bg-zinc-800 rounded-lg p-4 mb-4">
+              <h3 className="font-semibold text-white mb-2">1. Formulario web (recomendado)</h3>
+              <p className="mb-2">Visita nuestra página de baja y completa el formulario:</p>
+              <a
+                href="/baja"
+                className="text-purple-400 hover:text-purple-300 underline font-semibold"
+              >
+                https://cookyourweb.es/baja
+              </a>
+            </div>
+            <div className="bg-zinc-800 rounded-lg p-4 mb-4">
+              <h3 className="font-semibold text-white mb-2">2. Por email</h3>
+              <p>Escribe a <a href="mailto:veronica@usecookyourwebai.es" className="text-purple-400 hover:underline">veronica@usecookyourwebai.es</a> con el asunto "Solicitud de baja"</p>
+            </div>
+            <div className="bg-zinc-800 rounded-lg p-4 mb-4">
+              <h3 className="font-semibold text-white mb-2">3. Por WhatsApp</h3>
+              <p>Envía un mensaje con la palabra "BAJA" al <a href="tel:+34688757782" className="text-purple-400 hover:underline">+34 688 75 77 82</a></p>
+            </div>
+
+            <h3 className="text-lg font-semibold text-white mt-6 mb-3">Plazo de procesamiento</h3>
+            <p className="mb-4">
+              Procesaremos tu solicitud en un plazo máximo de <strong>30 días naturales</strong> (según Art. 12.3 RGPD) y te confirmaremos por email cuando tus datos hayan sido eliminados.
+            </p>
+
+            <h3 className="text-lg font-semibold text-white mt-6 mb-3">¿Qué datos se eliminarán?</h3>
+            <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
+              <li>Tu información de contacto (nombre, email, teléfono)</li>
+              <li>Historial de conversaciones en WhatsApp</li>
+              <li>Datos almacenados en nuestros sistemas (Airtable, formularios)</li>
+              <li>Comunicaciones comerciales (dejarás de recibir emails y mensajes)</li>
+            </ul>
+
+            <h3 className="text-lg font-semibold text-white mt-6 mb-3">¿Qué datos NO se eliminarán?</h3>
+            <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
+              <li>Datos que debamos conservar por obligaciones legales o fiscales (facturas, contratos firmados)</li>
+              <li>Datos anonimizados para estadísticas internas que no permitan identificarte</li>
+            </ul>
           </section>
 
           <section>

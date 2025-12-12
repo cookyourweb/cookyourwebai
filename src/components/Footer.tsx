@@ -31,6 +31,14 @@ export default function Footer() {
               Aviso Legal
             </a>
           </div>
+          <div className="mt-3">
+            <a
+              href="/baja"
+              className="text-xs underline hover:text-red-400 cursor-pointer text-zinc-500"
+            >
+              Darme de baja
+            </a>
+          </div>
         </div>
       </div>
       <p className="mt-4 text-center text-zinc-500 text-sm">Hecho con <span className="text-purple-400">❤</span> y mucha AI</p>
