@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function CookiePolicy() {
   return (
@@ -71,6 +72,7 @@ export default function CookiePolicy() {
           <p>Esta política de cookies se ha sincronizado con cookiedatabase.org el 28 de diciembre de 2024</p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

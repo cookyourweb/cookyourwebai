@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function LegalNotice() {
   return (
@@ -69,6 +70,7 @@ export default function LegalNotice() {
           <p>La relación entre el Usuario y Sitio Web se regirá por la normativa vigente y de aplicación en el territorio español. De surgir cualquier controversia en relación con la interpretación y/o a la aplicación de estas Condiciones las partes someterán sus conflictos a la jurisdicción ordinaria sometiéndose a los jueces y tribunales que correspondan conforme a derecho.</p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
