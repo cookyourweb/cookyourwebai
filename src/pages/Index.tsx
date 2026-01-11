@@ -806,6 +806,7 @@ export default function OptimizedLandingPage() {
   return (
     <div className="relative min-h-screen w-full bg-black text-white font-sans">
       <Helmet>
+        <meta name="facebook-domain-verification" content="kron72tqlwuux45e3yuj7vr7pnqha6" />
         <script>
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
