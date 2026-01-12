@@ -806,7 +806,86 @@ export default function OptimizedLandingPage() {
   return (
     <div className="relative min-h-screen w-full bg-black text-white font-sans">
       <Helmet>
+        {/* Meta Tags Básicos SEO */}
+        <title>cookYourWebAI - Agencia de Automatización con Inteligencia Artificial | Transforma tu Empresa</title>
+        <meta name="description" content="Agencia especializada en automatización empresarial con IA. Aumenta ventas 20-100%, automatiza procesos críticos y libera tiempo estratégico. Chatbots inteligentes, funnels AI, avatares digitales y formación para desarrolladores. ROI visible desde la primera semana." />
+        <meta name="keywords" content="inteligencia artificial, automatización empresarial, agencia IA, chatbots inteligentes, funnels AI, avatares digitales, AI engineer, formación desarrolladores IA, automatización procesos, machine learning, OpenAI, transformación digital, ROI automatización" />
+        <meta name="author" content="cookYourWebAI" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <link rel="canonical" href="https://cookyourweb.es" />
+
+        {/* Meta Tags de Idioma y Localización */}
+        <html lang="es" />
+        <meta name="language" content="Spanish" />
+        <meta name="geo.region" content="ES" />
+        <meta name="geo.placename" content="España" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://cookyourweb.es" />
+        <meta property="og:title" content="cookYourWebAI - Agencia de Automatización con IA | Multiplica tus Ventas" />
+        <meta property="og:description" content="Transforma tu empresa con IA que opera 24/7. Automatización empresarial, chatbots inteligentes, funnels AI avanzados y avatares digitales. ROI garantizado en 4 semanas. Auditoría gratuita disponible." />
+        <meta property="og:image" content="https://cookyourweb.es/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="cookYourWebAI" />
+        <meta property="og:locale" content="es_ES" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://cookyourweb.es" />
+        <meta name="twitter:title" content="cookYourWebAI - Agencia de Automatización con IA" />
+        <meta name="twitter:description" content="Automatiza procesos, multiplica ventas 20-100% y libera tiempo estratégico. Chatbots IA, Funnels Inteligentes, Avatares Digitales. ROI visible desde la primera semana." />
+        <meta name="twitter:image" content="https://cookyourweb.es/twitter-image.jpg" />
+        <meta name="twitter:creator" content="@cookyourweb" />
+        <meta name="twitter:site" content="@cookyourweb" />
+
+        {/* Meta Tags Adicionales */}
+        <meta name="theme-color" content="#000000" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="cookYourWebAI" />
+        <meta name="application-name" content="cookYourWebAI" />
+        <meta name="msapplication-TileColor" content="#000000" />
+
+        {/* Verificación de Dominio Facebook Business */}
         <meta name="facebook-domain-verification" content="kron72tqlwuux45e3yuj7vr7pnqha6" />
+
+        {/* Schema.org JSON-LD para Rich Snippets */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "cookYourWebAI",
+            "url": "https://cookyourweb.es",
+            "logo": "https://cookyourweb.es/logo.png",
+            "description": "Agencia especializada en automatización empresarial con Inteligencia Artificial. Transformamos empresas con IA que opera 24/7.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "ES"
+            },
+            "sameAs": [
+              "https://twitter.com/cookyourweb",
+              "https://www.facebook.com/cookyourweb",
+              "https://www.linkedin.com/company/cookyourweb"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+34-688-757-782",
+              "contactType": "Customer Service",
+              "availableLanguage": ["Spanish"]
+            },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "EUR",
+              "lowPrice": "299",
+              "highPrice": "4999",
+              "offerCount": "10"
+            }
+          })}
+        </script>
+
+        {/* Google Tag Manager */}
         <script>
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
