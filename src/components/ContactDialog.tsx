@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { MessageCircle, User, Mail, Phone } from "lucide-react";
+import { sendLead } from "@/lib/leadsWebhook";
 
 interface ContactDialogProps {
   isOpen: boolean;
@@ -24,20 +25,12 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
   };
 
   const handleWhatsAppRedirect = async () => {
-    const webhookUrl = "https://hook.eu2.make.com/0bx5m15241a6roo7r8n2hwxp5tr046lm";
-
-    // Enviar datos al webhook
-    await fetch(`${webhookUrl}?source=web&canal=whatsapp&accion=nuevo_lead_desde_web`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nombre: formData.name,
-        email: formData.email,
-        telefono: formData.phone,
-        origen: "web"
-      })
+    // Registrar el lead; si falla, el redirect a WhatsApp sigue adelante.
+    await sendLead({
+      formulario: "contacto",
+      nombre: formData.name,
+      email: formData.email,
+      telefono: formData.phone
     });
 
     // Mensaje para WhatsApp

@@ -1,14 +1,25 @@
 import React from "react";
+import { sendLead } from "@/lib/leadsWebhook";
 
 export default function BusinessContactForm() {
   return (
     <form
       className="flex flex-col gap-4 items-center w-full max-w-sm mx-auto"
-      onSubmit={e => {
+      onSubmit={async e => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         if (!form.privacidad.checked) {
           alert("Debes aceptar la política de privacidad.");
+          return;
+        }
+        const ok = await sendLead({
+          formulario: "business",
+          nombre: form.nombre.value,
+          email: form.email.value,
+          mensaje: `Empresa: ${form.empresa.value} · Objetivo: ${form.objetivo.value}`
+        });
+        if (!ok) {
+          alert("No hemos podido registrar tu solicitud. Inténtalo de nuevo en unos minutos.");
           return;
         }
         alert("¡Gracias por tu interés! Nos pondremos en contacto pronto para programar tu auditoría gratuita.");

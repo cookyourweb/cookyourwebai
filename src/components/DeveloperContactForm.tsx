@@ -1,14 +1,25 @@
 import React from "react";
+import { sendLead } from "@/lib/leadsWebhook";
 
 export default function DeveloperContactForm() {
   return (
     <form
       className="flex flex-col gap-4 items-center w-full max-w-sm mx-auto"
-      onSubmit={e => {
+      onSubmit={async e => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         if (!form.privacidad_dev.checked) {
           alert("Debes aceptar la política de privacidad.");
+          return;
+        }
+        const ok = await sendLead({
+          formulario: "developer",
+          nombre: form.nombre.value,
+          email: form.email.value,
+          mensaje: `Experiencia: ${form.experiencia.value} · Track: ${form.track.value} · Tecnologías: ${form.tecnologias.value}`
+        });
+        if (!ok) {
+          alert("No hemos podido registrar tu solicitud. Inténtalo de nuevo en unos minutos.");
           return;
         }
         alert("¡Gracias por tu interés! Te contactaremos pronto para programar tu entrevista técnica gratuita.");
