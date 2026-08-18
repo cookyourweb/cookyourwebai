@@ -29,7 +29,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose }: PrivacyPolicyMod
             <div className="text-zinc-300 text-sm leading-relaxed space-y-6 max-w-3xl mx-auto">
               <section>
                 <h2 className="text-xl font-bold text-white mb-4">Responsable del Tratamiento</h2>
-                <p>CookYourWeb, con domicilio en [añadir dirección legal] y correo electrónico de contacto veronica@usecookyourwebai.es, es responsable del tratamiento de los datos personales recabados a través de sus formularios y canales de contacto.</p>
+                <p>CookYourWeb, con domicilio en [añadir dirección legal] y correo electrónico de contacto veronica@cookyourwebai.es, es responsable del tratamiento de los datos personales recabados a través de sus formularios y canales de contacto.</p>
               </section>
 
               <section>
@@ -71,7 +71,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose }: PrivacyPolicyMod
 
               <section>
                 <h2 className="text-xl font-bold text-white mb-4">Derechos del interesado</h2>
-                <p>Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a veronica@usecookyourwebai.es.</p>
+                <p>Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a veronica@cookyourwebai.es.</p>
               </section>
 
               <section>

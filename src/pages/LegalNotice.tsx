@@ -14,10 +14,10 @@ export default function LegalNotice() {
         <div className="text-zinc-300 text-sm leading-relaxed space-y-6">
           <h2 className="text-2xl font-bold text-white mb-4">I. INFORMACIÓN GENERAL</h2>
           <p>En cumplimiento con el deber de información dispuesto en la Ley 34/2002 de Servicios de la Sociedad de la Información y el Comercio Electrónico (LSSI-CE) de 11 de julio, se facilitan a continuación los siguientes datos de información general de este sitio web:</p>
-          <p>La titularidad de este sitio web, https://cookyourweb.es/, (en adelante, Sitio Web) la ostenta: Veronica Serna, con NIF: 52474139F, y cuyos datos de contacto son:</p>
+          <p>La titularidad de este sitio web, https://www.cookyourwebai.es/, (en adelante, Sitio Web) la ostenta: Veronica Serna, con NIF: 52474139F, y cuyos datos de contacto son:</p>
           <p>Dirección: Calle Tejera 35 1B 28210 Valdemorillo 28210.</p>
           <p>Teléfono de contacto: 34 688 75 77 82</p>
-          <p>Email de contacto: veronica@usecookyourwebai.es</p>
+          <p>Email de contacto: veronica@cookyourwebai.es</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">II. TÉRMINOS Y CONDICIONES GENERALES DE USO</h2>
           <p><strong>El objeto de las condiciones: El Sitio Web</strong></p>

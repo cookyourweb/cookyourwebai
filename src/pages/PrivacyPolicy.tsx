@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
         <div className="text-zinc-300 text-sm leading-relaxed space-y-6">
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Responsable del Tratamiento</h2>
-            <p>CookYourWeb, titular Verónica Serna Pérez con NIF 52474139F, con domicilio en C/ Tejera 35 1B, 28210 Valdemorillo, Madrid, y correo electrónico de contacto veronica@usecookyourwebai.es, es responsable del tratamiento de los datos personales recabados a través de sus formularios y canales de contacto.</p>
+            <p>CookYourWeb, titular Verónica Serna Pérez con NIF 52474139F, con domicilio en C/ Tejera 35 1B, 28210 Valdemorillo, Madrid, y correo electrónico de contacto veronica@cookyourwebai.es, es responsable del tratamiento de los datos personales recabados a través de sus formularios y canales de contacto.</p>
           </section>
 
           <section>
@@ -79,12 +79,12 @@ export default function PrivacyPolicy() {
                 href="/baja"
                 className="text-purple-400 hover:text-purple-300 underline font-semibold"
               >
-                https://cookyourweb.es/baja
+                https://www.cookyourwebai.es/baja
               </a>
             </div>
             <div className="bg-zinc-800 rounded-lg p-4 mb-4">
               <h3 className="font-semibold text-white mb-2">2. Por email</h3>
-              <p>Escribe a <a href="mailto:veronica@usecookyourwebai.es" className="text-purple-400 hover:underline">veronica@usecookyourwebai.es</a> con el asunto "Solicitud de baja"</p>
+              <p>Escribe a <a href="mailto:veronica@cookyourwebai.es" className="text-purple-400 hover:underline">veronica@cookyourwebai.es</a> con el asunto "Solicitud de baja"</p>
             </div>
             <div className="bg-zinc-800 rounded-lg p-4 mb-4">
               <h3 className="font-semibold text-white mb-2">3. Por WhatsApp</h3>

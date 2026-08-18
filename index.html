@@ -11,28 +11,25 @@
     <meta property="og:title" content="CookYourWeb: Tu web con IA y Gratis" />
     <meta property="og:description" content="Aprende a crear tu web personal o empresarial · Fullstack, IA, Marketing y más con herramientas gratuitas y masterclasses." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://www.cookyourwebai.es/" />
+    <!--
+      Imagen de la tarjeta al compartir el enlace. Hoy usa la foto de perfil,
+      que es de 240x240: por eso la tarjeta es de tipo "summary" (pequena).
+      Para la tarjeta grande hace falta una imagen de 1200x630 en public/,
+      y entonces cambiar twitter:card a "summary_large_image".
+    -->
+    <meta property="og:image" content="https://www.cookyourwebai.es/veronicaSernaTechLead.jpg" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="https://www.cookyourwebai.es/veronicaSernaTechLead.jpg" />
 
-    <!-- Google Tag Manager -->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-P9J6QN6T');
-    </script>
-    <!-- End Google Tag Manager -->
+    <!--
+      Google Tag Manager NO se carga aquí a proposito.
+      La AEPD exige consentimiento previo para cookies de estadistica, asi que
+      GTM se inyecta desde src/lib/gtm.ts solo si el usuario lo ha aceptado.
+    -->
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P9J6QN6T"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

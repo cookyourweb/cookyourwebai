@@ -4,7 +4,7 @@ export const PrivacyPolicyContent = () => (
   <>
     <section>
       <h2 className="text-xl font-bold text-white mb-4">Responsable del Tratamiento</h2>
-      <p>CookYourWeb es una marca gestionada por Verónica Serna Pérez, con NIF 52474139F y domicilio en C/ Tejera 35 1b, 28210 Madrid. Correo de contacto: veronica@usecookyourwebai.es.</p>
+      <p>CookYourWeb es una marca gestionada por Verónica Serna Pérez, con NIF 52474139F y domicilio en C/ Tejera 35 1b, 28210 Madrid. Correo de contacto: veronica@cookyourwebai.es.</p>
     </section>
 
     <section>
@@ -46,7 +46,7 @@ export const PrivacyPolicyContent = () => (
 
     <section>
       <h2 className="text-xl font-bold text-white mb-4">Derechos del interesado</h2>
-      <p>Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a veronica@usecookyourwebai.es.</p>
+      <p>Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a veronica@cookyourwebai.es.</p>
     </section>
 
     <section>
@@ -62,7 +62,7 @@ export const CookiePolicyContent = () => (
 
     <section>
       <h2 className="text-xl font-bold text-white mb-4">1. Introducción</h2>
-      <p>Nuestra web, https://cookyourweb.es (en adelante: «la web») utiliza cookies y otras tecnologías relacionadas (para mayor comodidad, todas las tecnologías se denominan «cookies»). Las cookies también son colocadas por terceros a los que hemos contratado. En el siguiente documento te informamos sobre el uso de cookies en nuestra web.</p>
+      <p>Nuestra web, https://www.cookyourwebai.es (en adelante: «la web») utiliza cookies y otras tecnologías relacionadas (para mayor comodidad, todas las tecnologías se denominan «cookies»). Las cookies también son colocadas por terceros a los que hemos contratado. En el siguiente documento te informamos sobre el uso de cookies en nuestra web.</p>
     </section>
 
     <section>
@@ -129,8 +129,8 @@ export const CookiePolicyContent = () => (
       <h2 className="text-xl font-bold text-white mb-4">10. Datos de contacto</h2>
       <p>Para preguntas y/o comentarios sobre nuestra política de cookies y esta declaración, por favor, contacta con nosotros usando los siguientes datos de contacto:</p>
       <p>Andorra<br/>
-      Web: https://cookyourweb.es<br/>
-      Correo electrónico: <a href='mailto: veronica@usecookyourwebai.es'>veronica@usecookyourwebai.es</a></p>
+      Web: https://www.cookyourwebai.es<br/>
+      Correo electrónico: <a href='mailto: veronica@cookyourwebai.es'>veronica@cookyourwebai.es</a></p>
       <p>Esta política de cookies se ha sincronizado con cookiedatabase.org el 28 de diciembre de 2024</p>
     </section>
   </>
@@ -146,7 +146,7 @@ export const LegalNoticeContent = () => (
       <p>Verónica Serna Pérez</p>
       <p>NIF: 52474139F</p>
       <p>Domicilio: C/ Tejera 35 1b, 28210 Madrid</p>
-      <p>Email de contacto: veronica@usecookyourwebai.es</p>
+      <p>Email de contacto: veronica@cookyourwebai.es</p>
       <p>Marca comercial utilizada: CookYourWeb</p>
       <p>En adelante, "CookYourWeb".</p>
     </section>

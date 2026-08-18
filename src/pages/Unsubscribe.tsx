@@ -56,7 +56,7 @@ export default function Unsubscribe() {
       }
     } catch (error) {
       setStatus('error');
-      setErrorMessage('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo o escribe a veronica@usecookyourwebai.es');
+      setErrorMessage('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo o escribe a veronica@cookyourwebai.es');
     }
   };
 
@@ -192,8 +192,8 @@ export default function Unsubscribe() {
 
               <p className="text-xs text-center text-zinc-500">
                 Si tienes problemas, contacta con nosotros en{' '}
-                <a href="mailto:veronica@usecookyourwebai.es" className="text-purple-400 hover:underline">
-                  veronica@usecookyourwebai.es
+                <a href="mailto:veronica@cookyourwebai.es" className="text-purple-400 hover:underline">
+                  veronica@cookyourwebai.es
                 </a>
               </p>
             </form>

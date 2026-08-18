@@ -7,7 +7,7 @@ export default function LegalSection() {
         <div className="text-center md:text-left">
           <h4 className="text-lg font-semibold mb-2">Contacto</h4>
           <p className="text-sm">Teléfono: <a href="tel:+34688757782" className="text-purple-400 hover:underline">34 688 75 77 82</a></p>
-          <p className="text-sm">Email: <a href="mailto:veronica@usecookyourwebai.es" className="text-purple-400 hover:underline">veronica@usecookyourwebai.es</a></p>
+          <p className="text-sm">Email: <a href="mailto:veronica@cookyourwebai.es" className="text-purple-400 hover:underline">veronica@cookyourwebai.es</a></p>
         </div>
         <div className="text-center md:text-right text-xs text-zinc-400">
           <p>© {new Date().getFullYear()} CookYourWeb. Todos los derechos reservados.</p>

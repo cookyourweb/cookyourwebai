@@ -15,7 +15,7 @@ export default function CookiePolicy() {
           <p>Esta política de cookies fue actualizada por última vez el 10 de septiembre de 2025 y se aplica a los ciudadanos y residentes legales permanentes del Espacio Económico Europeo.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">1. Introducción</h2>
-          <p>Nuestra web, https://cookyourweb.es (en adelante: «la web») utiliza cookies y otras tecnologías relacionadas (para mayor comodidad, todas las tecnologías se denominan «cookies»). Las cookies también son colocadas por terceros a los que hemos contratado. En el siguiente documento te informamos sobre el uso de cookies en nuestra web.</p>
+          <p>Nuestra web, https://www.cookyourwebai.es (en adelante: «la web») utiliza cookies y otras tecnologías relacionadas (para mayor comodidad, todas las tecnologías se denominan «cookies»). Las cookies también son colocadas por terceros a los que hemos contratado. En el siguiente documento te informamos sobre el uso de cookies en nuestra web.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">2. ¿Qué son las cookies?</h2>
           <p>Una cookie es un pequeño archivo que se envía junto con las páginas de esta web y que tu navegador almacena en el disco duro de su ordenador u otro dispositivo. La información almacenada puede ser devuelta a nuestros servidores o a los servidores de terceros apropiados durante una visita posterior.</p>
@@ -66,8 +66,8 @@ export default function CookiePolicy() {
           <p>CookYourWeb - Verónica Serna Pérez<br/>
           NIF: 52474139F<br/>
           Dirección: C/ Tejera 35 1B, 28210 Valdemorillo, Madrid<br/>
-          Web: https://cookyourweb.es<br/>
-          Correo electrónico: <a href='mailto:veronica@usecookyourwebai.es'>veronica@usecookyourwebai.es</a><br/>
+          Web: https://www.cookyourwebai.es<br/>
+          Correo electrónico: <a href='mailto:veronica@cookyourwebai.es'>veronica@cookyourwebai.es</a><br/>
           Teléfono: +34 688 75 77 82</p>
           <p>Esta política de cookies se ha sincronizado con cookiedatabase.org el 28 de diciembre de 2024</p>
         </div>
