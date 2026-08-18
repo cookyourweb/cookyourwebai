@@ -380,7 +380,7 @@ Vuestro asistente IA me identificó como: ${profile?.text}
             </div>
             
             <h3 className="text-xl font-bold text-white mb-2">
-              ¿Formulario manual en 2024?
+              ¿Formulario manual en 2026?
             </h3>
             <p className="text-purple-400 text-lg font-bold mb-4">
                               En casa de herrero, ¡cuchillo de AI!
@@ -1097,7 +1097,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* CTA POST PAQUETES */}
         <CTASection
           title="🎯 ¿Listo para transformar tu empresa?"
-          description="Las automatizaciones que uso yo misma cada día están publicadas en GitHub, con sus tests y sus decisiones documentadas: puedes revisarlas antes de escribirme."
+          description=""
           buttonText="Solicita Tu Auditoría Gratuita"
           buttonAction={() => setShowContactForm(true)}
           gradient="from-purple-500/20 via-pink-500/20 to-blue-500/20"
