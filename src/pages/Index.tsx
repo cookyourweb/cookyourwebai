@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import LegalModal from '../components/LegalModal';
 import { PrivacyPolicyContent, CookiePolicyContent, LegalNoticeContent } from '../components/LegalContent';
 import Footer from '../components/Footer';
+import { cargarGtm } from '../lib/gtm';
 
 // Iconos originales del proyecto
 const OpenAIColorIcon = ({ className }: { className?: string }) => (
@@ -35,21 +36,6 @@ const testimonials = [
   {
     name: "Ana Ruiz - Directora Operaciones",
     text: "Los chatbots inteligentes resuelven el 85% de consultas automáticamente. Ahorramos tiempo y costos significativos."
-  }
-];
-
-const developerTestimonials = [
-  {
-    name: "Diego López - Senior Developer",
-    text: "Pasé de programador tradicional a AI Engineer en 4 meses. Ahora lidero proyectos de automatización en mi empresa."
-  },
-  {
-    name: "Laura Jiménez - Frontend Lead",
-    text: "Integro APIs de IA en aplicaciones complejas sin problemas. Mi valor profesional se multiplicó exponencialmente."
-  },
-  {
-    name: "Roberto Silva - Tech Lead",
-    text: "Desarrollo soluciones de machine learning en producción. La formación fue práctica y resultados inmediatos."
   }
 ];
 
@@ -775,7 +761,7 @@ export default function OptimizedLandingPage() {
     setStatisticsCookies(true);
     localStorage.setItem('cookieConsent', 'true');
     localStorage.setItem('statisticsCookies', 'true');
-    // Aquí se puede cargar Google Analytics u otros scripts de analytics
+    cargarGtm();
   };
 
   const rejectCookies = () => {
@@ -785,17 +771,20 @@ export default function OptimizedLandingPage() {
     localStorage.setItem('statisticsCookies', 'false');
   };
 
-  const savePreferences = () => {
+  // `estadistica` se pasa explicitamente porque el estado de React no se
+  // actualiza de forma sincrona: leerlo aqui despues de setStatisticsCookies(true)
+  // devolveria el valor anterior y se guardaria un consentimiento equivocado.
+  const savePreferences = (estadistica = statisticsCookies) => {
     localStorage.setItem('cookieConsent', 'true');
-    localStorage.setItem('statisticsCookies', statisticsCookies ? 'true' : 'false');
+    localStorage.setItem('statisticsCookies', estadistica ? 'true' : 'false');
     setCookieConsent(true);
     setShowPreferencesModal(false);
-    // Cargar analytics si statisticsCookies es true
+    if (estadistica) cargarGtm();
   };
 
   const acceptAll = () => {
     setStatisticsCookies(true);
-    savePreferences();
+    savePreferences(true);
   };
 
   const rejectAll = () => {
@@ -1124,7 +1113,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* CTA POST PAQUETES */}
         <CTASection
           title="🎯 ¿Listo para transformar tu empresa?"
-          description="Más de 150 empresas ya han transformado sus resultados con nuestros paquetes integrales. Es tu turno de multiplicar ventas con AI."
+          description="Veinte años construyendo software en producción. Las automatizaciones que uso yo misma cada día están publicadas en GitHub, con sus tests y sus decisiones documentadas: puedes revisarlas antes de escribirme."
           buttonText="Solicita Tu Auditoría Gratuita"
           buttonAction={() => setShowContactForm(true)}
           gradient="from-purple-500/20 via-pink-500/20 to-blue-500/20"
@@ -1172,26 +1161,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* TESTIMONIOS DE DESARROLLADORES */}
-          <div className="bg-zinc-900/90 backdrop-blur p-6 md:p-8 rounded-3xl border-2 border-emerald-500 mb-12">
-            <h3 className="text-xl md:text-2xl font-bold text-emerald-400 mb-8 text-center">
-              Lo que dicen nuestros <span className="text-purple-400">AI Engineers</span>
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {developerTestimonials.map((testimonial, idx) => (
-                <div key={idx} className="bg-gradient-to-br from-emerald-500/20 via-blue-500/10 to-purple-500/10 rounded-2xl p-5 border border-emerald-500/20">
-                  <div className="flex items-start mb-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                      <span className="text-white font-bold text-xs">{testimonial.name.charAt(0)}</span>
-                    </div>
-                    <span className="text-emerald-400 font-bold text-sm">{testimonial.name}</span>
-                  </div>
-                  <p className="text-sm md:text-base text-zinc-200 leading-relaxed">{testimonial.text}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* CTA DESARROLLADORES */}
