@@ -47,7 +47,7 @@ export default function CookiePolicy() {
 
           <h2 className="text-2xl font-bold text-white mb-4">8. Activación/desactivación y borrado de cookies</h2>
           <p>Puedes utilizar tu navegador de Internet para eliminar las cookies de forma automática o manual. También puedes especificar que ciertas cookies no pueden ser colocadas. Otra opción es cambiar los ajustes de tu navegador de Internet para que recibas un mensaje cada vez que se coloca una cookie. Para obtener más información sobre estas opciones, consulta las instrucciones de la sección «Ayuda» de tu navegador.</p>
-          <p>Ten en cuenta que nuestra web puede no funcionar correctamente si todas las cookies están desactivadas. Si borras las cookies de tu navegador, se volverán a colocar después de tu consentimiento cuando vuelvas a visitar nuestras webs.</p>
+          <p>En esta web no hace falta: funciona correctamente con todas las cookies desactivadas, porque ninguna parte de ella depende de las de estadística. Si borras el almacenamiento de tu navegador, se te volverá a preguntar por el consentimiento en la siguiente visita, y hasta que respondas no se cargará ninguna herramienta de medición.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">9. Tus derechos con respecto a los datos personales</h2>
           <p>Tienes los siguientes derechos con respecto a tus datos personales:</p>
