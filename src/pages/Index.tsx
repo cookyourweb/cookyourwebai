@@ -24,21 +24,6 @@ const techLogos = [
   { name: "MongoDB", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
 ];
 
-const testimonials = [
-  {
-    name: "María García - CEO TechCorp",
-    text: "Implementamos IA en nuestros procesos y aumentamos la eficiencia un 340%. El ROI fue inmediato y sostenible."
-  },
-  {
-    name: "Carlos Mendoza - Director Comercial", 
-    text: "Nuestro sistema de IA cualifica leads automáticamente y cierra ventas las 24 horas. Resultados increíbles."
-  },
-  {
-    name: "Ana Ruiz - Directora Operaciones",
-    text: "Los chatbots inteligentes resuelven el 85% de consultas automáticamente. Ahorramos tiempo y costos significativos."
-  }
-];
-
 const mainServices = [
   {
     id: "automatizacion-empresarial",
@@ -874,25 +859,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 />
               )
             ))}
-          </div>
-          
-          {/* TESTIMONIALS */}
-          <div className="max-w-5xl mx-auto w-full">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              {testimonials.map((testimonial, idx) => (
-                <div key={idx} className="bg-zinc-900/80 backdrop-blur p-6 rounded-2xl border border-zinc-800 hover:scale-105 transition-transform">
-                  <div className="flex items-start mb-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                      <span className="text-white font-bold text-sm">{testimonial.name.charAt(0)}</span>
-                    </div>
-                    <div>
-                      <span className="block text-sm text-purple-400 font-bold">{testimonial.name}</span>
-                    </div>
-                  </div>
-                  <p className="text-sm md:text-base text-zinc-200 leading-relaxed">{testimonial.text}</p>
-                </div>
-              ))}
-            </div>
           </div>
           </div>
       </section>
