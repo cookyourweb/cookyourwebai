@@ -1097,7 +1097,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* CTA POST PAQUETES */}
         <CTASection
           title="🎯 ¿Listo para transformar tu empresa?"
-          description="Veinte años construyendo software en producción. Las automatizaciones que uso yo misma cada día están publicadas en GitHub, con sus tests y sus decisiones documentadas: puedes revisarlas antes de escribirme."
+          description="Las automatizaciones que uso yo misma cada día están publicadas en GitHub, con sus tests y sus decisiones documentadas: puedes revisarlas antes de escribirme."
           buttonText="Solicita Tu Auditoría Gratuita"
           buttonAction={() => setShowContactForm(true)}
           gradient="from-purple-500/20 via-pink-500/20 to-blue-500/20"
