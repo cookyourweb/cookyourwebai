@@ -846,29 +846,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </a>
           </div>
           
-          {/* VIDEO DEMO */}
-          <div className="w-full flex items-center justify-center mb-12">
-            <div
-              onClick={() => window.open('https://usecookyourwebai.es/home', '_blank')}
-              className="relative cursor-pointer group"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=450&fit=crop&crop=center"
-                alt="Demo AI Empresarial"
-                className="rounded-2xl shadow-2xl w-[300px] sm:w-[400px] md:w-[600px] border-4 border-purple-500 group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center group-hover:bg-black/20 transition-colors">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <svg className="w-6 h-6 md:w-8 md:h-8 text-purple-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-bold">
-                ▶ Ver Demo en Acción
-              </div>
-            </div>
-          </div>
+          {/* Aqui iba un bloque "Ver Demo en Accion". Quitado el 18-ago-2026: no era un
+              video, era una foto de stock de Unsplash con un boton de play encima,
+              presentada como demo del producto, y el clic abria usecookyourwebai.es,
+              que es la landing del master montada en HighLevel: ya no hay acceso y el
+              dominio no resuelve. Un enlace muerto dice "esto esta abandonado" mas
+              fuerte que no tener video.
+              Cuando haya demo real va aqui. Ver WEB-COOKYOURWEB-PENDIENTES.md */}
 
           <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
