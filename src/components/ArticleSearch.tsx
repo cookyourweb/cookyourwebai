@@ -49,7 +49,7 @@ export default function ArticleSearch() {
               />
               <button
                 onClick={() => setOpen(false)}
-                className="ml-2 px-2 py-1 text-xs rounded bg-neonpink text-white font-medium hover:brightness-125 transition"
+                className="ml-2 px-2 py-1 text-xs rounded bg-accent text-accent-foreground font-medium hover:brightness-125 transition"
                 aria-label="Cerrar"
               >
                 Cerrar

@@ -25,7 +25,7 @@ export default function Header() {
         >
           cookYourWebAi
         </a>
-        <span className="px-2 py-1 text-xs rounded-full bg-neonpink text-white font-semibold tracking-wide animate-pulse-neon shadow-md">
+        <span className="px-2 py-1 text-xs rounded-full bg-accent text-accent-foreground font-semibold tracking-wide animate-pulse-neon shadow-md">
           Agencia IA
         </span>
       </div>
