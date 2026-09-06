@@ -105,8 +105,11 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 182.9 98.1% 21%; /* cian-700 #01656a */
-    --input: 182.9 98.1% 21%;
+    /* cian-600 #018188 — 4,24:1 sobre el fondo. El paso 700 que decia la
+       documentacion daba 2,90:1 y no llegaba al 3:1 que pide WCAG 1.4.11
+       para elementos que no son texto. Lo cazo el test de contraste. */
+    --border: 183.1 98.5% 26.9%;
+    --input: 183.1 98.5% 26.9%;
     --ring: 182.8 91.3% 45.3%; /* cian-300 #0ad3dd — 10.72:1 sobre background */
 
     --radius: 0.5rem;
@@ -150,8 +153,8 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 182.9 98.1% 21%;
-    --input: 182.9 98.1% 21%;
+    --border: 183.1 98.5% 26.9%;
+    --input: 183.1 98.5% 26.9%;
     --ring: 182.8 91.3% 45.3%;
 
     --sidebar-background: 0 0% 3.9%;
@@ -193,11 +196,15 @@
     --accent: 320.6 100% 93.1%; /* magenta-100 #ffdcf3 */
     --accent-foreground: 310.8 98.2% 22.2%; /* magenta-800 — 9.08:1 */
 
-    --destructive: 0 84.2% 60.2%;
+    /* El rojo de fabrica de shadcn daba 3,59:1 con su propio foreground:
+       ilegible para texto normal. Se oscurece hasta pasar AA. */
+    --destructive: 0 73.7% 41.8%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 183.4 92.7% 62.2%; /* cian-200, según la regla "bordes claro: 200" */
-    --input: 183.4 92.7% 62.2%;
+    /* cian-600 #018188 — 4,67:1 sobre blanco. La regla "bordes claro: 200"
+       de la documentacion daba 1,42:1: un borde practicamente invisible. */
+    --border: 183.1 98.5% 26.9%;
+    --input: 183.1 98.5% 26.9%;
     --ring: 183.1 98.5% 26.9%; /* cian-600, según "foco claro: 600" */
 
     --sidebar-background: 0 0% 100%;
