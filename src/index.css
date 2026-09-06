@@ -228,6 +228,21 @@
   }
 }
 
+/* Respeta prefers-reduced-motion: las animaciones infinitas del sitio
+   (animate-pulse-neon, animate-pulse, animate-bounce, animate-spin, las
+   transiciones de los Dialog de Radix, el scroll-behavior:smooth de html)
+   corrían siempre, sin guard. Este bloque no toca color, solo movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Add the following to ensure classes like bg-background and text-foreground exist as Tailwind utilities */
 @layer utilities {
   .bg-background {

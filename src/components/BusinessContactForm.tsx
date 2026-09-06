@@ -26,28 +26,36 @@ export default function BusinessContactForm() {
         form.reset();
       }}
     >
+      <label htmlFor="business-nombre" className="sr-only">Nombre y cargo</label>
       <input
+        id="business-nombre"
         type="text"
         name="nombre"
         placeholder="Nombre y cargo"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neonblue outline-none"
         required
       />
+      <label htmlFor="business-empresa" className="sr-only">Nombre de tu empresa</label>
       <input
+        id="business-empresa"
         type="text"
         name="empresa"
         placeholder="Nombre de tu empresa"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neonblue outline-none"
         required
       />
+      <label htmlFor="business-email" className="sr-only">Email corporativo</label>
       <input
+        id="business-email"
         type="email"
         name="email"
         placeholder="Email corporativo"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neonblue outline-none"
         required
       />
+      <label htmlFor="business-objetivo" className="sr-only">¿Qué procesos te gustaría automatizar con IA?</label>
       <textarea
+        id="business-objetivo"
         name="objetivo"
         placeholder="¿Qué procesos te gustaría automatizar con IA?"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neonblue outline-none"

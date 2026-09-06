@@ -5,6 +5,7 @@ import LegalModal from '../components/LegalModal';
 import { PrivacyPolicyContent, CookiePolicyContent, LegalNoticeContent } from '../components/LegalContent';
 import Footer from '../components/Footer';
 import { cargarGtm } from '../lib/gtm';
+import { Dialog, DialogContent, DialogTitle, DialogClose } from '@/components/ui/dialog';
 
 // Iconos originales del proyecto
 const OpenAIColorIcon = ({ className }: { className?: string }) => (
@@ -345,18 +346,19 @@ Vuestro asistente IA me identificó como: ${profile?.text}
     onClose();
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-zinc-900 rounded-2xl p-6 max-w-lg w-full relative border border-zinc-700 animate-in slide-in-from-bottom duration-300">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors"
-        >
-          <X className="w-6 h-6" />
-        </button>
-        
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent
+        hideCloseButton
+        className="bg-zinc-900 rounded-2xl sm:rounded-2xl p-6 max-w-lg w-full border border-zinc-700 animate-in slide-in-from-bottom duration-300"
+      >
+        <DialogTitle className="sr-only">Asistente AI cookYourWeb</DialogTitle>
+        <DialogClose asChild>
+          <button className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors">
+            <X className="w-6 h-6" />
+          </button>
+        </DialogClose>
+
         {/* STEP 1: Bienvenida Disruptiva */}
         {step === 1 && (
           <div className="text-center">
@@ -517,8 +519,8 @@ Vuestro asistente IA me identificó como: ${profile?.text}
             </button>
           </div>
         )}
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 
@@ -603,6 +605,9 @@ const Header = () => {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-3 text-zinc-300 hover:text-blue-400 transition-all duration-300 rounded-xl hover:bg-zinc-800/50"
+              aria-label={isMobileMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu-home"
             >
               <div className="relative">
                 <Menu className="w-5 h-5" />
@@ -613,10 +618,10 @@ const Header = () => {
             </button>
           </div>
         </div>
-        
+
         {/* MOBILE MENU */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-black/95 backdrop-blur-md border-t border-zinc-800/50 animate-in slide-in-from-top duration-300">
+          <div id="mobile-menu-home" className="lg:hidden bg-black/95 backdrop-blur-md border-t border-zinc-800/50 animate-in slide-in-from-top duration-300">
             <nav className="container mx-auto px-4 py-6 space-y-1">
               {sections.map((section, index) => (
                 <a
@@ -801,7 +806,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </noscript>
 
       <Header />
-      
+
+      <main id="main-content" tabIndex={-1}>
+
       {/* HERO SECTION */}
       <section className="pt-24 md:pt-32 pb-16 md:pb-20">
         <div className="container mx-auto px-4 md:px-8 flex flex-col items-center text-center">
@@ -839,11 +846,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               fuerte que no tener video.
               Cuando haya demo real va aqui. Ver WEB-COOKYOURWEB-PENDIENTES.md */}
 
-          <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               ¿Sigues perdiendo clientes mientras tu competencia Automatiza con IA?
             </span>
-          </h3>
+          </h2>
 
           {/* TECH LOGOS */}
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8 mb-12 opacity-70">
@@ -873,8 +880,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       )}
 
-      <main className="container mx-auto px-4 md:px-8 pb-24">
-        
+      <div className="container mx-auto px-4 md:px-8 pb-24">
+
         {/* SERVICIOS PRINCIPALES */}
         <section id="servicios" className="mb-20 md:mb-32">
           <div className="text-center mb-16">
@@ -1158,74 +1165,70 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
        
 
         <Footer />
+      </div>
       </main>
 
       {/* MODALES */}
       {showContactForm && (
-        <div 
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-2 md:p-4"
-          onClick={() => setShowContactForm(false)}
-        >
-          <div 
-            className="w-[98vw] h-[95vh] md:w-[90vw] md:h-[90vh] max-w-4xl bg-zinc-900 rounded-xl md:rounded-2xl relative border border-zinc-700"
-            onClick={(e) => e.stopPropagation()}
+        <Dialog open={showContactForm} onOpenChange={() => setShowContactForm(false)}>
+          <DialogContent
+            hideCloseButton
+            className="block w-[98vw] h-[95vh] md:w-[90vw] md:h-[90vh] max-w-4xl bg-zinc-900 rounded-xl sm:rounded-xl md:rounded-2xl border border-zinc-700 p-0"
           >
-            <button
-              onClick={() => setShowContactForm(false)}
-              className="absolute top-2 right-2 md:top-4 md:right-4 z-50 text-zinc-400 hover:text-white bg-black/80 rounded-full p-2 md:p-3 hover:bg-red-500 transition-all shadow-lg"
-              title="Cerrar formulario"
-            >
-              <X className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
+            <DialogTitle className="sr-only">Formulario de Contacto Empresarial</DialogTitle>
+            <DialogClose asChild>
+              <button
+                className="absolute top-2 right-2 md:top-4 md:right-4 z-50 text-zinc-400 hover:text-white bg-black/80 rounded-full p-2 md:p-3 hover:bg-red-500 transition-all shadow-lg"
+                title="Cerrar formulario"
+              >
+                <X className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
+            </DialogClose>
             <iframe
               src="https://tally.so/r/w77ZyP"
               className="w-full h-full rounded-xl md:rounded-2xl"
               title="Formulario de Contacto Empresarial"
             />
-          </div>
-        </div>
+          </DialogContent>
+        </Dialog>
       )}
 
       {showDevForm && (
-        <div 
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-2 md:p-4"
-          onClick={() => setShowDevForm(false)}
-        >
-          <div 
-            className="w-[98vw] h-[95vh] md:w-[90vw] md:h-[90vh] max-w-4xl bg-zinc-900 rounded-xl md:rounded-2xl relative border border-zinc-700"
-            onClick={(e) => e.stopPropagation()}
+        <Dialog open={showDevForm} onOpenChange={() => setShowDevForm(false)}>
+          <DialogContent
+            hideCloseButton
+            className="block w-[98vw] h-[95vh] md:w-[90vw] md:h-[90vh] max-w-4xl bg-zinc-900 rounded-xl sm:rounded-xl md:rounded-2xl border border-zinc-700 p-0"
           >
-            <button
-              onClick={() => setShowDevForm(false)}
-              className="absolute top-2 right-2 md:top-4 md:right-4 z-50 text-zinc-400 hover:text-white bg-black/80 rounded-full p-2 md:p-3 hover:bg-red-500 transition-all shadow-lg"
-              title="Cerrar formulario"
-            >
-              <X className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
+            <DialogTitle className="sr-only">Formulario de Contacto Desarrolladores</DialogTitle>
+            <DialogClose asChild>
+              <button
+                className="absolute top-2 right-2 md:top-4 md:right-4 z-50 text-zinc-400 hover:text-white bg-black/80 rounded-full p-2 md:p-3 hover:bg-red-500 transition-all shadow-lg"
+                title="Cerrar formulario"
+              >
+                <X className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
+            </DialogClose>
             <iframe
               src="https://tally.so/r/n0YDZ0"
               className="w-full h-full rounded-xl md:rounded-2xl"
               title="Formulario de Contacto Desarrolladores"
             />
-          </div>
-        </div>
+          </DialogContent>
+        </Dialog>
       )}
 
       {showVideoModal && (
-        <div 
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setShowVideoModal(false)}
-        >
-          <div 
-            className="w-full max-w-4xl aspect-video relative"
-            onClick={(e) => e.stopPropagation()}
+        <Dialog open={showVideoModal} onOpenChange={() => setShowVideoModal(false)}>
+          <DialogContent
+            hideCloseButton
+            className="block w-full max-w-4xl aspect-video bg-transparent border-0 p-0 shadow-none"
           >
-            <button
-              onClick={() => setShowVideoModal(false)}
-              className="absolute -top-12 right-0 text-white hover:text-red-400 transition-colors"
-            >
-              <X className="w-8 h-8" />
-            </button>
+            <DialogTitle className="sr-only">Demo AI Empresarial</DialogTitle>
+            <DialogClose asChild>
+              <button className="absolute -top-12 right-0 text-white hover:text-red-400 transition-colors">
+                <X className="w-8 h-8" />
+              </button>
+            </DialogClose>
             <iframe
               src="https://www.youtube.com/embed/luDoX9aeW58?autoplay=1"
               allow="autoplay; encrypted-media"
@@ -1233,8 +1236,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               className="w-full h-full rounded-2xl"
               title="Demo AI Empresarial"
             />
-          </div>
-        </div>
+          </DialogContent>
+        </Dialog>
       )}
 
       {/* BANNER DE CONSENTIMIENTO DE COOKIES */}
@@ -1271,16 +1274,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       {/* MODAL DE PREFERENCIAS DE COOKIES */}
       {showPreferencesModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 rounded-xl border border-zinc-700 p-6 max-w-md w-full mx-auto shadow-lg">
+        <Dialog open={showPreferencesModal} onOpenChange={() => setShowPreferencesModal(false)}>
+          <DialogContent
+            hideCloseButton
+            className="bg-zinc-900 rounded-xl sm:rounded-xl border border-zinc-700 p-6 max-w-md w-full"
+          >
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-white">Preferencias de Cookies</h3>
-              <button
-                onClick={() => setShowPreferencesModal(false)}
-                className="text-zinc-400 hover:text-white"
-              >
-                ✕
-              </button>
+              <DialogTitle asChild>
+                <h3 className="text-xl font-bold text-white">Preferencias de Cookies</h3>
+              </DialogTitle>
+              <DialogClose asChild>
+                <button
+                  className="text-zinc-400 hover:text-white"
+                  aria-label="Cerrar preferencias de cookies"
+                >
+                  ✕
+                </button>
+              </DialogClose>
             </div>
 
             <div className="space-y-4">
@@ -1329,8 +1339,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 Rechazar todas
               </button>
             </div>
-          </div>
-        </div>
+          </DialogContent>
+        </Dialog>
       )}
     </div>
   );

@@ -63,7 +63,7 @@ export default function Unsubscribe() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Header />
-      <div className="container mx-auto px-4 pt-8 pb-16 max-w-2xl">
+      <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-2xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Baja de <span className="text-purple-400">Comunicaciones</span>
         </h1>
@@ -234,7 +234,7 @@ export default function Unsubscribe() {
             </div>
           </>
         )}
-      </div>
+      </main>
       <Footer />
     </div>
   );

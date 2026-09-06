@@ -6,7 +6,7 @@ export default function CookiePolicy() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Header />
-      <div className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
+      <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Política de <span className="text-purple-400">Cookies</span>
         </h1>
@@ -71,7 +71,7 @@ export default function CookiePolicy() {
           Teléfono: +34 688 75 77 82</p>
           <p>Esta política de cookies se sincronizó con cookiedatabase.org el 28 de diciembre de 2024.<br/>Última revisión del contenido: 18 de agosto de 2026, al cambiar la web para que Google Tag Manager solo se cargue con consentimiento previo.</p>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );

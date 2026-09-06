@@ -15,7 +15,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Header />
-      <div className="container mx-auto px-4 py-16 max-w-4xl">
+      <main id="main-content" tabIndex={-1} className="container mx-auto px-4 py-16 max-w-4xl">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-8">
             Ups algo no ha ido bien
@@ -25,7 +25,7 @@ const NotFound = () => {
             Volver al Inicio
           </a>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
