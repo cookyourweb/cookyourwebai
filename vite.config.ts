@@ -19,4 +19,11 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  test: {
+    // jsdom solo donde hace falta: los tests que no tocan DOM (contraste de
+    // tokens) declaran su propio entorno con un comentario @vitest-environment.
+    environment: "jsdom",
+    globals: true,
+    setupFiles: "./src/test/setup.ts",
+  },
 }));

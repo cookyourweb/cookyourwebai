@@ -67,8 +67,10 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
 
           <div className="space-y-4">
             <div className="relative">
+              <label htmlFor="whatsapp-name" className="sr-only">Tu nombre</label>
               <User className="absolute left-3 top-3 w-4 h-4 text-zinc-400" />
               <Input
+                id="whatsapp-name"
                 name="name"
                 placeholder="Tu nombre"
                 value={formData.name}
@@ -78,8 +80,10 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
             </div>
 
             <div className="relative">
+              <label htmlFor="whatsapp-email" className="sr-only">Tu email</label>
               <Mail className="absolute left-3 top-3 w-4 h-4 text-zinc-400" />
               <Input
+                id="whatsapp-email"
                 name="email"
                 type="email"
                 placeholder="Tu email"
@@ -90,8 +94,10 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
             </div>
 
             <div className="relative">
+              <label htmlFor="whatsapp-phone" className="sr-only">Tu número de teléfono</label>
               <Phone className="absolute left-3 top-3 w-4 h-4 text-zinc-400" />
               <Input
+                id="whatsapp-phone"
                 name="phone"
                 type="tel"
                 placeholder="Tu número de teléfono"

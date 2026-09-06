@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      # npm ci, no npm install: obedece al lock y no puede cambiarlo. Si el
+      # lock y el package.json no cuadran, falla en vez de instalar otra cosa.
+      - name: instalar
+        run: npm ci
+
+      - name: tests
+        run: npm test
+
+      # Vercel compila al desplegar, pero se entera despues de mergear. Aqui
+      # se entera la PR, que es cuando todavia se puede arreglar.
+      - name: build
+        run: npm run build

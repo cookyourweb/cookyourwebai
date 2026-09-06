@@ -26,21 +26,27 @@ export default function DeveloperContactForm() {
         form.reset();
       }}
     >
+      <label htmlFor="dev-nombre" className="sr-only">Tu nombre completo</label>
       <input
+        id="dev-nombre"
         type="text"
         name="nombre"
         placeholder="Tu nombre completo"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neongreen outline-none"
         required
       />
+      <label htmlFor="dev-email" className="sr-only">Tu email</label>
       <input
+        id="dev-email"
         type="email"
         name="email"
         placeholder="Tu email"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neongreen outline-none"
         required
       />
+      <label htmlFor="dev-experiencia" className="sr-only">Años de experiencia como dev</label>
       <select
+        id="dev-experiencia"
         name="experiencia"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neongreen outline-none"
         required
@@ -50,7 +56,9 @@ export default function DeveloperContactForm() {
         <option value="mid">3-5 años (Mid)</option>
         <option value="senior">5+ años (Senior)</option>
       </select>
+      <label htmlFor="dev-track" className="sr-only">Track de interés</label>
       <select
+        id="dev-track"
         name="track"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neongreen outline-none"
         required
@@ -60,7 +68,9 @@ export default function DeveloperContactForm() {
         <option value="backend">Backend: IA y Machine Learning</option>
         <option value="ambos">Ambos tracks</option>
       </select>
+      <label htmlFor="dev-tecnologias" className="sr-only">¿Qué tecnologías dominas? (React, Python, Node.js, etc.)</label>
       <textarea
+        id="dev-tecnologias"
         name="tecnologias"
         placeholder="¿Qué tecnologías dominas? (React, Python, Node.js, etc.)"
         className="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-zinc-700 focus:ring-2 focus:ring-neongreen outline-none"

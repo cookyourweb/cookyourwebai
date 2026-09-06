@@ -6,7 +6,7 @@ export default function LegalNotice() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Header />
-      <div className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
+      <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Aviso <span className="text-purple-400">Legal</span>
         </h1>
@@ -69,7 +69,7 @@ export default function LegalNotice() {
           <p>Sitio Web se reserva la facultad de presentar las acciones civiles o penales que considere necesarias por la utilización indebida del Sitio Web y Contenidos, o por el incumplimiento de las presentes Condiciones.</p>
           <p>La relación entre el Usuario y Sitio Web se regirá por la normativa vigente y de aplicación en el territorio español. De surgir cualquier controversia en relación con la interpretación y/o a la aplicación de estas Condiciones las partes someterán sus conflictos a la jurisdicción ordinaria sometiéndose a los jueces y tribunales que correspondan conforme a derecho.</p>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );

@@ -6,7 +6,7 @@ export default function CookiePolicy() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Header />
-      <div className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
+      <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Política de <span className="text-purple-400">Cookies</span>
         </h1>
@@ -28,26 +28,26 @@ export default function CookiePolicy() {
 
           <h2 className="text-2xl font-bold text-white mb-4">5. Cookies</h2>
           <p><strong>5.1 Cookies técnicas o funcionales</strong></p>
-          <p>Algunas cookies aseguran que ciertas partes de la web funcionen correctamente y que tus preferencias de usuario sigan recordándose. Al colocar cookies funcionales, te facilitamos la visita a nuestra web. De esta manera, no necesitas introducir repetidamente la misma información cuando visitas nuestra web y, por ejemplo, los artículos permanecen en tu cesta de la compra hasta que hayas pagado. Podemos colocar estas cookies sin tu consentimiento.</p>
+          <p>Aseguran que la web funcione correctamente y que tu respuesta al aviso de cookies siga recordándose. En esta web son dos, y no son cookies: se guardan en el almacenamiento local de tu navegador. <strong>cookieConsent</strong> recuerda si ya has respondido al aviso, y <strong>statisticsCookies</strong> recuerda si aceptaste las de estadística. Ninguna de las dos te identifica ni se envía a ningún servidor, y por eso se colocan sin tu consentimiento.</p>
 
           <p><strong>5.2 Cookies de estadísticas</strong></p>
           <p>Utilizamos cookies estadísticas para optimizar la experiencia de la web para nuestros usuarios. Con estas cookies estadísticas obtenemos información sobre el uso de nuestra web. Te pedimos tu permiso para colocar cookies de estadísticas.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">6. Cookies usadas</h2>
           <p>
-            Google Analytics - Estadísticas<br/>
-            Google Tag Manager<br/>
+            Google Tag Manager y, a través de él, Google Analytics. Categoría: estadística.<br/>
+            <strong>No se cargan hasta que aceptas.</strong> Mientras no lo hagas, el código de Google no se descarga y no se coloca ninguna cookie suya. Si aceptas, Google coloca sus propias cookies de medición.<br/>
           </p>
 
           <h2 className="text-2xl font-bold text-white mb-4">7. Consentimiento</h2>
-          <p>Cuando visites nuestra web por primera vez, te mostraremos una ventana emergente con una explicación sobre las cookies. Tan pronto como hagas clic en «Guardar preferencias», aceptas que usemos las categorías de cookies y plugins que has seleccionado en la ventana emergente, tal y como se describe en esta política de cookies. Puedes desactivar el uso de cookies a través de tu navegador, pero, por favor, ten en cuenta que nuestra web puede dejar de funcionar correctamente.</p>
+          <p>Cuando visitas la web por primera vez se muestra un aviso con una explicación sobre las cookies. Puedes marcar la casilla «Aceptar cookies de estadísticas» y pulsar «Guardar preferencias», o usar directamente «Aceptar todas» o «Rechazar todas». Hasta que no aceptas las de estadística no se carga ninguna herramienta de medición: el código de Google no se descarga siquiera. Si las rechazas, la web funciona exactamente igual, porque ninguna parte de ella depende de esas cookies.</p>
 
           <p><strong>7.1 Gestiona tus ajustes de consentimiento</strong></p>
           <p>Puedes gestionar tus preferencias de cookies en cualquier momento desde el banner de cookies que aparece en la página principal, donde podrás aceptar, denegar o personalizar las cookies que se utilizan en este sitio web.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">8. Activación/desactivación y borrado de cookies</h2>
           <p>Puedes utilizar tu navegador de Internet para eliminar las cookies de forma automática o manual. También puedes especificar que ciertas cookies no pueden ser colocadas. Otra opción es cambiar los ajustes de tu navegador de Internet para que recibas un mensaje cada vez que se coloca una cookie. Para obtener más información sobre estas opciones, consulta las instrucciones de la sección «Ayuda» de tu navegador.</p>
-          <p>Ten en cuenta que nuestra web puede no funcionar correctamente si todas las cookies están desactivadas. Si borras las cookies de tu navegador, se volverán a colocar después de tu consentimiento cuando vuelvas a visitar nuestras webs.</p>
+          <p>En esta web no hace falta: funciona correctamente con todas las cookies desactivadas, porque ninguna parte de ella depende de las de estadística. Si borras el almacenamiento de tu navegador, se te volverá a preguntar por el consentimiento en la siguiente visita, y hasta que respondas no se cargará ninguna herramienta de medición.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">9. Tus derechos con respecto a los datos personales</h2>
           <p>Tienes los siguientes derechos con respecto a tus datos personales:</p>
@@ -69,9 +69,9 @@ export default function CookiePolicy() {
           Web: https://www.cookyourwebai.es<br/>
           Correo electrónico: <a href='mailto:veronica@cookyourwebai.es'>veronica@cookyourwebai.es</a><br/>
           Teléfono: +34 688 75 77 82</p>
-          <p>Esta política de cookies se ha sincronizado con cookiedatabase.org el 28 de diciembre de 2024</p>
+          <p>Esta política de cookies se sincronizó con cookiedatabase.org el 28 de diciembre de 2024.<br/>Última revisión del contenido: 18 de agosto de 2026, al cambiar la web para que Google Tag Manager solo se cargue con consentimiento previo.</p>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );
