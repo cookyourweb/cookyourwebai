@@ -4,83 +4,210 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* ============================================================
+       RAMPAS DE MARCA — 4 escalas completas (pasos 50-900)
+       Fuente: docs/diseno/tokens-color.json (medido 2026-09-05)
+       Generadas en OKLCh. Un solo sitio: no se repiten hexadecimales
+       de marca en ningún otro punto de este fichero.
+       ============================================================ */
+    --color-cian-50: #dafdff;
+    --color-cian-100: #a2f9ff;
+    --color-cian-200: #45eef8;
+    --color-cian-300: #0ad3dd;
+    --color-cian-400: #06b7c0;
+    --color-cian-500: #039ca4;
+    --color-cian-600: #018188;
+    --color-cian-700: #01656a;
+    --color-cian-800: #00494d;
+    --color-cian-900: #002d30;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --color-magenta-50: #fff0fa;
+    --color-magenta-100: #ffdcf3;
+    --color-magenta-200: #ffbceb;
+    --color-magenta-300: #ff8ce0;
+    --color-magenta-400: #ff48d8;
+    --color-magenta-500: #e224be;
+    --color-magenta-600: #c001a1;
+    --color-magenta-700: #97007e;
+    --color-magenta-800: #70015c;
+    --color-magenta-900: #47003a;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --color-violeta-50: #f7f3ff;
+    --color-violeta-100: #ece2ff;
+    --color-violeta-200: #dccaff;
+    --color-violeta-300: #c8a7ff;
+    --color-violeta-400: #b583ff;
+    --color-violeta-500: #a457ff;
+    --color-violeta-600: #8e30eb;
+    --color-violeta-700: #7301c7;
+    --color-violeta-800: #540194;
+    --color-violeta-900: #34005f;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --color-verde-50: #dfffe3;
+    --color-verde-100: #adffb9;
+    --color-verde-200: #51f97e;
+    --color-verde-300: #28de64;
+    --color-verde-400: #01c251;
+    --color-verde-500: #00a544;
+    --color-verde-600: #038937;
+    --color-verde-700: #006b29;
+    --color-verde-800: #004e1c;
+    --color-verde-900: #00300f;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Los 4 neones históricos ahora apuntan al paso 200 de su rampa
+       (es donde "brillan sobre oscuro", según el documento de tokens).
+       Ya no son hexadecimales sueltos repetidos a mano. */
+    --color-neonblue: var(--color-cian-200);
+    --color-neonpink: var(--color-magenta-200);
+    --color-neonviolet: var(--color-violeta-200);
+    --color-neongreen: var(--color-verde-200);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Componentes R G B de los mismos pasos, para usarlos dentro de
+       rgb(... / alpha) donde se necesita opacidad (glow, overlays). */
+    --color-neonblue-rgb: 69 238 248;
+    --color-neonpink-rgb: 255 188 235;
+    --color-neonviolet-rgb: 220 202 255;
+    --color-neongreen-rgb: 81 249 126;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* ============================================================
+       TOKENS SEMÁNTICOS — TEMA OSCURO (el principal)
+       Medido: cian y verde dan 12,5:1 sobre negro. La marca está
+       pensada para fondo oscuro, así que :root lleva estos valores.
+       Contrastes reales (WCAG, calculados, no estimados) en el
+       informe de la tarea.
+       ============================================================ */
+    --background: 0 0% 3.9%; /* #0a0a0a — el mismo negro que ya usaban bg-hero y los overlays */
+    --background-rgb: 10 10 10;
+    --foreground: 0 0% 95%; /* 17.68:1 sobre --background */
 
-    --destructive: 0 84.2% 60.2%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 183.4 92.7% 62.2%; /* cian-200 #45eef8 */
+    --primary-foreground: 183.8 100% 9.4%; /* cian-900 #002d30 — 10.46:1 */
+
+    --secondary: 262.5 100% 82.7%; /* violeta-300 #c8a7ff */
+    --secondary-foreground: 272.8 100% 18.6%; /* violeta-900 #34005f — 7.95:1 */
+
+    --muted: 138.8 100% 9.4%; /* verde-900 #00300f */
+    --muted-foreground: 144.9 99% 38.2%; /* verde-400 #01c251 — 6.18:1 sobre muted, 8.33:1 sobre background */
+
+    --accent: 310.8 98.2% 22.2%; /* magenta-800 #70015c */
+    --accent-foreground: 317.9 100% 86.9%; /* magenta-200 #ffbceb — 7.38:1 */
+
+    /* --destructive no forma parte de ninguna rampa de marca (no hay
+       un "rojo de marca" medido). Se conserva el rojo shadcn original:
+       ya era independiente del fondo y por sí solo da 9.58:1. Fuera de
+       alcance de esta tarea introducir un color de error nuevo. */
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 182.9 98.1% 21%; /* cian-700 #01656a */
+    --input: 182.9 98.1% 21%;
+    --ring: 182.8 91.3% 45.3%; /* cian-300 #0ad3dd — 10.72:1 sobre background */
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 3.9%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 183.4 92.7% 62.2%;
+    --sidebar-primary-foreground: 183.8 100% 9.4%;
+    --sidebar-accent: 310.8 98.2% 22.2%;
+    --sidebar-accent-foreground: 317.9 100% 86.9%;
+    --sidebar-border: 182.9 98.1% 21%;
+    --sidebar-ring: 182.8 91.3% 45.3%;
   }
 
+  /* Alias: si algo activa .dark (toggle de shadcn), no cambia nada,
+     porque :root ya ES el tema oscuro. Sin esto, shadcn se rompería
+     en cuanto alguien haga class="dark" en el html. */
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 3.9%;
+    --background-rgb: 10 10 10;
+    --foreground: 0 0% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 183.4 92.7% 62.2%;
+    --primary-foreground: 183.8 100% 9.4%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 262.5 100% 82.7%;
+    --secondary-foreground: 272.8 100% 18.6%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 138.8 100% 9.4%;
+    --muted-foreground: 144.9 99% 38.2%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 310.8 98.2% 22.2%;
+    --accent-foreground: 317.9 100% 86.9%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 182.9 98.1% 21%;
+    --input: 182.9 98.1% 21%;
+    --ring: 182.8 91.3% 45.3%;
+
+    --sidebar-background: 0 0% 3.9%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 183.4 92.7% 62.2%;
+    --sidebar-primary-foreground: 183.8 100% 9.4%;
+    --sidebar-accent: 310.8 98.2% 22.2%;
+    --sidebar-accent-foreground: 317.9 100% 86.9%;
+    --sidebar-border: 182.9 98.1% 21%;
+    --sidebar-ring: 182.8 91.3% 45.3%;
+  }
+
+  /* ============================================================
+     TEMA CLARO — detrás de un selector aparte, no en :root.
+     Hoy nada activa .light: existe para cuando el toggle de tema
+     se construya, usando los pasos profundos de cada rampa
+     (700-800 para texto/fondo de marca, per la tabla "Regla de uso").
+     ============================================================ */
+  .light {
+    --background: 0 0% 100%;
+    --background-rgb: 255 255 255;
+    --foreground: 0 0% 9%; /* 17.93:1 sobre --background */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+
+    --primary: 183.1 98.5% 26.9%; /* cian-600 #018188 */
+    --primary-foreground: 0 0% 100%; /* blanco — 4.67:1 */
+
+    --secondary: 274.5 99% 39.2%; /* violeta-700 #7301c7 */
+    --secondary-foreground: 0 0% 100%; /* 8.21:1 */
+
+    --muted: 127.5 100% 93.7%; /* verde-50 #dfffe3 */
+    --muted-foreground: 143 100% 21%; /* verde-700 #006b29 — 6.24:1 */
+
+    --accent: 320.6 100% 93.1%; /* magenta-100 #ffdcf3 */
+    --accent-foreground: 310.8 98.2% 22.2%; /* magenta-800 — 9.08:1 */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 183.4 92.7% 62.2%; /* cian-200, según la regla "bordes claro: 200" */
+    --input: 183.4 92.7% 62.2%;
+    --ring: 183.1 98.5% 26.9%; /* cian-600, según "foco claro: 600" */
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 9%;
+    --sidebar-primary: 183.1 98.5% 26.9%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 320.6 100% 93.1%;
+    --sidebar-accent-foreground: 310.8 98.2% 22.2%;
+    --sidebar-border: 183.4 92.7% 62.2%;
+    --sidebar-ring: 183.1 98.5% 26.9%;
   }
 }
 
@@ -95,7 +222,7 @@
   }
 
   body {
-    background-color: #000000; /* Negro sólido */
+    background-color: hsl(var(--background)); /* Único sitio que decide el fondo */
     color: hsl(var(--foreground));
     padding-top: 0; /* Sin padding superior */
   }
@@ -164,81 +291,81 @@
   /* Custom neon color utilities */
   .text-neonblue {
     --tw-text-opacity: 1;
-    color: rgb(50 226 236 / var(--tw-text-opacity, 1));
+    color: rgb(var(--color-neonblue-rgb) / var(--tw-text-opacity, 1));
   }
   .bg-neonblue {
-    background-color: rgb(50 226 236 / var(--tw-bg-opacity, 1));
+    background-color: rgb(var(--color-neonblue-rgb) / var(--tw-bg-opacity, 1));
   }
   .text-neonpink {
     --tw-text-opacity: 1;
-    color: rgb(236 50 199 / var(--tw-text-opacity, 1));
+    color: rgb(var(--color-neonpink-rgb) / var(--tw-text-opacity, 1));
   }
   .bg-neonpink {
-    background-color: rgb(236 50 199 / var(--tw-bg-opacity, 1));
+    background-color: rgb(var(--color-neonpink-rgb) / var(--tw-bg-opacity, 1));
   }
   .text-neonviolet {
     --tw-text-opacity: 1;
-    color: rgb(143 50 236 / var(--tw-text-opacity, 1));
+    color: rgb(var(--color-neonviolet-rgb) / var(--tw-text-opacity, 1));
   }
   .bg-neonviolet {
-    background-color: rgb(143 50 236 / var(--tw-bg-opacity, 1));
+    background-color: rgb(var(--color-neonviolet-rgb) / var(--tw-bg-opacity, 1));
   }
   .text-neongreen {
     --tw-text-opacity: 1;
-    color: rgb(63 236 113 / var(--tw-text-opacity, 1));
+    color: rgb(var(--color-neongreen-rgb) / var(--tw-text-opacity, 1));
   }
   .bg-neongreen {
-    background-color: rgb(63 236 113 / var(--tw-bg-opacity, 1));
+    background-color: rgb(var(--color-neongreen-rgb) / var(--tw-bg-opacity, 1));
   }
 
   /* Neon gradient utilities */
   .from-neonblue {
-    --tw-gradient-from: #32e2ec var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(50 226 236 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-from: var(--color-neonblue) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(var(--color-neonblue-rgb) / 0) var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
   .via-neonpink {
-    --tw-gradient-to: rgb(236 50 199 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), #ec32c7 var(--tw-gradient-via-position), var(--tw-gradient-to);
+    --tw-gradient-to: rgb(var(--color-neonpink-rgb) / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-neonpink) var(--tw-gradient-via-position), var(--tw-gradient-to);
   }
   .to-neongreen {
-    --tw-gradient-to: #3fec71 var(--tw-gradient-to-position);
+    --tw-gradient-to: var(--color-neongreen) var(--tw-gradient-to-position);
   }
   .to-neonviolet {
-    --tw-gradient-to: #8f32ec var(--tw-gradient-to-position);
+    --tw-gradient-to: var(--color-neonviolet) var(--tw-gradient-to-position);
   }
   .via-neonblue {
-    --tw-gradient-to: rgb(50 226 236 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), #32e2ec var(--tw-gradient-via-position), var(--tw-gradient-to);
+    --tw-gradient-to: rgb(var(--color-neonblue-rgb) / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-neonblue) var(--tw-gradient-via-position), var(--tw-gradient-to);
   }
   .from-neongreen {
-    --tw-gradient-from: #3fec71 var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(63 236 113 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-from: var(--color-neongreen) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(var(--color-neongreen-rgb) / 0) var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
   .to-neonpink {
-    --tw-gradient-to: #ec32c7 var(--tw-gradient-to-position);
+    --tw-gradient-to: var(--color-neonpink) var(--tw-gradient-to-position);
   }
   .from-neonpink {
-    --tw-gradient-from: #ec32c7 var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(236 50 199 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-from: var(--color-neonpink) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(var(--color-neonpink-rgb) / 0) var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
   .from-neonviolet {
-    --tw-gradient-from: #8f32ec var(--tw-gradient-from-position);
-    --tw-gradient-to: rgb(143 50 236 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-from: var(--color-neonviolet) var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(var(--color-neonviolet-rgb) / 0) var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
   .via-neongreen {
-    --tw-gradient-to: rgb(63 236 113 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), #3fec71 var(--tw-gradient-via-position), var(--tw-gradient-to);
+    --tw-gradient-to: rgb(var(--color-neongreen-rgb) / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-neongreen) var(--tw-gradient-via-position), var(--tw-gradient-to);
   }
   .via-neonviolet {
-    --tw-gradient-to: rgb(143 50 236 / 0) var(--tw-gradient-to-position);
-    --tw-gradient-stops: var(--tw-gradient-from), #8f32ec var(--tw-gradient-via-position), var(--tw-gradient-to);
+    --tw-gradient-to: rgb(var(--color-neonviolet-rgb) / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--color-neonviolet) var(--tw-gradient-via-position), var(--tw-gradient-to);
   }
   .to-neonblue {
-    --tw-gradient-to: #32e2ec var(--tw-gradient-to-position);
+    --tw-gradient-to: var(--color-neonblue) var(--tw-gradient-to-position);
   }
 
   /* Gradient background utilities */
@@ -267,49 +394,15 @@
     background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
   }
 
-  /* Animation pulse neon */
-  @keyframes pulse {
-    0% {
-      opacity: 1;
-      filter: drop-shadow(0 0 6px rgba(236, 50, 199, 0.7));
-    }
-    100% {
-      opacity: 0.7;
-      filter: drop-shadow(0 0 20px rgba(236, 50, 199, 1));
-    }
-  }
-  .animate-pulse-neon {
-    animation: pulse 1.5s infinite alternate;
-  }
-  
-  /* Animation fade in */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-
-  /* Font utilities */
-  .font-playfair {
-    font-family: 'Playfair Display', serif;
-  }
-  .font-inter {
-    font-family: 'Inter', sans-serif;
-  }
+  /* Animaciones y fuentes: viven en tailwind.config.ts, no aqui.
+     animate-pulse-neon, animate-fade-in, font-playfair y font-inter
+     las genera Tailwind con estos mismos valores. Un solo sitio. */
 
   /* === CLASES ESPECÍFICAS DEL PROYECTO === */
-  
+
   /* Cards de servicios */
   .card-service {
-    background: linear-gradient(to bottom right, rgba(50, 226, 236, 0.1), rgba(236, 50, 199, 0.05), rgba(63, 236, 113, 0.1));
+    background: linear-gradient(to bottom right, rgb(var(--color-neonblue-rgb) / 0.1), rgb(var(--color-neonpink-rgb) / 0.05), rgb(var(--color-neongreen-rgb) / 0.1));
     border-radius: 1.5rem;
     border: 2px solid rgb(39, 39, 42);
     padding: 1.75rem;
@@ -324,51 +417,51 @@
 
   /* Otras utilidades necesarias */
   .border-neonblue {
-    border-color: #32e2ec;
+    border-color: var(--color-neonblue);
   }
-  
+
   .border-neonpink {
-    border-color: #ec32c7;
+    border-color: var(--color-neonpink);
   }
-  
+
   .border-neongreen {
-    border-color: #3fec71;
+    border-color: var(--color-neongreen);
   }
-  
+
   .border-neonviolet {
-    border-color: #8f32ec;
+    border-color: var(--color-neonviolet);
   }
 
   /* Sombras neón */
   .shadow-neon {
-    box-shadow: 0 0 20px rgba(50, 226, 236, 0.3);
+    box-shadow: 0 0 20px rgb(var(--color-neonblue-rgb) / 0.3);
   }
-  
+
   .shadow-neon-pink {
-    box-shadow: 0 0 20px rgba(236, 50, 199, 0.3);
+    box-shadow: 0 0 20px rgb(var(--color-neonpink-rgb) / 0.3);
   }
-  
+
   .shadow-neon-green {
-    box-shadow: 0 0 20px rgba(63, 236, 113, 0.3);
+    box-shadow: 0 0 20px rgb(var(--color-neongreen-rgb) / 0.3);
   }
 
   /* Texto con gradiente */
   .text-gradient {
-    background: linear-gradient(to right, #32e2ec, #ec32c7, #8f32ec);
+    background: linear-gradient(to right, var(--color-neonblue), var(--color-neonpink), var(--color-neonviolet));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .text-gradient-green {
-    background: linear-gradient(to right, #3fec71, #32e2ec);
+    background: linear-gradient(to right, var(--color-neongreen), var(--color-neonblue));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .text-gradient-pink {
-    background: linear-gradient(to right, #ec32c7, #8f32ec);
+    background: linear-gradient(to right, var(--color-neonpink), var(--color-neonviolet));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -378,17 +471,17 @@
   .section-spacing {
     margin-bottom: 8rem;
   }
-  
+
   .section-header {
     text-align: center;
     margin-bottom: 4rem;
   }
-  
+
   .section-contacto-empresarial {
     text-align: center;
     margin-bottom: 8rem;
   }
-  
+
   .section-contacto-dev {
     text-align: center;
     margin-bottom: 8rem;
@@ -403,29 +496,29 @@
     align-items: center;
     padding-top: 6rem;
     text-align: center;
-    animation: fadeIn 0.6s ease-out;
+    animation: fade-in 0.6s ease-out;
   }
-  
+
   .main-content {
     max-width: 80rem;
     margin: 0 auto;
     padding: 4rem 2rem 6rem 2rem;
-    animation: fadeIn 0.6s ease-out;
+    animation: fade-in 0.6s ease-out;
   }
 
   /* Fondos con gradientes */
   .bg-hero {
-    background: 
-      radial-gradient(circle at 20% 50%, rgba(50, 226, 236, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(236, 50, 199, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, rgba(143, 50, 236, 0.1) 0%, transparent 50%),
-      #0a0a0a;
+    background:
+      radial-gradient(circle at 20% 50%, rgb(var(--color-neonblue-rgb) / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgb(var(--color-neonpink-rgb) / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgb(var(--color-neonviolet-rgb) / 0.1) 0%, transparent 50%),
+      hsl(var(--background));
   }
-  
+
   .bg-section {
-    background: 
-      radial-gradient(circle at 30% 40%, rgba(63, 236, 113, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 70% 60%, rgba(236, 50, 199, 0.08) 0%, transparent 50%),
+    background:
+      radial-gradient(circle at 30% 40%, rgb(var(--color-neongreen-rgb) / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgb(var(--color-neonpink-rgb) / 0.08) 0%, transparent 50%),
       transparent;
   }
 
@@ -438,7 +531,7 @@
   .card-service-main {
     background: rgba(39, 39, 42, 0.3);
     border-radius: 1.5rem;
-    border: 2px solid rgba(63, 236, 113, 0.3);
+    border: 2px solid rgb(var(--color-neongreen-rgb) / 0.3);
     padding: 1.75rem;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s;
@@ -447,7 +540,7 @@
   .card-service:hover,
   .card-service-main:hover {
     transform: scale(1.02);
-    border-color: rgba(63, 236, 113, 0.6);
+    border-color: rgb(var(--color-neongreen-rgb) / 0.6);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
 
@@ -463,7 +556,7 @@
   }
 
   .card-pricing-inner {
-    background-color: rgba(0, 0, 0, 0.8); /* Aumentar opacidad */
+    background-color: rgb(var(--background-rgb) / 0.8); /* Aumentar opacidad */
     padding: 1.5rem;
     border-radius: 1rem;
     height: 100%;
@@ -486,14 +579,14 @@
     left: 0;
     right: 0;
     z-index: 9999; /* Aumentar z-index */
-    background: rgba(10, 10, 10, 0.95);
+    background: rgb(var(--background-rgb) / 0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
   }
 
   .header-scrolled {
-    background: rgba(10, 10, 10, 0.98);
+    background: rgb(var(--background-rgb) / 0.98);
     backdrop-filter: blur(15px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
@@ -511,13 +604,13 @@
   }
 
   .iframe-contacto {
-    border-color: #32e2ec;
-    box-shadow: 0 0 20px rgba(50, 226, 236, 0.3);
+    border-color: var(--color-neonblue);
+    box-shadow: 0 0 20px rgb(var(--color-neonblue-rgb) / 0.3);
   }
 
   .iframe-contacto-dev {
-    border-color: #3fec71;
-    box-shadow: 0 0 20px rgba(63, 236, 113, 0.3);
+    border-color: var(--color-neongreen);
+    box-shadow: 0 0 20px rgb(var(--color-neongreen-rgb) / 0.3);
   }
 
   /* Contenedor para iframes que se ajuste al contenido */
@@ -544,7 +637,7 @@
   /* Asegurar que el texto en todas las cards sea legible */
   .card-service h3,
   .card-service-main h3 {
-    color: #32e2ec;
+    color: var(--color-neonblue);
     font-weight: 700;
   }
 
@@ -581,7 +674,7 @@
       padding: 0.75rem 1.5rem;
       font-size: 0.875rem;
     }
-    
+
     .card-service,
     .card-service-main,
     .card-pricing-main,
@@ -589,7 +682,7 @@
       border-radius: 1rem;
       padding: 1.5rem;
     }
-    
+
     .iframe-contacto,
     .iframe-contacto-dev {
       min-height: 600px;
