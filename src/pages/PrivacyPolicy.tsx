@@ -31,8 +31,9 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-bold text-white mb-4">Origen de los datos y medios utilizados</h2>
             <p>Recogemos tus datos únicamente cuando tú los facilitas a través de:</p>
             <ul className="list-disc list-inside ml-4 mt-2">
-              <li>Formularios alojados en Tally.so</li>
-              <li>Conversaciones por WhatsApp, gestionadas mediante un sistema automatizado conectado con Make o n8n.</li>
+              <li>Los formularios de esta web (solicitud de auditoría, lista de espera para desarrolladores y contacto).</li>
+              <li>La reserva de una llamada en nuestra agenda de Google Calendar.</li>
+              <li>Las conversaciones que inicies con nosotros por WhatsApp o por correo electrónico.</li>
             </ul>
           </section>
 
@@ -45,8 +46,20 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">Destinatarios</h2>
-            <p>No compartimos tus datos con terceros no autorizados. Las herramientas utilizadas cumplen con el RGPD.</p>
+            <h2 className="text-2xl font-bold text-white mb-4">Destinatarios y encargados del tratamiento</h2>
+            <p>No vendemos ni cedemos tus datos a terceros. Para prestar el servicio nos apoyamos en estos proveedores, que tratan los datos solo por cuenta de CookYourWeb y siguiendo sus instrucciones:</p>
+            <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
+              <li><strong>Notion</strong>: base de datos donde guardamos las solicitudes que recibimos.</li>
+              <li><strong>n8n</strong>, alojado en <strong>Render</strong>: automatización que recibe los formularios y los registra.</li>
+              <li><strong>Brevo</strong>: envío de los correos de confirmación y recordatorio.</li>
+              <li><strong>Google Calendar y Google Meet</strong>: reserva y realización de las llamadas.</li>
+              <li><strong>WhatsApp</strong> (Meta): solo si nos escribes por ese canal o aceptas expresamente que te avisemos por él.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">Transferencias internacionales</h2>
+            <p>Algunos de estos proveedores (Notion, Render, Google y Meta) pueden tratar datos fuera del Espacio Económico Europeo, principalmente en Estados Unidos. En esos casos, la transferencia se ampara en las garantías previstas en el RGPD, como el Marco de Privacidad de Datos UE-EE. UU. o las cláusulas contractuales tipo aprobadas por la Comisión Europea.</p>
           </section>
 
           <section>
@@ -100,7 +113,7 @@ export default function PrivacyPolicy() {
             <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
               <li>Tu información de contacto (nombre, email, teléfono)</li>
               <li>Historial de conversaciones en WhatsApp</li>
-              <li>Datos almacenados en nuestros sistemas (Airtable, formularios)</li>
+              <li>Los datos guardados en nuestros sistemas (la base de datos de solicitudes en Notion)</li>
               <li>Comunicaciones comerciales (dejarás de recibir emails y mensajes)</li>
             </ul>
 
@@ -111,10 +124,6 @@ export default function PrivacyPolicy() {
             </ul>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">Información específica sobre UseCookYourWebAI</h2>
-            <p>UseCookYourWebAI es un producto propiedad de CookYourWeb. Los datos recogidos a través de su página o sus formularios (en Tally o WhatsApp) son tratados exclusivamente por CookYourWeb bajo los mismos principios establecidos en esta política.</p>
-          </section>
         </div>
       </main>
       <Footer />
