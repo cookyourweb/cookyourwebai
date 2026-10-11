@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet-async";
 import LegalModal from '../components/LegalModal';
 import { PrivacyPolicyContent, CookiePolicyContent, LegalNoticeContent } from '../components/LegalContent';
 import Footer from '../components/Footer';
+import BusinessContactForm from '../components/BusinessContactForm';
+import DeveloperContactForm from '../components/DeveloperContactForm';
 import { cargarGtm } from '../lib/gtm';
 import { Dialog, DialogContent, DialogTitle, DialogClose } from '@/components/ui/dialog';
 
@@ -1175,7 +1177,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Dialog open={showContactForm} onOpenChange={() => setShowContactForm(false)}>
           <DialogContent
             hideCloseButton
-            className="block w-[98vw] h-[95vh] md:w-[90vw] md:h-[90vh] max-w-4xl bg-zinc-900 rounded-xl sm:rounded-xl md:rounded-2xl border border-zinc-700 p-0"
+            className="block w-[95vw] max-w-lg max-h-[95vh] overflow-y-auto bg-zinc-900 rounded-xl md:rounded-2xl border border-zinc-700 px-6 pt-14 pb-8"
           >
             <DialogTitle className="sr-only">Formulario de Contacto Empresarial</DialogTitle>
             <DialogClose asChild>
@@ -1186,11 +1188,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <X className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </DialogClose>
-            <iframe
-              src="https://tally.so/r/w77ZyP"
-              className="w-full h-full rounded-xl md:rounded-2xl"
-              title="Formulario de Contacto Empresarial"
-            />
+            <p className="text-center text-xl font-bold text-white mb-6">Auditoría AI gratuita</p>
+            <BusinessContactForm />
           </DialogContent>
         </Dialog>
       )}
@@ -1199,7 +1198,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Dialog open={showDevForm} onOpenChange={() => setShowDevForm(false)}>
           <DialogContent
             hideCloseButton
-            className="block w-[98vw] h-[95vh] md:w-[90vw] md:h-[90vh] max-w-4xl bg-zinc-900 rounded-xl sm:rounded-xl md:rounded-2xl border border-zinc-700 p-0"
+            className="block w-[95vw] max-w-lg max-h-[95vh] overflow-y-auto bg-zinc-900 rounded-xl md:rounded-2xl border border-zinc-700 px-6 pt-14 pb-8"
           >
             <DialogTitle className="sr-only">Formulario de Contacto Desarrolladores</DialogTitle>
             <DialogClose asChild>
@@ -1210,11 +1209,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <X className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </DialogClose>
-            <iframe
-              src="https://tally.so/r/n0YDZ0"
-              className="w-full h-full rounded-xl md:rounded-2xl"
-              title="Formulario de Contacto Desarrolladores"
-            />
+            <p className="text-center text-xl font-bold text-white mb-6">Lista de espera para desarrolladores</p>
+            <DeveloperContactForm />
           </DialogContent>
         </Dialog>
       )}

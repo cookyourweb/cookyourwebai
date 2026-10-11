@@ -1,29 +1,22 @@
 import React from "react";
-import { sendLead } from "@/lib/leadsWebhook";
+import { useEnviarLead } from "./useEnviarLead";
 
 export default function BusinessContactForm() {
+  const { enviar, enviando, error } = useEnviarLead();
+
   return (
     <form
       className="flex flex-col gap-4 items-center w-full max-w-sm mx-auto"
-      onSubmit={async e => {
+      onSubmit={e => {
         e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        if (!form.privacidad.checked) {
-          alert("Debes aceptar la política de privacidad.");
-          return;
-        }
-        const ok = await sendLead({
+        const datos = new FormData(e.currentTarget);
+        const campo = (nombre: string) => String(datos.get(nombre) ?? "");
+        enviar({
           formulario: "business",
-          nombre: form.nombre.value,
-          email: form.email.value,
-          mensaje: `Empresa: ${form.empresa.value} · Objetivo: ${form.objetivo.value}`
+          nombre: campo("nombre"),
+          email: campo("email"),
+          mensaje: `Empresa: ${campo("empresa")} · Objetivo: ${campo("objetivo")}`
         });
-        if (!ok) {
-          alert("No hemos podido registrar tu solicitud. Inténtalo de nuevo en unos minutos.");
-          return;
-        }
-        alert("¡Gracias por tu interés! Nos pondremos en contacto pronto para programar tu auditoría gratuita.");
-        form.reset();
       }}
     >
       <label htmlFor="business-nombre" className="sr-only">Nombre y cargo</label>
@@ -73,7 +66,7 @@ export default function BusinessContactForm() {
         <label htmlFor="privacidad" className="text-sm text-zinc-400">
           He leído y acepto la{" "}
           <a
-            href="#"
+            href="/politicadeprivacidad"
             target="_blank"
             rel="noopener noreferrer"
             className="underline text-neonpink hover:text-neonblue"
@@ -83,11 +76,17 @@ export default function BusinessContactForm() {
           . Tus datos se tratarán bajo la normativa GDPR (UE) y LOPD. Solo contactaremos contigo para resolver tu consulta empresarial.
         </label>
       </div>
+      {error && (
+        <p role="alert" className="w-full text-sm text-red-400">
+          {error}
+        </p>
+      )}
       <button
         type="submit"
-        className="mt-2 px-8 py-3 bg-gradient-to-r from-neonblue via-neonpink to-neonviolet text-black font-bold rounded-2xl shadow hover:scale-105 transition"
+        disabled={enviando}
+        className="mt-2 px-8 py-3 bg-gradient-to-r from-neonblue via-neonpink to-neonviolet text-black font-bold rounded-2xl shadow hover:scale-105 transition disabled:opacity-60 disabled:hover:scale-100"
       >
-        Solicitar Auditoría IA Gratuita
+        {enviando ? "Enviando…" : "Solicitar Auditoría IA Gratuita"}
       </button>
     </form>
   );
