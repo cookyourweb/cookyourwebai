@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Check, AlertCircle, Loader2 } from 'lucide-react';
+import { sendLead } from '@/lib/leadsWebhook';
 
 export default function Unsubscribe() {
   const [formData, setFormData] = useState({
@@ -30,31 +31,20 @@ export default function Unsubscribe() {
     setStatus('loading');
     setErrorMessage('');
 
-    try {
-      // TODO: Reemplazar con tu webhook de Make/n8n
-      const webhookUrl = 'https://hook.eu2.make.com/TU_WEBHOOK_AQUI';
+    // Same n8n webhook as the leads: stored in Notion as "unsubscribe" and
+    // notified to Vero, with no commercial email sent back.
+    const phone = formData.phone.trim();
+    const ok = await sendLead({
+      formulario: 'unsubscribe',
+      email: formData.email,
+      ...(phone && { telefono: phone }),
+      mensaje: `Solicitud de baja y supresión de datos. Motivo: ${formData.reason.trim() || 'no indicado'}`,
+    });
 
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          phone: formData.phone,
-          reason: formData.reason,
-          timestamp: new Date().toISOString(),
-          source: 'web_form_baja',
-        }),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ email: '', phone: '', reason: '', confirmDelete: false });
-      } else {
-        throw new Error('Error al procesar la solicitud');
-      }
-    } catch (error) {
+    if (ok) {
+      setStatus('success');
+      setFormData({ email: '', phone: '', reason: '', confirmDelete: false });
+    } else {
       setStatus('error');
       setErrorMessage('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo o escribe a veronica@cookyourwebai.es');
     }
@@ -212,7 +202,7 @@ export default function Unsubscribe() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                  Datos almacenados en nuestros sistemas (Airtable, formularios)
+                  Los datos guardados en nuestros sistemas (la base de datos de solicitudes en Notion)
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
