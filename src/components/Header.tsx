@@ -1,7 +1,8 @@
-import { Contact, MessageCircle } from "lucide-react";
+import { Menu, MessageCircle } from "lucide-react";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import ContactDialog from "./ContactDialog";
+import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 
 const sections = [
   { label: "Automatización", anchor: "automatizacion-empresarial", isService: true },
@@ -11,10 +12,20 @@ const sections = [
   { label: "Paquetes", anchor: "paquetes", isService: false },
   { label: "Asesoría AI Gratis", anchor: "consultoria-transformacion-ia", isService: true }];
 
+// A separate site in the ecosystem, not a home section: kept apart from the anchors.
+const empleoTech = { label: "Empleo Tech", href: "https://empleo.cookyourwebai.es/es/" };
+
 export default function Header() {
   const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const links = [
+    ...sections.map((section) => ({
+      label: section.label,
+      href: isHomePage ? `#${section.anchor}` : `/#${section.anchor}`,
+    })),
+    empleoTech,
+  ];
 
   return (
     <header className="w-full py-4 flex items-center justify-between border-b border-zinc-800 bg-black/60 backdrop-blur sticky top-0 z-30">
@@ -29,19 +40,42 @@ export default function Header() {
           Agencia IA
         </span>
       </div>
-      <nav className="hidden md:flex gap-6 font-inter text-lg">
-        {sections.map((section) => (
+      <nav aria-label="Principal" className="hidden md:flex gap-6 font-inter text-lg">
+        {links.map((link) => (
           <a
-            key={section.label}
-            href={isHomePage ? `#${section.anchor}` : `/#${section.anchor}`}
+            key={link.label}
+            href={link.href}
             className="relative px-2 py-1 group text-zinc-200 hover:text-neonviolet transition-colors"
           >
-            <span>{section.label}</span>
+            <span>{link.label}</span>
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-neonviolet transition-all group-hover:w-full"></span>
           </a>
         ))}
       </nav>
       <div className="pr-8 flex items-center gap-4">
+        <Sheet>
+          <SheetTrigger
+            className="md:hidden text-zinc-200 hover:text-neonviolet transition-colors"
+            aria-label="Abrir menú"
+          >
+            <Menu className="w-6 h-6 stroke-2" />
+          </SheetTrigger>
+          <SheetContent side="right" className="bg-black border-zinc-800" aria-describedby={undefined}>
+            <SheetTitle className="sr-only">Menú</SheetTitle>
+            <nav aria-label="Principal" className="mt-8 flex flex-col gap-2 font-inter text-lg">
+              {links.map((link) => (
+                <SheetClose asChild key={link.label}>
+                  <a
+                    href={link.href}
+                    className="px-2 py-2 text-zinc-200 hover:text-neonviolet transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </SheetClose>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
         <button
           onClick={() => setIsContactDialogOpen(true)}
           className="text-zinc-200 hover:text-green-400 transition-colors"

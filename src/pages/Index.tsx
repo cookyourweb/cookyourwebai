@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet-async";
 import LegalModal from '../components/LegalModal';
 import { PrivacyPolicyContent, CookiePolicyContent, LegalNoticeContent } from '../components/LegalContent';
 import Footer from '../components/Footer';
+import BusinessContactForm from '../components/BusinessContactForm';
+import DeveloperContactForm from '../components/DeveloperContactForm';
 import { cargarGtm } from '../lib/gtm';
 import { Dialog, DialogContent, DialogTitle, DialogClose } from '@/components/ui/dialog';
 
@@ -544,6 +546,8 @@ const Header = () => {
     { label: "Avatares AI", anchor: "#ia-influencer-avatares" },
     { label: "Auditoría Gratis", anchor: "#consultoria-transformacion-ia" },
     { label: "Desarrolladores", anchor: "#desarrolladores" },
+    // A separate site in the ecosystem, not a home section.
+    { label: "Empleo Tech", anchor: "https://empleo.cookyourwebai.es/es/" },
   ];
 
   return (
@@ -565,7 +569,7 @@ const Header = () => {
           </div>
           
           {/* DESKTOP NAVIGATION */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav aria-label="Principal" className="hidden lg:flex items-center gap-2">
             {sections.map((section, index) => (
               <a
                 key={section.label}
@@ -622,7 +626,7 @@ const Header = () => {
         {/* MOBILE MENU */}
         {isMobileMenuOpen && (
           <div id="mobile-menu-home" className="lg:hidden bg-black/95 backdrop-blur-md border-t border-zinc-800/50 animate-in slide-in-from-top duration-300">
-            <nav className="container mx-auto px-4 py-6 space-y-1">
+            <nav aria-label="Principal" className="container mx-auto px-4 py-6 space-y-1">
               {sections.map((section, index) => (
                 <a
                   key={section.label}
@@ -1173,7 +1177,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Dialog open={showContactForm} onOpenChange={() => setShowContactForm(false)}>
           <DialogContent
             hideCloseButton
-            className="block w-[98vw] h-[95vh] md:w-[90vw] md:h-[90vh] max-w-4xl bg-zinc-900 rounded-xl sm:rounded-xl md:rounded-2xl border border-zinc-700 p-0"
+            className="block w-[95vw] max-w-lg max-h-[95vh] overflow-y-auto bg-zinc-900 rounded-xl md:rounded-2xl border border-zinc-700 px-6 pt-14 pb-8"
           >
             <DialogTitle className="sr-only">Formulario de Contacto Empresarial</DialogTitle>
             <DialogClose asChild>
@@ -1184,11 +1188,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <X className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </DialogClose>
-            <iframe
-              src="https://tally.so/r/w77ZyP"
-              className="w-full h-full rounded-xl md:rounded-2xl"
-              title="Formulario de Contacto Empresarial"
-            />
+            <p className="text-center text-xl font-bold text-white mb-6">Auditoría AI gratuita</p>
+            <BusinessContactForm />
           </DialogContent>
         </Dialog>
       )}
@@ -1197,7 +1198,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Dialog open={showDevForm} onOpenChange={() => setShowDevForm(false)}>
           <DialogContent
             hideCloseButton
-            className="block w-[98vw] h-[95vh] md:w-[90vw] md:h-[90vh] max-w-4xl bg-zinc-900 rounded-xl sm:rounded-xl md:rounded-2xl border border-zinc-700 p-0"
+            className="block w-[95vw] max-w-lg max-h-[95vh] overflow-y-auto bg-zinc-900 rounded-xl md:rounded-2xl border border-zinc-700 px-6 pt-14 pb-8"
           >
             <DialogTitle className="sr-only">Formulario de Contacto Desarrolladores</DialogTitle>
             <DialogClose asChild>
@@ -1208,11 +1209,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <X className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </DialogClose>
-            <iframe
-              src="https://tally.so/r/n0YDZ0"
-              className="w-full h-full rounded-xl md:rounded-2xl"
-              title="Formulario de Contacto Desarrolladores"
-            />
+            <p className="text-center text-xl font-bold text-white mb-6">Lista de espera para desarrolladores</p>
+            <DeveloperContactForm />
           </DialogContent>
         </Dialog>
       )}

@@ -27,6 +27,7 @@ describe.each([
   ["/cookie-policy", "politica de cookies"],
   ["/avisolegal", "aviso legal"],
   ["/baja", "baja"],
+  ["/agenteActivado", "form thank-you page"],
   ["/una-ruta-que-no-existe", "404"],
 ])("ruta %s (%s)", (ruta) => {
   it("tiene un unico landmark main, y el enlace de salto puede alcanzarlo", () => {
