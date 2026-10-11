@@ -40,9 +40,11 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Base jurídica del tratamiento</h2>
             <ul className="list-disc list-inside ml-4 mt-2">
-              <li>Consentimiento del interesado (art. 6.1.a RGPD), otorgado de forma clara mediante los formularios.</li>
-              <li>Interés legítimo en el envío de comunicaciones relacionadas con nuestros servicios (art. 6.1.f RGPD), siempre que hayas mostrado interés previo.</li>
+              <li>Consentimiento (art. 6.1.a RGPD), al marcar la casilla de privacidad del formulario y, en su caso, las casillas opcionales, como la de avisos por WhatsApp.</li>
+              <li>Aplicación de medidas precontractuales a petición tuya (art. 6.1.b RGPD): atender tu solicitud, enviarte la confirmación y el recordatorio de la llamada que hayas reservado.</li>
+              <li>Interés legítimo (art. 6.1.f RGPD) para hacer el seguimiento de tu solicitud. Las comunicaciones comerciales por correo electrónico o medios equivalentes solo se enviarán si las has solicitado o has dado tu consentimiento (art. 21 LSSI).</li>
             </ul>
+            <p className="mt-4">Los datos que el formulario marca como obligatorios son necesarios para atender tu solicitud; el resto, incluido el teléfono, es opcional. No tomamos decisiones automatizadas ni elaboramos perfiles con efectos jurídicos sobre ti (art. 22 RGPD).</p>
           </section>
 
           <section>
@@ -59,7 +61,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Transferencias internacionales</h2>
-            <p>Algunos de estos proveedores (Notion, Render, Google y Meta) pueden tratar datos fuera del Espacio Económico Europeo, principalmente en Estados Unidos. En esos casos, la transferencia se ampara en las garantías previstas en el RGPD, como el Marco de Privacidad de Datos UE-EE. UU. o las cláusulas contractuales tipo aprobadas por la Comisión Europea.</p>
+            <p>Algunos de estos proveedores (Notion, Render, Google y Meta) pueden tratar datos fuera del Espacio Económico Europeo, principalmente en Estados Unidos. En esos casos, la transferencia se ampara en la decisión de adecuación del Marco de Privacidad de Datos UE-EE. UU. (art. 45 RGPD), cuando el proveedor está adherido, o en cláusulas contractuales tipo aprobadas por la Comisión Europea (art. 46.2.c RGPD). Puedes solicitar una copia de las garantías escribiendo a veronica@cookyourwebai.es.</p>
           </section>
 
           <section>
@@ -74,10 +76,16 @@ export default function PrivacyPolicy() {
               <li><strong>Derecho de acceso:</strong> Solicitar información sobre qué datos tuyos estamos tratando</li>
               <li><strong>Derecho de rectificación:</strong> Corregir datos incorrectos o incompletos</li>
               <li><strong>Derecho de supresión:</strong> Solicitar la eliminación de tus datos personales</li>
-              <li><strong>Derecho de oposición:</strong> Oponerte al tratamiento de tus datos para fines de marketing</li>
+              <li><strong>Derecho de oposición:</strong> Oponerte al tratamiento de tus datos basado en interés legítimo, incluido el envío de comunicaciones comerciales</li>
               <li><strong>Derecho de limitación:</strong> Solicitar que limitemos el tratamiento de tus datos</li>
               <li><strong>Derecho de portabilidad:</strong> Recibir tus datos en formato estructurado</li>
             </ul>
+            <p className="mt-4">Además, puedes retirar tu consentimiento en cualquier momento, sin que ello afecte a la licitud del tratamiento anterior (art. 7.3 RGPD), escribiendo a veronica@cookyourwebai.es o desde la página de baja.</p>
+            <p className="mt-4">
+              Si consideras que no hemos tratado tus datos correctamente, puedes presentar una reclamación ante la Agencia Española de Protección de Datos en{" "}
+              <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 underline">www.aepd.es</a>{" "}
+              (art. 77 RGPD).
+            </p>
           </section>
 
           <section>
@@ -106,7 +114,7 @@ export default function PrivacyPolicy() {
 
             <h3 className="text-lg font-semibold text-white mt-6 mb-3">Plazo de procesamiento</h3>
             <p className="mb-4">
-              Procesaremos tu solicitud en un plazo máximo de <strong>30 días naturales</strong> (según Art. 12.3 RGPD) y te confirmaremos por email cuando tus datos hayan sido eliminados.
+              Responderemos a tu solicitud en el plazo de <strong>un mes</strong>, ampliable dos meses más en casos complejos, en cuyo caso te avisaremos (art. 12.3 RGPD), y te confirmaremos por email cuando tus datos hayan sido eliminados.
             </p>
 
             <h3 className="text-lg font-semibold text-white mt-6 mb-3">¿Qué datos se eliminarán?</h3>
