@@ -81,14 +81,47 @@ describe("privacy policy: article 13 GDPR disclosures", () => {
     const { container } = renderPolicy();
     const text = container.textContent ?? "";
 
-    expect(text).toMatch(/el teléfono, es opcional/i);
+    expect(text).toMatch(/el teléfono es un campo opcional/i);
     expect(text).toMatch(/no tomamos decisiones automatizadas/i);
   });
 
-  it("offers a copy of the safeguards for international transfers", () => {
+  it("bases US transfers on the EU-US Data Privacy Framework", () => {
     const { container } = renderPolicy();
 
-    expect(container.textContent).toMatch(/copia de las garantías/i);
+    expect(container.textContent).toMatch(/Data Privacy Framework/);
+    expect(container.textContent).toMatch(/art\. 45 RGPD/);
+  });
+});
+
+/**
+ * Wording confirmed by the legal advisor on 11 Oct 2026.
+ */
+describe("privacy policy: legal advisor's wording", () => {
+  it("names each processor by its legal entity", () => {
+    const { container } = renderPolicy();
+    const text = container.textContent ?? "";
+
+    for (const entity of [
+      "Notion Labs, Inc.",
+      "Render Services, Inc.",
+      "Sendinblue SAS",
+      "Google LLC",
+      "Meta Platforms, Inc.",
+    ]) {
+      expect(text).toContain(entity);
+    }
+  });
+
+  it("keeps non-client contacts for at most 12 months", () => {
+    const { container } = renderPolicy();
+
+    expect(container.textContent).toMatch(/12 meses desde la última interacción/i);
+  });
+
+  it("does not mention asterisks, which the forms do not show", () => {
+    const { container } = renderPolicy();
+
+    expect(container.textContent).not.toMatch(/asterisco/i);
   });
 });
 
