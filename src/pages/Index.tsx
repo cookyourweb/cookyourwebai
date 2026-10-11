@@ -544,6 +544,8 @@ const Header = () => {
     { label: "Avatares AI", anchor: "#ia-influencer-avatares" },
     { label: "Auditoría Gratis", anchor: "#consultoria-transformacion-ia" },
     { label: "Desarrolladores", anchor: "#desarrolladores" },
+    // A separate site in the ecosystem, not a home section.
+    { label: "Empleo Tech", anchor: "https://empleo.cookyourwebai.es/es/" },
   ];
 
   return (
@@ -565,7 +567,7 @@ const Header = () => {
           </div>
           
           {/* DESKTOP NAVIGATION */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav aria-label="Principal" className="hidden lg:flex items-center gap-2">
             {sections.map((section, index) => (
               <a
                 key={section.label}
@@ -622,7 +624,7 @@ const Header = () => {
         {/* MOBILE MENU */}
         {isMobileMenuOpen && (
           <div id="mobile-menu-home" className="lg:hidden bg-black/95 backdrop-blur-md border-t border-zinc-800/50 animate-in slide-in-from-top duration-300">
-            <nav className="container mx-auto px-4 py-6 space-y-1">
+            <nav aria-label="Principal" className="container mx-auto px-4 py-6 space-y-1">
               {sections.map((section, index) => (
                 <a
                   key={section.label}
