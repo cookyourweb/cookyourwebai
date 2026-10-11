@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Check, MessageCircle, X, Menu } from "lucide-react";
 import { Helmet } from "react-helmet-async";
-import LegalModal from '../components/LegalModal';
-import { PrivacyPolicyContent, CookiePolicyContent, LegalNoticeContent } from '../components/LegalContent';
 import Footer from '../components/Footer';
 import BusinessContactForm from '../components/BusinessContactForm';
 import DeveloperContactForm from '../components/DeveloperContactForm';
@@ -744,11 +742,6 @@ export default function OptimizedLandingPage() {
   const [cookieConsent, setCookieConsent] = useState(localStorage.getItem('cookieConsent') === 'true');
   const [showPreferencesModal, setShowPreferencesModal] = useState(false);
   const [statisticsCookies, setStatisticsCookies] = useState(localStorage.getItem('statisticsCookies') === 'true');
-  const [legalModal, setLegalModal] = useState<{ isOpen: boolean; title: string; content: React.ReactNode }>({
-    isOpen: false,
-    title: '',
-    content: null
-  });
 
   const acceptCookies = () => {
     setCookieConsent(true);
@@ -873,16 +866,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </div>
           </div>
       </section>
-
-      {/* LEGAL MODAL */}
-      {legalModal.isOpen && (
-        <LegalModal
-          isOpen={legalModal.isOpen}
-          onClose={() => setLegalModal({ isOpen: false, title: '', content: null })}
-          title={legalModal.title}
-          content={legalModal.content}
-        />
-      )}
 
       <div className="container mx-auto px-4 md:px-8 pb-24">
 
