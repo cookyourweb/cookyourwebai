@@ -123,16 +123,16 @@ describe("developer form: background and WhatsApp", () => {
   it("keeps the phone optional and the WhatsApp consent unchecked by default", () => {
     renderInRouter(<DeveloperContactForm />);
 
-    expect(screen.getByLabelText(/teléfono/i)).not.toBeRequired();
-    expect(screen.getByRole("checkbox", { name: /me aviséis por whatsapp/i })).not.toBeChecked();
+    expect(screen.getByLabelText(/^teléfono \(opcional\)$/i)).not.toBeRequired();
+    expect(screen.getByRole("checkbox", { name: /me avise por whatsapp/i })).not.toBeChecked();
   });
 
   it("sends both the phone and the consent when given", async () => {
     const user = userEvent.setup();
     renderInRouter(<DeveloperContactForm />);
 
-    await user.type(screen.getByLabelText(/teléfono/i), "+34600111222");
-    await user.click(screen.getByRole("checkbox", { name: /me aviséis por whatsapp/i }));
+    await user.type(screen.getByLabelText(/^teléfono \(opcional\)$/i), "+34600111222");
+    await user.click(screen.getByRole("checkbox", { name: /me avise por whatsapp/i }));
     await fillDeveloperForm(user);
 
     const lead = sendLeadMock.mock.calls[0][0];
@@ -140,3 +140,30 @@ describe("developer form: background and WhatsApp", () => {
     expect(lead.mensaje).toMatch(/WhatsApp: sí/);
   });
 });
+
+/**
+ * The legal advisor confirmed (11 Oct 2026) that notifying the waiting list
+ * is a commercial communication (LSSI art. 21). Submitting the waiting list
+ * form is the request itself, as long as the form says so next to the
+ * button. The WhatsApp consent must name who writes, what for and how to
+ * withdraw it.
+ */
+describe("developer form: legal notices", () => {
+  it("tells the person that submitting means receiving the opening email", () => {
+    renderInRouter(<DeveloperContactForm />);
+
+    expect(
+      screen.getByText(/al enviar este formulario aceptas recibir un email de aviso cuando se abra la formación/i)
+    ).toBeInTheDocument();
+  });
+
+  it("words the WhatsApp consent with sender, purpose and how to withdraw", () => {
+    renderInRouter(<DeveloperContactForm />);
+
+    const consent = screen.getByRole("checkbox", { name: /me avise por whatsapp/i });
+    expect(consent).toHaveAccessibleName(
+      expect.stringMatching(/Verónica Serna Pérez \(CookYourWeb\).*apertura de la cohorte.*BAJA/)
+    );
+  });
+});
+

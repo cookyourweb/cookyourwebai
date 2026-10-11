@@ -115,7 +115,7 @@ export default function DeveloperContactForm() {
           className="accent-neongreen scale-125"
         />
         <label htmlFor="whatsapp_dev" className="text-sm text-zinc-400">
-          Acepto que me aviséis por WhatsApp cuando abra la cohorte (opcional).
+          Acepto que Verónica Serna Pérez (CookYourWeb) me avise por WhatsApp, al teléfono que he facilitado, solo para informarme de la apertura de la cohorte. Puedo retirar este consentimiento escribiendo «BAJA» al mismo número. (Opcional)
         </label>
       </div>
       <div className="flex items-center space-x-2 w-full text-left">
@@ -139,6 +139,9 @@ export default function DeveloperContactForm() {
           . Recibirás información sobre nuestros programas de formación.
         </label>
       </div>
+      <p className="w-full text-sm text-zinc-400 text-left">
+        Al enviar este formulario aceptas recibir un email de aviso cuando se abra la formación.
+      </p>
       {error && (
         <p role="alert" className="w-full text-sm text-red-400">
           {error}
