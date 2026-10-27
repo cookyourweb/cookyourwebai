@@ -118,7 +118,6 @@ export function homeJsonLd() {
         "@type": "Person",
         "@id": ID.veronica,
         name: COMPANY.legalName,
-        jobTitle: "Fundadora",
         worksFor: { "@id": ID.negocio },
       },
       ...mainServices.map((service) => ({

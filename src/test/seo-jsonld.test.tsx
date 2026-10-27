@@ -50,6 +50,11 @@ describe("home JSON-LD graph", () => {
     expect(byType("Person")[0].name).toBe(COMPANY.legalName);
   });
 
+  it("marks up only what is visible: the Person has no jobTitle", () => {
+    expect(byType("Person")[0]).not.toHaveProperty("jobTitle");
+    expect(JSON.stringify(homeJsonLd())).not.toContain("Fundadora");
+  });
+
   it("never emits what the owner ruled out", () => {
     const json = JSON.stringify(homeJsonLd());
     for (const banned of ["address", "aggregateRating", "review", "priceRange", "sameAs", "FAQPage"]) {
