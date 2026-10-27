@@ -1,10 +1,13 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { COMPANY } from "@/lib/company";
+import Seo from "@/components/Seo";
 
 export default function CookiePolicy() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
+      <Seo page="cookies" />
       <Header />
       <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
@@ -15,7 +18,7 @@ export default function CookiePolicy() {
           <p>Esta política de cookies fue actualizada por última vez el 10 de septiembre de 2025 y se aplica a los ciudadanos y residentes legales permanentes del Espacio Económico Europeo.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">1. Introducción</h2>
-          <p>Nuestra web, https://www.cookyourwebai.es (en adelante: «la web») utiliza cookies y otras tecnologías relacionadas (para mayor comodidad, todas las tecnologías se denominan «cookies»). Las cookies también son colocadas por terceros a los que hemos contratado. En el siguiente documento te informamos sobre el uso de cookies en nuestra web.</p>
+          <p>Nuestra web, {COMPANY.url} (en adelante: «la web») utiliza cookies y otras tecnologías relacionadas (para mayor comodidad, todas las tecnologías se denominan «cookies»). Las cookies también son colocadas por terceros a los que hemos contratado. En el siguiente documento te informamos sobre el uso de cookies en nuestra web.</p>
 
           <h2 className="text-2xl font-bold text-white mb-4">2. ¿Qué son las cookies?</h2>
           <p>Una cookie es un pequeño archivo que se envía junto con las páginas de esta web y que tu navegador almacena en el disco duro de su ordenador u otro dispositivo. La información almacenada puede ser devuelta a nuestros servidores o a los servidores de terceros apropiados durante una visita posterior.</p>
@@ -66,9 +69,9 @@ export default function CookiePolicy() {
           <p>CookYourWeb - Verónica Serna Pérez<br/>
           NIF: 52474139F<br/>
           Dirección: C/ Tejera 35 1B, 28210 Valdemorillo, Madrid<br/>
-          Web: https://www.cookyourwebai.es<br/>
-          Correo electrónico: <a href='mailto:veronica@cookyourwebai.es'>veronica@cookyourwebai.es</a><br/>
-          Teléfono: +34 688 75 77 82</p>
+          Web: {COMPANY.url}<br/>
+          Correo electrónico: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a><br/>
+          Teléfono: {COMPANY.phoneDisplay}</p>
           <p>Esta política de cookies se sincronizó con cookiedatabase.org el 28 de diciembre de 2024.<br/>Última revisión del contenido: 18 de agosto de 2026, al cambiar la web para que Google Tag Manager solo se cargue con consentimiento previo.</p>
         </div>
       </main>

@@ -5,6 +5,8 @@ import BusinessContactForm from '../components/BusinessContactForm';
 import DeveloperContactForm from '../components/DeveloperContactForm';
 import { cargarGtm } from '../lib/gtm';
 import { Dialog, DialogContent, DialogTitle, DialogClose } from '@/components/ui/dialog';
+import { COMPANY } from "@/lib/company";
+import Seo from "@/components/Seo";
 
 // Iconos originales del proyecto
 const OpenAIColorIcon = ({ className }: { className?: string }) => (
@@ -340,7 +342,7 @@ Vuestro asistente IA me identificó como: ${profile?.text}
 ¿Cuándo podemos hablar?`;
     }
 
-    const whatsappUrl = `https://wa.me/34688757782?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = COMPANY.whatsappUrl(whatsappMessage);
     window.open(whatsappUrl, '_blank');
     onClose();
   };
@@ -780,6 +782,7 @@ export default function OptimizedLandingPage() {
 
   return (
     <div className="relative min-h-screen w-full bg-black text-white font-sans">
+      <Seo page="home" />
       <Header />
 
       <main id="main-content" tabIndex={-1}>

@@ -1,12 +1,15 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { COMPANY } from "@/lib/company";
+import Seo from "@/components/Seo";
 
 // Wording reviewed by the legal advisor on 11 Oct 2026. Keep it in sync with
 // what the site really does before changing any provider or form.
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
+      <Seo page="privacy" />
       <Header />
       <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
@@ -20,8 +23,8 @@ export default function PrivacyPolicy() {
               <li><strong>Titular:</strong> Verónica Serna Pérez (CookYourWeb)</li>
               <li><strong>NIF:</strong> 52474139F</li>
               <li><strong>Domicilio:</strong> C/ Tejera 35 1B, 28210 Valdemorillo, Madrid</li>
-              <li><strong>Correo electrónico:</strong> veronica@cookyourwebai.es</li>
-              <li><strong>Sitio web:</strong> https://www.cookyourwebai.es</li>
+              <li><strong>Correo electrónico:</strong> {COMPANY.email}</li>
+              <li><strong>Sitio web:</strong> {COMPANY.url}</li>
             </ul>
           </section>
 
@@ -77,7 +80,7 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Derechos del interesado</h2>
-            <p>Puedes ejercitar en cualquier momento tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad enviando un correo a veronica@cookyourwebai.es.</p>
+            <p>Puedes ejercitar en cualquier momento tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad enviando un correo a {COMPANY.email}.</p>
             <p className="mt-4">Asimismo, puedes retirar tu consentimiento en cualquier momento sin que ello afecte a la licitud del tratamiento previo.</p>
             <p className="mt-4">
               Si consideras que tus derechos no han sido atendidos adecuadamente, tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) en{" "}
@@ -91,10 +94,10 @@ export default function PrivacyPolicy() {
             <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
               <li>
                 <strong>Formulario web:</strong>{" "}
-                <a href="/baja" className="text-purple-400 hover:text-purple-300 underline">https://www.cookyourwebai.es/baja</a>
+                <a href="/baja" className="text-purple-400 hover:text-purple-300 underline">{COMPANY.url}/baja</a>
               </li>
-              <li><strong>Email:</strong> escribiendo a veronica@cookyourwebai.es con el asunto "Solicitud de baja".</li>
-              <li><strong>WhatsApp:</strong> enviando un mensaje con la palabra "BAJA" al +34 688 75 77 82.</li>
+              <li><strong>Email:</strong> escribiendo a {COMPANY.email} con el asunto "Solicitud de baja".</li>
+              <li><strong>WhatsApp:</strong> enviando un mensaje con la palabra "BAJA" al {COMPANY.phoneDisplay}.</li>
             </ul>
             <p className="mt-4">Responderemos a las solicitudes en un plazo máximo de un mes (art. 12.3 RGPD). La supresión incluirá la eliminación de tus datos de contacto e historial en Notion, Brevo y WhatsApp, manteniendo únicamente bloqueada la información exigida por obligaciones legales o fiscales.</p>
           </section>

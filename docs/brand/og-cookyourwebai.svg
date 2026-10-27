@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#000000"/>
+  <!-- Favicon monogram (docs/brand/favicon.svg), scaled up -->
+  <g transform="translate(90 174) scale(4.4)">
+    <rect width="64" height="64" rx="14" fill="#000000" stroke="#27272a" stroke-width="0.6"/>
+    <text x="28" y="48" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="50" fill="#60a5fa">c</text>
+    <circle cx="49" cy="43" r="6.5" fill="#a855f7"/>
+  </g>
+  <text x="410" y="322" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="78" fill="#60a5fa">CookYourWebAI</text>
+  <text x="414" y="396" font-family="Helvetica, Arial, sans-serif" font-size="38" fill="#d4d4d8">Agencia de IA y automatización</text>
+</svg>

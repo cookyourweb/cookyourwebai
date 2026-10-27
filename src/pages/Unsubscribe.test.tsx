@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -11,9 +12,11 @@ const sendLeadMock = vi.mocked(sendLead);
 
 function renderPage() {
   return render(
-    <MemoryRouter>
-      <Unsubscribe />
-    </MemoryRouter>
+    <HelmetProvider>
+      <MemoryRouter>
+        <Unsubscribe />
+      </MemoryRouter>
+    </HelmetProvider>
   );
 }
 
