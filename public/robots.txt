@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /agenteActivado
 
 Sitemap: https://www.cookyourwebai.es/sitemap.xml

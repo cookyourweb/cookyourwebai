@@ -7,12 +7,11 @@ import { DOMINIO_POR_DEFECTO, RUTAS_PUBLICAS } from "@/lib/rutas-publicas";
 const read = (path: string) => readFileSync(resolve(__dirname, "../..", path), "utf8");
 
 describe("robots.txt", () => {
-  it("allows everything except the confirmation page and points to the sitemap", () => {
+  it("allows everything and points to the sitemap; noindex pages must stay crawlable", () => {
     expect(read("public/robots.txt")).toBe(
       [
         "User-agent: *",
         "Allow: /",
-        "Disallow: /agenteActivado",
         "",
         "Sitemap: https://www.cookyourwebai.es/sitemap.xml",
         "",

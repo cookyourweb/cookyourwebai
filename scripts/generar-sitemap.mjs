@@ -26,9 +26,9 @@ ${routes.map((route) => `  <url><loc>${domain}${route}</loc></url>`).join("\n")}
 `;
 
 // One group on purpose: a bot with its own group ignores the "*" one.
+// No Disallow: Google must crawl noindex pages (/baja, /agenteActivado) to see their noindex.
 const robots = `User-agent: *
 Allow: /
-Disallow: /agenteActivado
 
 Sitemap: ${domain}/sitemap.xml
 `;
