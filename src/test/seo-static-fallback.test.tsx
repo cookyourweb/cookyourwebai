@@ -13,7 +13,6 @@ const attr = (root: ParentNode, selector: string, name: string) =>
   root.querySelector(selector)?.getAttribute(name) ?? null;
 
 const home = PAGES.home;
-const homeUrl = canonical(home.path);
 
 /**
  * Link-preview bots (WhatsApp, LinkedIn, Facebook, Slack, X) do not run JS, so
@@ -23,13 +22,11 @@ const homeUrl = canonical(home.path);
 describe("index.html static fallback", () => {
   it("carries the home values of seo.ts, so they cannot drift", () => {
     expect(attr(staticHead, 'meta[name="description"]', "content")).toBe(home.description);
-    expect(attr(staticHead, 'link[rel="canonical"]', "href")).toBe(homeUrl);
     expect(attr(staticHead, 'meta[property="og:type"]', "content")).toBe("website");
     expect(attr(staticHead, 'meta[property="og:site_name"]', "content")).toBe(SITE.name);
     expect(attr(staticHead, 'meta[property="og:locale"]', "content")).toBe(SITE.locale);
     expect(attr(staticHead, 'meta[property="og:title"]', "content")).toBe(home.title);
     expect(attr(staticHead, 'meta[property="og:description"]', "content")).toBe(home.description);
-    expect(attr(staticHead, 'meta[property="og:url"]', "content")).toBe(homeUrl);
     expect(attr(staticHead, 'meta[property="og:image"]', "content")).toBe(OG_IMAGE.url);
     expect(attr(staticHead, 'meta[property="og:image:width"]', "content")).toBe(String(OG_IMAGE.width));
     expect(attr(staticHead, 'meta[property="og:image:height"]', "content")).toBe(String(OG_IMAGE.height));
@@ -38,6 +35,14 @@ describe("index.html static fallback", () => {
     expect(attr(staticHead, 'meta[name="twitter:image"]', "content")).toBe(OG_IMAGE.url);
     expect(attr(staticHead, 'meta[name="twitter:image:alt"]', "content")).toBe(OG_IMAGE.alt);
     expect(staticHead.querySelector("title")?.textContent).toBe(home.title);
+  });
+
+  // The static head is served on every route. A static canonical would tell
+  // Google, before any JS runs, that every page is the home page. Link-preview
+  // bots need neither tag: without og:url they use the shared URL.
+  it("carries no canonical and no og:url, which are per-route only", () => {
+    expect(staticHead.querySelector('link[rel="canonical"]')).toBeNull();
+    expect(staticHead.querySelector('meta[property="og:url"]')).toBeNull();
   });
 
   it("marks every SEO tag data-rh so Helmet can replace it", () => {
