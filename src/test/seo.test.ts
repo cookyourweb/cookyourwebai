@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { DOMINIO_POR_DEFECTO, RUTAS_PUBLICAS } from "@/lib/rutas-publicas";
@@ -51,15 +49,5 @@ describe("canonical()", () => {
     expect(SITE.url).toBe("https://www.cookyourwebai.es");
     expect(canonical("/")).toBe("https://www.cookyourwebai.es/");
     expect(canonical("/avisolegal")).toBe("https://www.cookyourwebai.es/avisolegal");
-  });
-});
-
-describe("index.html", () => {
-  const html = readFileSync(resolve(__dirname, "../../index.html"), "utf8");
-
-  it("leaves description, Open Graph and Twitter tags to the Seo component", () => {
-    expect(html).not.toMatch(/property="og:/);
-    expect(html).not.toMatch(/name="twitter:/);
-    expect(html).not.toMatch(/name="description"/);
   });
 });

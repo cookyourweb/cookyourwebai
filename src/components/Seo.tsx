@@ -34,6 +34,7 @@ export default function Seo({ page }: SeoProps) {
       <meta property="og:image:alt" content={OG_IMAGE.alt} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={OG_IMAGE.url} />
+      <meta name="twitter:image:alt" content={OG_IMAGE.alt} />
     </Helmet>
   );
 }
