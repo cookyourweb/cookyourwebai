@@ -16,7 +16,8 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #9, publicada el 27-oct: base técnica. Incluye title, description y canonical por ruta, robots.txt y sitemap generados, imagen social de 1200×630, la copia estática de las etiquetas para los bots sin JS y una fuente única para los datos de contacto y el dominio. Comprobado en producción: robots.txt, sitemap.xml y la imagen responden 200, y tras ejecutar JS cada página tiene una sola canonical y la correcta.
   - PR #10 y #11, publicadas el 27-oct: `CLAUDE.md` y este `estado.md`; `cookyourweb.es` y `www.cookyourweb.es` redirigen con 308 a `https://www.cookyourwebai.es`, conservando la ruta e incluida la raíz (comprobado con curl); el HTML estático ya no lleva canonical ni `og:url`; timeout de los tests a 15 s.
   - Sitemap enviado en Search Console el 27-oct: «Se ha enviado correctamente».
-- **En curso:** PR C · JSON-LD (rama `seo/json-ld`).
+- **Hecho en la rama `seo/json-ld` (pendiente de abrir la PR):** PR C · JSON-LD. Grafo de la home (`WebSite`, `ProfessionalService`, `Person` sin `jobTitle`, 4 `Service`) y `BreadcrumbList` en las tres páginas legales, con la miga visible generada desde los mismos datos (`breadcrumbTrail` en `src/lib/seo.ts`). Los `url` de los `Service` apuntan a anclajes de la home hasta que la PR H los sustituya por páginas de servicio reales. Los nombres de los `Service` siguen los textos visibles de `src/lib/servicios.ts`, que usan «AI».
+- **En curso:** abrir la PR C y comprobarla en validator.schema.org y en la prueba de resultados enriquecidos.
 - **Siguiente:**
   1. PR D · Prerender con `vite-react-ssg@0.8.9` (la última versión que admite Vite 5): HTML real por ruta y un 404 de verdad.
   2. PR E · Iconos de jsDelivr alojados en el propio dominio.
