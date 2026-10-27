@@ -1,5 +1,8 @@
 import { DOMINIO_POR_DEFECTO } from "./rutas-publicas";
 
+/** wa.me format: country code and number, no "+". Typed once. */
+const WHATSAPP = "34688757782";
+
 /**
  * Single source of truth for the company contact data. Pages, the footer and
  * the structured data read it from here; never retype the phone or the email.
@@ -13,7 +16,7 @@ export const COMPANY = {
   phone: "+34688757782",
   /** How the phone is shown on screen. */
   phoneDisplay: "+34 688 75 77 82",
-  /** wa.me format: country code and number, no "+". */
-  whatsapp: "34688757782",
-  whatsappUrl: (text: string) => `https://wa.me/34688757782?text=${encodeURIComponent(text)}`,
+  whatsapp: WHATSAPP,
+  /** Click-to-chat link with a prefilled message, built from the single number above. */
+  whatsappUrl: (text: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`,
 } as const;
