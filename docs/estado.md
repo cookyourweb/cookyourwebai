@@ -13,10 +13,13 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
 
 - **Hecho:**
   - PR #8, publicada: Google Tag Manager solo con consentimiento. Comprobado en producción con un navegador limpio.
-  - PR #9, con la CI en verde y **pendiente de merge**: base técnica. Incluye title, description y canonical por ruta, robots.txt y sitemap generados, imagen social de 1200×630, la copia estática de las etiquetas para los bots sin JS y una fuente única para los datos de contacto y el dominio.
+  - PR #9, publicada el 27-oct: base técnica. Incluye title, description y canonical por ruta, robots.txt y sitemap generados, imagen social de 1200×630, la copia estática de las etiquetas para los bots sin JS y una fuente única para los datos de contacto y el dominio. Comprobado en producción: robots.txt, sitemap.xml y la imagen responden 200, y tras ejecutar JS cada página tiene una sola canonical y la correcta.
 - **En curso (esta rama):**
   - este `CLAUDE.md` y este `estado.md`;
   - redirección de `cookyourweb.es` y `www.cookyourweb.es` al dominio principal. Hoy los dos sirven la misma web con un 200, lo que crea contenido duplicado.
+  - quitar la canonical y el `og:url` de la copia estática de `index.html`: en producción, el HTML crudo de las páginas legales llevaba una canonical a la home;
+  - timeout de los tests a 15 s: la suite completa en paralelo en una máquina lenta daba timeouts falsos.
+- **Pendiente de la responsable:** enviar el sitemap en Search Console (Sitemaps → `sitemap.xml`).
 - **Siguiente:**
   1. PR C · JSON-LD: `WebSite`, `ProfessionalService` con `@id` fijo, `Person` y `Service`.
   2. PR D · Prerender con `vite-react-ssg@0.8.9` (la última versión que admite Vite 5): HTML real por ruta y un 404 de verdad.
