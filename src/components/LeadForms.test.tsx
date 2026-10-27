@@ -65,7 +65,7 @@ describe.each([
 
   it("goes to the thank-you page once the lead is stored", async () => {
     sendLeadMock.mockResolvedValue(true);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderInRouter(createForm());
 
     await fill(user);
@@ -78,7 +78,7 @@ describe.each([
 
   it("warns on the page and does not pretend it worked when the lead is not stored", async () => {
     sendLeadMock.mockResolvedValue(false);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderInRouter(createForm());
 
     await fill(user);
@@ -109,7 +109,7 @@ describe("developer form: background and WhatsApp", () => {
   });
 
   it("sends the current role and the goal to shape the course", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderInRouter(<DeveloperContactForm />);
 
     await fillDeveloperForm(user);
@@ -128,7 +128,7 @@ describe("developer form: background and WhatsApp", () => {
   });
 
   it("sends both the phone and the consent when given", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderInRouter(<DeveloperContactForm />);
 
     await user.type(screen.getByLabelText(/^teléfono \(opcional\)$/i), "+34600111222");

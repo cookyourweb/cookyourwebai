@@ -42,7 +42,7 @@ describe("unsubscribe form", () => {
 
   it("sends the erasure request through the leads webhook", async () => {
     sendLeadMock.mockResolvedValue(true);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderPage();
 
     await requestErasure(user);
@@ -60,7 +60,7 @@ describe("unsubscribe form", () => {
 
   it("shows an error and the email fallback when the request is not stored", async () => {
     sendLeadMock.mockResolvedValue(false);
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderPage();
 
     await requestErasure(user);
