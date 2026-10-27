@@ -1,8 +1,8 @@
-import { DOMINIO_CANONICO, urlCanonica } from "./rutas-publicas";
+import { DOMINIO_POR_DEFECTO, urlCanonica } from "./rutas-publicas";
 
 export const SITE = {
   name: "CookYourWebAI",
-  url: DOMINIO_CANONICO,
+  url: DOMINIO_POR_DEFECTO,
   locale: "es_ES",
 } as const;
 
@@ -10,7 +10,7 @@ export const canonical = urlCanonica;
 
 /** Social card image, 1200x630. Source: docs/brand/og-cookyourwebai.svg. */
 export const OG_IMAGE = {
-  url: `${DOMINIO_CANONICO}/og-cookyourwebai.png`,
+  url: `${DOMINIO_POR_DEFECTO}/og-cookyourwebai.png`,
   width: 1200,
   height: 630,
   alt: "CookYourWebAI, agencia de IA y automatización",

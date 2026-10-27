@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
               <li><strong>NIF:</strong> 52474139F</li>
               <li><strong>Domicilio:</strong> C/ Tejera 35 1B, 28210 Valdemorillo, Madrid</li>
               <li><strong>Correo electrónico:</strong> {COMPANY.email}</li>
-              <li><strong>Sitio web:</strong> https://www.cookyourwebai.es</li>
+              <li><strong>Sitio web:</strong> {COMPANY.url}</li>
             </ul>
           </section>
 
@@ -94,7 +94,7 @@ export default function PrivacyPolicy() {
             <ul className="list-disc list-inside ml-4 mt-2 space-y-1">
               <li>
                 <strong>Formulario web:</strong>{" "}
-                <a href="/baja" className="text-purple-400 hover:text-purple-300 underline">https://www.cookyourwebai.es/baja</a>
+                <a href="/baja" className="text-purple-400 hover:text-purple-300 underline">{COMPANY.url}/baja</a>
               </li>
               <li><strong>Email:</strong> escribiendo a {COMPANY.email} con el asunto "Solicitud de baja".</li>
               <li><strong>WhatsApp:</strong> enviando un mensaje con la palabra "BAJA" al {COMPANY.phoneDisplay}.</li>

@@ -10,10 +10,12 @@
  * in-page anchors.
  */
 
-/** Canonical domain: with www, as served by Vercel. */
+/**
+ * Canonical domain: with www, as served by Vercel. THE single source: COMPANY.url,
+ * SITE.url and the legal texts derive from it. No env override on purpose, it
+ * would make canonicals and the generated sitemap diverge.
+ */
 export const DOMINIO_POR_DEFECTO = "https://www.cookyourwebai.es";
-
-export const DOMINIO_CANONICO: string = import.meta.env["VITE_SITE_URL"] ?? DOMINIO_POR_DEFECTO;
 
 export const RUTAS_PUBLICAS: readonly string[] = [
   "/",
@@ -22,5 +24,5 @@ export const RUTAS_PUBLICAS: readonly string[] = [
   "/avisolegal",
 ];
 
-/** Absolute canonical URL: no trailing slash, except for the home. */
-export const urlCanonica = (ruta: string): string => `${DOMINIO_CANONICO}${ruta === "/" ? "/" : ruta}`;
+/** Absolute canonical URL. Routes carry no trailing slash; the home is "/". */
+export const urlCanonica = (ruta: string): string => `${DOMINIO_POR_DEFECTO}${ruta}`;
