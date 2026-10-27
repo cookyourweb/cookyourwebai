@@ -29,8 +29,10 @@ describe("old domain redirect", () => {
   it("sends cookyourweb.es to www.cookyourwebai.es permanently, keeping the path", () => {
     expect(oldDomainRedirect).toBeDefined();
     expect(oldDomainRedirect!.permanent).toBe(true);
-    expect(oldDomainRedirect!.source).toBe("/:path*");
-    expect(oldDomainRedirect!.destination).toBe("https://www.cookyourwebai.es/:path*");
+    // "/:path*" left the root "/" unredirected in production (verified with
+    // curl on 27-oct): "/:path(.*)" also matches the empty path.
+    expect(oldDomainRedirect!.source).toBe("/:path(.*)");
+    expect(oldDomainRedirect!.destination).toBe("https://www.cookyourwebai.es/:path");
   });
 
   it("covers the old domain with and without www, and never the main domain", () => {
