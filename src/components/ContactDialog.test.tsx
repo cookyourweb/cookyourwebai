@@ -12,7 +12,7 @@ afterEach(() => vi.restoreAllMocks());
 
 describe("ContactDialog", () => {
   it("opens the WhatsApp link built from COMPANY on submit, after storing the lead", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     const open = vi.spyOn(window, "open").mockReturnValue(null);
     const onClose = vi.fn();
     render(<ContactDialog isOpen onClose={onClose} />);
