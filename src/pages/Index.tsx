@@ -6,6 +6,7 @@ import DeveloperContactForm from '../components/DeveloperContactForm';
 import { cargarGtm } from '../lib/gtm';
 import { Dialog, DialogContent, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { COMPANY } from "@/lib/company";
+import Seo from "@/components/Seo";
 
 // Iconos originales del proyecto
 const OpenAIColorIcon = ({ className }: { className?: string }) => (
@@ -781,6 +782,7 @@ export default function OptimizedLandingPage() {
 
   return (
     <div className="relative min-h-screen w-full bg-black text-white font-sans">
+      <Seo page="home" />
       <Header />
 
       <main id="main-content" tabIndex={-1}>

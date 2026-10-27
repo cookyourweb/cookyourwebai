@@ -1,8 +1,8 @@
 import { Check } from "lucide-react";
-import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Seo from "@/components/Seo";
 
 // Google Calendar booking page (hello.cookyourweb), 15-minute calls.
 const RESERVA_AUDITORIA = "https://calendar.app.google/Ft4YYTzBZocpox1r5";
@@ -15,11 +15,7 @@ export default function AgenteActivado() {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
-      <Helmet>
-        <title>¡Gracias! | cookYourWebAI</title>
-        {/* Confirmation page: nothing worth indexing */}
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
+      <Seo page="thanks" />
       <Header />
       <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-16 pb-16 max-w-2xl">
         <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8 text-center">
