@@ -133,8 +133,34 @@ export function homeJsonLd() {
   };
 }
 
+/** Pages that carry an "Inicio > page" breadcrumb. The home carries none. */
+const BREADCRUMB_PAGES = ["privacy", "cookies", "legal"] as const satisfies readonly PageKey[];
+
+/** Inicio > the page. The visible name is the title without the brand suffix. */
+export function breadcrumbJsonLd(page: (typeof BREADCRUMB_PAGES)[number]) {
+  const { path, title } = PAGES[page];
+  const crumbs = [
+    { name: "Inicio", url: canonical("/") },
+    { name: title.split(" | ")[0], url: canonical(path) },
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url,
+    })),
+  };
+}
+
 /** The JSON-LD of a page, or undefined when it has none (noindex pages). */
 export function jsonLdFor(page: PageKey): object | undefined {
   if (page === "home") return homeJsonLd();
+  if ((BREADCRUMB_PAGES as readonly PageKey[]).includes(page)) {
+    return breadcrumbJsonLd(page as (typeof BREADCRUMB_PAGES)[number]);
+  }
   return undefined;
 }
