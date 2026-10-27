@@ -1,4 +1,6 @@
+import { COMPANY } from "./company";
 import { DOMINIO_POR_DEFECTO, urlCanonica } from "./rutas-publicas";
+import { mainServices } from "./servicios";
 
 export const SITE = {
   name: "CookYourWebAI",
@@ -70,3 +72,102 @@ export const PAGES = {
 } as const satisfies Record<string, PageMeta>;
 
 export type PageKey = keyof typeof PAGES;
+
+const ID = {
+  web: `${DOMINIO_POR_DEFECTO}/#web`,
+  negocio: `${DOMINIO_POR_DEFECTO}/#negocio`,
+  veronica: `${DOMINIO_POR_DEFECTO}/#veronica`,
+} as const;
+
+const AREA_SERVED = { "@type": "Country", name: "España" } as const;
+
+/**
+ * Structured data of the home: the business, its founder and the four services
+ * as one linked graph (fixed @ids, references instead of copies).
+ *
+ * Left out on purpose (owner decisions, docs/estado.md section 3): address,
+ * aggregateRating, review, priceRange, FAQPage (no visible FAQ) and sameAs (no
+ * real profiles yet: add the key only when there are some).
+ */
+export function homeJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": ID.web,
+        url: canonical("/"),
+        name: SITE.name,
+        inLanguage: "es-ES",
+        publisher: { "@id": ID.negocio },
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": ID.negocio,
+        name: COMPANY.name,
+        url: canonical("/"),
+        description: "Agencia de IA y automatización para empresas.",
+        telephone: COMPANY.phone,
+        email: COMPANY.email,
+        logo: `${DOMINIO_POR_DEFECTO}/apple-touch-icon.png`,
+        image: OG_IMAGE.url,
+        areaServed: AREA_SERVED,
+        founder: { "@id": ID.veronica },
+      },
+      {
+        "@type": "Person",
+        "@id": ID.veronica,
+        name: COMPANY.legalName,
+        worksFor: { "@id": ID.negocio },
+      },
+      ...mainServices.map((service) => ({
+        "@type": "Service",
+        "@id": `${DOMINIO_POR_DEFECTO}/#servicio-${service.slug}`,
+        name: service.title,
+        url: `${DOMINIO_POR_DEFECTO}/#${service.id}`,
+        provider: { "@id": ID.negocio },
+        areaServed: AREA_SERVED,
+      })),
+    ],
+  };
+}
+
+/** Pages that carry an "Inicio > page" breadcrumb. The home carries none. */
+const BREADCRUMB_PAGES = ["privacy", "cookies", "legal"] as const satisfies readonly PageKey[];
+
+export type BreadcrumbPageKey = (typeof BREADCRUMB_PAGES)[number];
+
+/**
+ * Inicio > the page. The single source of the breadcrumb: the JSON-LD and the
+ * visible breadcrumb (components/LegalBreadcrumb.tsx) both read it, so they
+ * cannot drift. The name is the page title without the brand suffix.
+ */
+export function breadcrumbTrail(page: BreadcrumbPageKey) {
+  const { path, title } = PAGES[page];
+  return [
+    { name: "Inicio", path: "/", url: canonical("/") },
+    { name: title.split(" | ")[0], path, url: canonical(path) },
+  ];
+}
+
+export function breadcrumbJsonLd(page: BreadcrumbPageKey) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbTrail(page).map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url,
+    })),
+  };
+}
+
+/** The JSON-LD of a page, or undefined when it has none (noindex pages). */
+export function jsonLdFor(page: PageKey): object | undefined {
+  if (page === "home") return homeJsonLd();
+  if ((BREADCRUMB_PAGES as readonly PageKey[]).includes(page)) {
+    return breadcrumbJsonLd(page as BreadcrumbPageKey);
+  }
+  return undefined;
+}

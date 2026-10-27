@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-import { OG_IMAGE, PAGES, SITE, canonical, type PageKey, type PageMeta } from "@/lib/seo";
+import { OG_IMAGE, PAGES, SITE, canonical, jsonLdFor, type PageKey, type PageMeta } from "@/lib/seo";
 
 interface SeoProps {
   page: PageKey;
@@ -15,6 +15,7 @@ interface SeoProps {
 export default function Seo({ page }: SeoProps) {
   const { path, title, description, robots } = PAGES[page] as PageMeta;
   const url = robots ? undefined : canonical(path);
+  const jsonLd = robots ? undefined : jsonLdFor(page);
 
   return (
     <Helmet>
@@ -35,6 +36,10 @@ export default function Seo({ page }: SeoProps) {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={OG_IMAGE.url} />
       <meta name="twitter:image:alt" content={OG_IMAGE.alt} />
+      {jsonLd && (
+        // "<" is escaped so no string in the data can close the script tag.
+        <script type="application/ld+json">{JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>
+      )}
     </Helmet>
   );
 }

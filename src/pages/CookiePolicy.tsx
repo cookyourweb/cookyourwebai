@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { COMPANY } from "@/lib/company";
 import Seo from "@/components/Seo";
+import LegalBreadcrumb from "@/components/LegalBreadcrumb";
 
 export default function CookiePolicy() {
   return (
@@ -10,6 +11,7 @@ export default function CookiePolicy() {
       <Seo page="cookies" />
       <Header />
       <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
+        <LegalBreadcrumb page="cookies" />
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Política de <span className="text-purple-400">Cookies</span>
         </h1>
