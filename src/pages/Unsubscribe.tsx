@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Check, AlertCircle, Loader2 } from 'lucide-react';
 import { sendLead } from '@/lib/leadsWebhook';
+import { COMPANY } from "@/lib/company";
 
 export default function Unsubscribe() {
   const [formData, setFormData] = useState({
@@ -46,7 +47,7 @@ export default function Unsubscribe() {
       setFormData({ email: '', phone: '', reason: '', confirmDelete: false });
     } else {
       setStatus('error');
-      setErrorMessage('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo o escribe a veronica@cookyourwebai.es');
+      setErrorMessage(`Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo o escribe a ${COMPANY.email}`);
     }
   };
 
@@ -182,8 +183,8 @@ export default function Unsubscribe() {
 
               <p className="text-xs text-center text-zinc-500">
                 Si tienes problemas, contacta con nosotros en{' '}
-                <a href="mailto:veronica@cookyourwebai.es" className="text-purple-400 hover:underline">
-                  veronica@cookyourwebai.es
+                <a href={`mailto:${COMPANY.email}`} className="text-purple-400 hover:underline">
+                  {COMPANY.email}
                 </a>
               </p>
             </form>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { COMPANY } from "@/lib/company";
 
 export default function CookiePolicy() {
   return (
@@ -67,8 +68,8 @@ export default function CookiePolicy() {
           NIF: 52474139F<br/>
           Dirección: C/ Tejera 35 1B, 28210 Valdemorillo, Madrid<br/>
           Web: https://www.cookyourwebai.es<br/>
-          Correo electrónico: <a href='mailto:veronica@cookyourwebai.es'>veronica@cookyourwebai.es</a><br/>
-          Teléfono: +34 688 75 77 82</p>
+          Correo electrónico: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a><br/>
+          Teléfono: {COMPANY.phoneDisplay}</p>
           <p>Esta política de cookies se sincronizó con cookiedatabase.org el 28 de diciembre de 2024.<br/>Última revisión del contenido: 18 de agosto de 2026, al cambiar la web para que Google Tag Manager solo se cargue con consentimiento previo.</p>
         </div>
       </main>

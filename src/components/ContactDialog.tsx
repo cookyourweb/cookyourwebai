@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { MessageCircle, User, Mail, Phone } from "lucide-react";
 import { sendLead } from "@/lib/leadsWebhook";
+import { COMPANY } from "@/lib/company";
 
 interface ContactDialogProps {
   isOpen: boolean;
@@ -36,7 +37,7 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
     // Mensaje para WhatsApp
     const whatsappMessage = `Hola! Soy ${formData.name}.\n\nEste mensaje activa un funnel inteligente.\nMi email es: ${formData.email}\nMi número: ${formData.phone}\n\nEstoy listo para descubrir cómo la IA puede transformar mi negocio o mis proyectos.`;
 
-    const whatsappUrl = `https://wa.me/34688757782?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = COMPANY.whatsappUrl(whatsappMessage);
     window.open(whatsappUrl, "_blank");
 
     onClose();

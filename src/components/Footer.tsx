@@ -1,4 +1,5 @@
 import React from 'react';
+import { COMPANY } from "@/lib/company";
 
 export default function Footer() {
   return (
@@ -6,8 +7,8 @@ export default function Footer() {
       <div className="container mx-auto max-w-4xl flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left">
         <div>
           <h4 className="text-lg font-semibold mb-2 text-white">Contacto</h4>
-          <p className="text-sm text-zinc-300">Teléfono: <a href="tel:+34688757782" className="text-purple-400 hover:underline">34 688 75 77 82</a></p>
-          <p className="text-sm text-zinc-300">Email: <a href="mailto:veronica@cookyourwebai.es" className="text-purple-400 hover:underline">veronica@cookyourwebai.es</a></p>
+          <p className="text-sm text-zinc-300">Teléfono: <a href={`tel:${COMPANY.phone}`} className="text-purple-400 hover:underline">{COMPANY.phoneDisplay}</a></p>
+          <p className="text-sm text-zinc-300">Email: <a href={`mailto:${COMPANY.email}`} className="text-purple-400 hover:underline">{COMPANY.email}</a></p>
         </div>
         <div className="text-center md:text-right text-xs text-zinc-400">
           <p>© {new Date().getFullYear()} CookYourWeb. Todos los derechos reservados.</p>
