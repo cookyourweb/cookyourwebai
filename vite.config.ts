@@ -25,5 +25,9 @@ export default defineConfig(({ mode }) => ({
     environment: "jsdom",
     globals: true,
     setupFiles: "./src/test/setup.ts",
+    // Full-page form tests take ~1-2 s alone but exceed the 5 s default when the
+    // whole suite runs in parallel on a slower machine (CPU contention, not a
+    // bug). 15 s keeps a real hang visible while ending false timeouts.
+    testTimeout: 15_000,
   },
 }));
