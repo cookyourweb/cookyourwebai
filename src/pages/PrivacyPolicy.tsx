@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { COMPANY } from "@/lib/company";
 import Seo from "@/components/Seo";
+import LegalBreadcrumb from "@/components/LegalBreadcrumb";
 
 // Wording reviewed by the legal advisor on 11 Oct 2026. Keep it in sync with
 // what the site really does before changing any provider or form.
@@ -12,6 +13,7 @@ export default function PrivacyPolicy() {
       <Seo page="privacy" />
       <Header />
       <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-4xl">
+        <LegalBreadcrumb page="privacy" />
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Política de <span className="text-purple-400">Privacidad</span>
         </h1>

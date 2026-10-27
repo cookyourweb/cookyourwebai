@@ -135,18 +135,26 @@ export function homeJsonLd() {
 /** Pages that carry an "Inicio > page" breadcrumb. The home carries none. */
 const BREADCRUMB_PAGES = ["privacy", "cookies", "legal"] as const satisfies readonly PageKey[];
 
-/** Inicio > the page. The visible name is the title without the brand suffix. */
-export function breadcrumbJsonLd(page: (typeof BREADCRUMB_PAGES)[number]) {
-  const { path, title } = PAGES[page];
-  const crumbs = [
-    { name: "Inicio", url: canonical("/") },
-    { name: title.split(" | ")[0], url: canonical(path) },
-  ];
+export type BreadcrumbPageKey = (typeof BREADCRUMB_PAGES)[number];
 
+/**
+ * Inicio > the page. The single source of the breadcrumb: the JSON-LD and the
+ * visible breadcrumb (components/LegalBreadcrumb.tsx) both read it, so they
+ * cannot drift. The name is the page title without the brand suffix.
+ */
+export function breadcrumbTrail(page: BreadcrumbPageKey) {
+  const { path, title } = PAGES[page];
+  return [
+    { name: "Inicio", path: "/", url: canonical("/") },
+    { name: title.split(" | ")[0], path, url: canonical(path) },
+  ];
+}
+
+export function breadcrumbJsonLd(page: BreadcrumbPageKey) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: crumbs.map((crumb, index) => ({
+    itemListElement: breadcrumbTrail(page).map((crumb, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: crumb.name,
@@ -159,7 +167,7 @@ export function breadcrumbJsonLd(page: (typeof BREADCRUMB_PAGES)[number]) {
 export function jsonLdFor(page: PageKey): object | undefined {
   if (page === "home") return homeJsonLd();
   if ((BREADCRUMB_PAGES as readonly PageKey[]).includes(page)) {
-    return breadcrumbJsonLd(page as (typeof BREADCRUMB_PAGES)[number]);
+    return breadcrumbJsonLd(page as BreadcrumbPageKey);
   }
   return undefined;
 }
