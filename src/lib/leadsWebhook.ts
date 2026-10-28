@@ -14,6 +14,8 @@ export async function sendLead(payload: LeadPayload): Promise<boolean> {
   try {
     const response = await fetch(LEADS_WEBHOOK_URL, {
       method: 'POST',
+      // The contact dialog leaves for WhatsApp at once: let the request finish.
+      keepalive: true,
       headers: {
         'Content-Type': 'application/json',
       },

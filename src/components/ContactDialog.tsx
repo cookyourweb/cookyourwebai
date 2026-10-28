@@ -17,6 +17,7 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
     email: "",
     phone: ""
   });
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -25,35 +26,35 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
     });
   };
 
-  const handleWhatsAppRedirect = async () => {
-    // Registrar el lead; si falla, el redirect a WhatsApp sigue adelante.
-    await sendLead({
+  const isFormValid = Boolean(
+    formData.name.trim() && formData.email.trim() && formData.phone.trim() && privacyAccepted
+  );
+
+  // WhatsApp opens synchronously inside the click: iOS Safari blocks window.open
+  // once the handler has awaited the network. The lead is sent without waiting
+  // (fetch keepalive), and a webhook failure never blocks the conversation.
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!isFormValid) return;
+
+    const whatsappMessage = `Hola! Soy ${formData.name}.\n\nEste mensaje activa un funnel inteligente.\nMi email es: ${formData.email}\nMi número: ${formData.phone}\n\nEstoy listo para descubrir cómo la IA puede transformar mi negocio o mis proyectos.`;
+    window.open(COMPANY.whatsappUrl(whatsappMessage), "_blank");
+
+    void sendLead({
       formulario: "contacto",
       nombre: formData.name,
       email: formData.email,
       telefono: formData.phone
     });
 
-    // Mensaje para WhatsApp
-    const whatsappMessage = `Hola! Soy ${formData.name}.\n\nEste mensaje activa un funnel inteligente.\nMi email es: ${formData.email}\nMi número: ${formData.phone}\n\nEstoy listo para descubrir cómo la IA puede transformar mi negocio o mis proyectos.`;
-
-    const whatsappUrl = COMPANY.whatsappUrl(whatsappMessage);
-    window.open(whatsappUrl, "_blank");
-
     onClose();
-
-    setFormData({
-      name: "",
-      email: "",
-      phone: ""
-    });
+    setFormData({ name: "", email: "", phone: "" });
+    setPrivacyAccepted(false);
   };
-
-  const isFormValid = formData.name.trim() && formData.email.trim() && formData.phone.trim();
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-zinc-900 border-zinc-800">
+      <DialogContent className="w-[calc(100%-2rem)] rounded-lg sm:max-w-md max-h-[100dvh] overflow-y-auto bg-zinc-900 border-zinc-800">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
             <MessageCircle className="w-6 h-6 text-green-400" />
@@ -61,7 +62,7 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4 py-4">
+        <form onSubmit={handleSubmit} noValidate className="space-y-4 py-4">
           <p className="text-zinc-300 text-sm">
             Deja tus datos para que el sistema active un funnel personalizado por WhatsApp.
           </p>
@@ -73,6 +74,9 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
               <Input
                 id="whatsapp-name"
                 name="name"
+                autoComplete="name"
+                autoCapitalize="words"
+                enterKeyHint="next"
                 placeholder="Tu nombre"
                 value={formData.name}
                 onChange={handleInputChange}
@@ -87,6 +91,8 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
                 id="whatsapp-email"
                 name="email"
                 type="email"
+                autoComplete="email"
+                enterKeyHint="next"
                 placeholder="Tu email"
                 value={formData.email}
                 onChange={handleInputChange}
@@ -101,6 +107,7 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
                 id="whatsapp-phone"
                 name="phone"
                 type="tel"
+                autoComplete="tel"
                 placeholder="Tu número de teléfono"
                 value={formData.phone}
                 onChange={handleInputChange}
@@ -109,15 +116,43 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
             </div>
           </div>
 
+          <div className="flex items-start gap-2 py-1 text-left">
+            <input
+              id="whatsapp-privacidad"
+              name="privacidad"
+              type="checkbox"
+              checked={privacyAccepted}
+              onChange={(e) => setPrivacyAccepted(e.target.checked)}
+              className="mt-0.5 h-5 w-5 shrink-0 accent-green-600"
+            />
+            <label htmlFor="whatsapp-privacidad" className="text-sm text-zinc-400">
+              He leído y acepto la{" "}
+              <a
+                href="/politicadeprivacidad"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-green-400 hover:text-green-300"
+              >
+                política de privacidad
+                <span className="sr-only"> (se abre en una pestaña nueva)</span>
+              </a>
+              . Solo usaremos tus datos para responderte por WhatsApp y atender tu consulta.
+            </label>
+          </div>
+
           <Button
-            onClick={handleWhatsAppRedirect}
-            disabled={!isFormValid}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            type="submit"
+            aria-disabled={!isFormValid}
+            aria-describedby="whatsapp-hint"
+            className="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors aria-disabled:opacity-50 aria-disabled:cursor-not-allowed"
           >
             <MessageCircle className="w-4 h-4 mr-2" />
             Enviar por WhatsApp
           </Button>
-        </div>
+          <p id="whatsapp-hint" className="text-xs text-zinc-400">
+            Rellena tus datos y acepta la política de privacidad para continuar.
+          </p>
+        </form>
       </DialogContent>
     </Dialog>
   );
