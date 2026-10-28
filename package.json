@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generar-sitemap.mjs && vite build",
+    "build": "node scripts/generar-sitemap.mjs && vite-react-ssg build",
     "sitemap": "node scripts/generar-sitemap.mjs",
+    "verify:prerender": "node scripts/verificar-prerender.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -56,7 +57,7 @@
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
-    "react-helmet-async": "^2.0.5",
+    "react-helmet-async": "1.3.0",
     "react-hook-form": "^7.53.0",
     "react-resizable-panels": "^2.1.3",
     "react-router-dom": "^6.26.2",
@@ -89,6 +90,7 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1",
+    "vite-react-ssg": "0.8.9",
     "vitest": "^2.1.9"
   }
 }

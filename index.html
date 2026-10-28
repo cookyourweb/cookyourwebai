@@ -1,39 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agencia de IA y automatización para empresas | CookYourWebAI</title>
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="author" content="CookYourWeb" />
 
     <!--
-      Fallback estatico para bots de enlaces (WhatsApp, LinkedIn, Facebook,
-      Slack, X) que NO ejecutan JS. Son los valores de la home en src/lib/seo.ts
-      (un test comprueba que coinciden). data-rh="true" hace que
-      react-helmet-async los sustituya en el cliente en vez de duplicarlos.
-      Se puede quitar cuando haya prerenderizado.
-    -->
-    <meta data-rh="true" name="description" content="Automatizamos procesos, atención al cliente y ventas con IA para empresas. Auditoría gratuita de 60 minutos." />
-    <meta data-rh="true" property="og:type" content="website" />
-    <meta data-rh="true" property="og:site_name" content="CookYourWebAI" />
-    <meta data-rh="true" property="og:locale" content="es_ES" />
-    <meta data-rh="true" property="og:title" content="Agencia de IA y automatización para empresas | CookYourWebAI" />
-    <meta data-rh="true" property="og:description" content="Automatizamos procesos, atención al cliente y ventas con IA para empresas. Auditoría gratuita de 60 minutos." />
-    <meta data-rh="true" property="og:image" content="https://www.cookyourwebai.es/og-cookyourwebai.png" />
-    <meta data-rh="true" property="og:image:width" content="1200" />
-    <meta data-rh="true" property="og:image:height" content="630" />
-    <meta data-rh="true" property="og:image:alt" content="CookYourWebAI, agencia de IA y automatización" />
-    <meta data-rh="true" name="twitter:card" content="summary_large_image" />
-    <meta data-rh="true" name="twitter:image" content="https://www.cookyourwebai.es/og-cookyourwebai.png" />
-    <meta data-rh="true" name="twitter:image:alt" content="CookYourWebAI, agencia de IA y automatización" />
+      Title, description, canonical, Open Graph, Twitter and JSON-LD are NOT
+      here on purpose. vite-react-ssg prerenders every route into this template
+      and writes that route's own tags (src/components/Seo.tsx, src/lib/seo.ts)
+      at the top of <head>. Anything static here would be duplicated.
 
-    <!--
-      Google Tag Manager NO se carga aquí a proposito.
-      La AEPD exige consentimiento previo para cookies de estadistica, asi que
-      GTM se inyecta desde src/lib/gtm.ts solo si el usuario lo ha aceptado.
+      Google Tag Manager is not loaded here either: the AEPD requires prior
+      consent for statistics cookies, so GTM is injected from src/lib/gtm.ts
+      only if the user accepted.
     -->
   </head>
   <body>

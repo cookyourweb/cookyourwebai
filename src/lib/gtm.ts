@@ -9,6 +9,8 @@ const GTM_ID = "GTM-P9J6QN6T";
 let cargado = false;
 
 export function hayConsentimientoEstadistica(): boolean {
+  // The site is prerendered in Node: there is no storage there, so no consent.
+  if (typeof localStorage === "undefined") return false;
   return localStorage.getItem("statisticsCookies") === "true";
 }
 

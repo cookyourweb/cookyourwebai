@@ -27,3 +27,9 @@ jobs:
       # se entera la PR, que es cuando todavia se puede arreglar.
       - name: build
         run: npm run build
+
+      # El build no se hace en local, asi que esto es lo que comprueba que cada
+      # ruta sale prerenderizada (h1, title, canonical, JSON-LD) y que existe
+      # dist/404.html. Falla la PR si no.
+      - name: verificar prerender
+        run: npm run verify:prerender
