@@ -22,7 +22,7 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #15, publicada el 28-oct (PR E): los 7 logos de tecnologías de la home (Devicon, MIT) se sirven desde `public/logos/`. **Comprobado en producción con un navegador limpio:** cargan los 7 desde `/logos/`, no hay ninguna petición a jsDelivr y la home solo pide recursos a `www.cookyourwebai.es`.
   - PR #16, publicada el 28-oct (PR F, primera parte): casilla de privacidad obligatoria en el diálogo de contacto por WhatsApp (`ContactDialog`) y arreglos de móvil revisados por los agentes Accessibility Auditor y Frontend Developer. **Comprobado en producción** en `/avisolegal` a 360×340 con emulación móvil (con `fetch` y `window.open` simulados, sin enviar nada): el diálogo cabe con 16 px de margen y se desplaza; sin la casilla no se envía nada; con la casilla, WhatsApp se abre en el mismo clic y el lead sale con `keepalive`; autocompletado `name`/`email`/`tel`; sin scroll horizontal.
   - PR #17, publicada el 28-oct: botón «Cerrar» con nombre accesible en el asistente de WhatsApp de la home y test que impide abrir diálogos sin acción del usuario. **Comprobado en producción:** tras 10 s sin interactuar no hay ningún diálogo abierto; el botón de cierre tiene `aria-label="Cerrar"` y, tras cerrarlo, no reaparece.
-- **En curso:** ninguna.
+- **En curso:** PR F, segunda parte: una sola cabecera (`components/Header.tsx`, montada una vez en `Layout`) en todas las páginas, hecha por el agente UI Designer. El logo enlaza a `/`; fuera de la home los anclajes van a `/#sección`; menú móvil con `aria-expanded` y botones de 44 px. **Hecho cuando:** publicada y comprobada en producción en móvil y escritorio.
 - **Descartado tras comprobarlo (28-oct):** el aviso de que el `WhatsAppForm` de la home «se abre solo y reaparece» era un falso positivo. El agente UX Architect no lo reprodujo en móvil ni en escritorio (espera de 15 s, scroll, cierre con X, Escape y clic fuera); solo se abre con un clic. Probablemente se confundió con el banner de cookies. Ahora un test impide que la home abra un diálogo sin acción del usuario, y el botón de cierre de ese diálogo tiene nombre accesible («Cerrar»).
 - **Pendiente de la responsable:** pedir a Search Console que inspeccione `/` y `/avisolegal` (Inspección de URL → Probar URL publicada) para que vea el HTML nuevo.
 - **Siguiente:**
@@ -56,6 +56,10 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
 - Google Tag Manager se carga solo con el consentimiento de estadística (`src/lib/gtm.ts`).
 - Las fuentes y los recursos visibles se sirven desde el propio dominio, nunca desde Google Fonts ni CDN de terceros.
 - Prerender con `vite-react-ssg`. Si en la prueba no encaja, se hace un prerender propio después del build; no se migra de framework.
+
+- El botón de WhatsApp de la cabecera terminará abriendo un **agente de texto con IA dentro de la web**: conversa con la persona, responde sus dudas y al final pide sus datos para contactarla (decidido el 28-oct). Es una tarea propia, distinta de la PR F; hay que diseñarla (proveedor de IA, coste, privacidad) antes de construirla.
+
+- Mientras no exista el agente de texto, el botón de WhatsApp de la cabecera abre en todas las páginas el formulario de contacto (`ContactDialog`: guarda el lead en Notion vía n8n, con casilla de privacidad, y abre WhatsApp). Se retira el asistente de la home (`WhatsAppForm`) y sus cifras de ROI no confirmadas (decidido el 28-oct).
 
 ### Descartado
 - Migrar a Next.js o a Astro para el SEO: es excesivo para 7 rutas.
