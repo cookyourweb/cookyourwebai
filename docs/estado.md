@@ -29,15 +29,16 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
     - Decidido: se quita de `index.html` el respaldo estático de la cabecera (title, description, Open Graph, Twitter). Con el prerender, los bots de enlaces ya reciben las etiquetas reales de cada ruta, y mantenerlo las duplicaría en todas las páginas (el prerender inserta las suyas al principio del `<head>` sin quitar las del plantilla).
     - `scripts/verificar-prerender.mjs` (`npm run verify:prerender`, paso nuevo en `.github/workflows/tests.yml` tras el build): comprueba en `dist/` un único `<h1>`, `<title>` y description esperados (leídos como texto de `seo.ts`), canonical solo en las indexables, robots en las noindex, JSON-LD válido en las indexables y que existe `dist/404.html`.
   - **Tras la revisión (28-oct):** la CI de la PR #13 pasa con el build real (7 páginas generadas y `verify:prerender` en verde). El verificador comprueba además `lang="es"`, h1 con texto, og:title, og:image y twitter:card una vez, og:url igual a la canonical solo en las indexables, y el JSON-LD por tipo (`WebSite` y `ProfessionalService` en la home, `BreadcrumbList` de 2 elementos en las legales, nada en las noindex). Hay un test de hidratación de la 404 servida en una URL cualquiera, y `vercel.json` lleva `"trailingSlash": false`.
-  - **Pendiente de comprobar en la vista previa de Vercel** (con `curl -I`, sin JS, salvo el punto de navegador):
-    1. `/`, `/politicadeprivacidad`, `/cookie-policy`, `/avisolegal`, `/baja` y `/agenteActivado` responden 200 sin redirigir.
-    2. `/avisolegal/` responde 308 a `/avisolegal` (efecto de `trailingSlash: false`; no verificado todavía).
-    3. `/agenteActivado?formulario=business` responde 200.
-    4. Una URL inexistente responde 404 y muestra la página 404 (noindex).
-    5. `/robots.txt`, `/sitemap.xml`, `/google7d656d4d04069df9.html`, `/favicon.ico` y `/og-cookyourwebai.png` responden 200.
-    6. `curl -s` de `/avisolegal` trae `<h1>`, `<title>`, canonical y JSON-LD en el HTML.
-    7. Navegador: consola sin avisos de hidratación; el banner de cookies aparece una vez y no vuelve tras aceptar; GTM solo carga tras aceptar estadística; se envía un formulario; el menú móvil y la navegación entre rutas funcionan.
-    8. Tras publicar en producción: repetir 1 a 6 y pedir a Search Console inspeccionar `/` y `/avisolegal`.
+  - **Comprobado en la vista previa de Vercel (28-oct)**, con el navegador de la responsable y `fetch` desde la propia página (la vista previa pide login de Vercel):
+    1. ✅ `/`, `/politicadeprivacidad`, `/cookie-policy` y `/avisolegal` responden 200, y cada una trae en el HTML su `<h1>`, su title, su canonical, `lang="es"` y su JSON-LD.
+    2. ✅ `/baja` y `/agenteActivado?formulario=business` responden 200, con su robots noindex y sin canonical.
+    3. ✅ `/avisolegal/` redirige a `/avisolegal`.
+    4. ✅ `/no-existe` y `/no/existe/aun` responden 404 con la página 404 y noindex.
+    5. ✅ `/robots.txt`, `/sitemap.xml`, `/google7d656d4d04069df9.html`, `/favicon.ico` y `/og-cookyourwebai.png` responden 200.
+    6. ✅ Consola sin avisos de hidratación; tras hidratar hay una sola etiqueta de cada tipo; la navegación entre rutas funciona; GTM no carga sin consentimiento y sí carga tras pulsar «Aceptar».
+    7. ✅ Formulario de auditoría: en la vista previa, n8n rechaza el origen (no está entre los autorizados), así que no se guarda nada y la web muestra «No hemos podido registrar tu solicitud» sin fingir éxito. El envío con éxito se comprueba en producción.
+  - **Pendiente tras publicar en producción:** repetir 1 a 5 con `curl`, enviar un formulario de prueba (fila «PRUEBA» en Notion y aviso por email) y pedir a Search Console que inspeccione `/` y `/avisolegal`.
+  - **Hallazgo aparte (no es de esta PR):** el primer nivel del banner de cookies solo ofrece «Aceptar» y «Ver preferencias», sin «Rechazar». La AEPD exige que rechazar sea igual de fácil que aceptar, y la política de cookies habla de «Rechazar todas». Revisarlo en otra PR.
 - **Siguiente:**
   1. PR E · Iconos de jsDelivr alojados en el propio dominio.
   2. PR F · Cabecera única, CTA fija en móvil, bloque de cierre en cada página y casilla de privacidad en el diálogo de contacto.
