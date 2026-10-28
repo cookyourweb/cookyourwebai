@@ -17,14 +17,15 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #10 y #11, publicadas el 27-oct: `CLAUDE.md` y este `estado.md`; `cookyourweb.es` y `www.cookyourweb.es` redirigen con 308 a `https://www.cookyourwebai.es`, conservando la ruta e incluida la raíz (comprobado con curl); el HTML estático ya no lleva canonical ni `og:url`; timeout de los tests a 15 s.
   - Sitemap enviado en Search Console el 27-oct: «Se ha enviado correctamente».
   - PR #12, publicada el 28-oct: JSON-LD. Grafo de la home (`WebSite`, `ProfessionalService`, `Person` sin `jobTitle`, 4 `Service`) y `BreadcrumbList` en las tres páginas legales, con la miga visible generada desde los mismos datos (`breadcrumbTrail` en `src/lib/seo.ts`). Validado: validator.schema.org con 0 errores y 0 avisos, y en la prueba de resultados enriquecidos de Google `/avisolegal` da «1 elemento válido» (28-oct). Los `url` de los `Service` apuntan a anclajes de la home hasta que la PR H los sustituya. Sus nombres siguen los textos visibles de `src/lib/servicios.ts`, que usan «AI».
-- **En curso:** ninguna; la siguiente es la PR D.
+- **En curso (rama `seo/prerender`):** PR D · Prerender con `vite-react-ssg@0.8.9` (la última versión que admite Vite 5). Aprobada por la responsable el 28-oct.
+  - **Hecho cuando:** (1) el build genera un HTML por ruta pública con su `<h1>`, `<title>`, canonical y JSON-LD ya escritos; (2) una URL inexistente responde 404 y no 200; (3) los formularios, el banner de cookies y GTM con consentimiento siguen funcionando, con los tests en verde; (4) la CI comprueba (1) después de cada build, porque el build no se hace en local; (5) comprobado en producción con `curl`, sin JS.
+  - **Plan B:** si `vite-react-ssg` no encaja, un prerender propio después del build. No se migra de framework.
 - **Siguiente:**
-  1. PR D · Prerender con `vite-react-ssg@0.8.9` (la última versión que admite Vite 5): HTML real por ruta y un 404 de verdad.
-  2. PR E · Iconos de jsDelivr alojados en el propio dominio.
-  3. PR F · Cabecera única, CTA fija en móvil, bloque de cierre en cada página y casilla de privacidad en el diálogo de contacto.
-  4. PR G · IndexNow y `llms.txt`.
-  5. PR H · Fichas de proyecto por cliente y una página por servicio.
-  6. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
+  1. PR E · Iconos de jsDelivr alojados en el propio dominio.
+  2. PR F · Cabecera única, CTA fija en móvil, bloque de cierre en cada página y casilla de privacidad en el diálogo de contacto.
+  3. PR G · IndexNow y `llms.txt`.
+  4. PR H · Fichas de proyecto por cliente y una página por servicio.
+  5. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
 - **Hecho cuando:** todo lo anterior está publicado y comprobado en producción, el sitemap está enviado en Search Console y Bing, y no queda ningún punto de la fase 6 sin cumplir.
 
 ## 1. Documentos
