@@ -1,6 +1,6 @@
 # Estado del proyecto · léelo al empezar cada sesión
 
-Actualizado: 28-oct-2026 (tras publicar #12). Producción = `main`.
+Actualizado: 28-oct-2026 (PR D en local, sin publicar). Producción = `main`.
 Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.md` §5).
 **El repositorio es público:** aquí no van datos personales ni de clientes.
 
@@ -17,9 +17,23 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #10 y #11, publicadas el 27-oct: `CLAUDE.md` y este `estado.md`; `cookyourweb.es` y `www.cookyourweb.es` redirigen con 308 a `https://www.cookyourwebai.es`, conservando la ruta e incluida la raíz (comprobado con curl); el HTML estático ya no lleva canonical ni `og:url`; timeout de los tests a 15 s.
   - Sitemap enviado en Search Console el 27-oct: «Se ha enviado correctamente».
   - PR #12, publicada el 28-oct: JSON-LD. Grafo de la home (`WebSite`, `ProfessionalService`, `Person` sin `jobTitle`, 4 `Service`) y `BreadcrumbList` en las tres páginas legales, con la miga visible generada desde los mismos datos (`breadcrumbTrail` en `src/lib/seo.ts`). Validado: validator.schema.org con 0 errores y 0 avisos, y en la prueba de resultados enriquecidos de Google `/avisolegal` da «1 elemento válido» (28-oct). Los `url` de los `Service` apuntan a anclajes de la home hasta que la PR H los sustituya. Sus nombres siguen los textos visibles de `src/lib/servicios.ts`, que usan «AI».
-- **En curso (rama `seo/prerender`):** PR D · Prerender con `vite-react-ssg@0.8.9` (la última versión que admite Vite 5). Aprobada por la responsable el 28-oct.
+- **En curso (rama `seo/prerender`, sin push ni PR todavía):** PR D · Prerender con `vite-react-ssg@0.8.9` (la última versión que admite Vite 5). Aprobada por la responsable el 28-oct.
   - **Hecho cuando:** (1) el build genera un HTML por ruta pública con su `<h1>`, `<title>`, canonical y JSON-LD ya escritos; (2) una URL inexistente responde 404 y no 200; (3) los formularios, el banner de cookies y GTM con consentimiento siguen funcionando, con los tests en verde; (4) la CI comprueba (1) después de cada build, porque el build no se hace en local; (5) comprobado en producción con `curl`, sin JS.
   - **Plan B:** si `vite-react-ssg` no encaja, un prerender propio después del build. No se migra de framework.
+  - **Hecho en local (28-oct), 184 tests en verde, `tsc` y ESLint limpios; el build NO se ha ejecutado en local:**
+    - Rutas en `src/routes.tsx` bajo un `Layout` común (`src/components/Layout.tsx`); `src/App.tsx` queda solo para los tests; `src/main.tsx` exporta `createRoot` con `ViteReactSSG`.
+    - Código de render a prueba de SSR: el banner de cookies lee `localStorage` tras montar (no se pinta hasta saberlo) y `gtm.ts` tolera no tener `localStorage`; GTM solo se arranca en el navegador.
+    - `react-helmet-async` fijado a 1.3.0 (la que usa `vite-react-ssg`) para que haya una sola copia; `Seo.tsx` usa `Head` de `vite-react-ssg`.
+    - `dirStyle: "nested"` (`/avisolegal` sirve `avisolegal/index.html`; sin `cleanUrls`, que redirigiría el fichero de verificación de Google). `/404` se prerenderiza y `scripts/prerender-404.mjs` lo mueve a `dist/404.html`.
+    - `vercel.json`: fuera el rewrite global (soft 404); el bloque de redirección del dominio antiguo queda igual.
+    - Decidido: se quita de `index.html` el respaldo estático de la cabecera (title, description, Open Graph, Twitter). Con el prerender, los bots de enlaces ya reciben las etiquetas reales de cada ruta, y mantenerlo las duplicaría en todas las páginas (el prerender inserta las suyas al principio del `<head>` sin quitar las del plantilla).
+    - `scripts/verificar-prerender.mjs` (`npm run verify:prerender`, paso nuevo en `.github/workflows/tests.yml` tras el build): comprueba en `dist/` un único `<h1>`, `<title>` y description esperados (leídos como texto de `seo.ts`), canonical solo en las indexables, robots en las noindex, JSON-LD válido en las indexables y que existe `dist/404.html`.
+  - **Pendiente de comprobar (necesita el build de CI y la vista previa de Vercel):**
+    1. Que el paso `build` y el paso `verificar prerender` de la CI pasan.
+    2. En la vista previa: `curl -s URL/avisolegal` (sin JS) trae `<h1>`, `<title>`, canonical y JSON-LD; `curl -I URL/politicadeprivacidad` responde 200 sin redirigir a barra final; `curl -I URL/no-existe` responde 404; `/google7d656d4d04069df9.html`, `/robots.txt` y `/sitemap.xml` siguen en 200.
+    3. En el navegador: sin avisos de hidratación en consola, el banner de cookies aparece una vez y no vuelve si ya se aceptó, el menú móvil, el enlace de salto y los formularios funcionan, y GTM solo carga tras aceptar estadística.
+    4. Navegación entre rutas dentro de la web (sin recarga completa).
+    5. Después de publicar, repetir 2 contra producción y pedir a Search Console inspeccionar `/` y `/avisolegal`.
 - **Siguiente:**
   1. PR E · Iconos de jsDelivr alojados en el propio dominio.
   2. PR F · Cabecera única, CTA fija en móvil, bloque de cierre en cada página y casilla de privacidad en el diálogo de contacto.
