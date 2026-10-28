@@ -4,6 +4,8 @@ export interface PaginaEsperada {
   descripcion: string | undefined;
   robots: string | undefined;
   canonical: string | undefined;
+  ogImage: string;
+  jsonLd: "home" | "breadcrumb" | undefined;
 }
 export function archivoDeRuta(ruta: string): string;
 export function leerPaginasEsperadas(seoSource: string, rutasSource: string): PaginaEsperada[];

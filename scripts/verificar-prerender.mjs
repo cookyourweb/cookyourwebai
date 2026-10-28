@@ -29,14 +29,22 @@ export function leerPaginasEsperadas(seoSource, rutasSource) {
   const bloque = seoSource.match(/export const PAGES = \{([\s\S]*?)\} as const satisfies/)?.[1];
   if (!bloque) throw new Error("PAGES not found in seo.ts");
 
+  const og = seoSource.match(/OG_IMAGE = \{\s*url: `\$\{DOMINIO_POR_DEFECTO\}([^`]+)`/)?.[1];
+  if (!og) throw new Error("OG_IMAGE url not found in seo.ts");
+  const migas = seoSource.match(/BREADCRUMB_PAGES = \[([^\]]*)\]/)?.[1];
+  const clavesMiga = [...(migas ?? "").matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+  if (clavesMiga.length === 0) throw new Error("BREADCRUMB_PAGES not found in seo.ts");
+
   const entrada =
-    /path:\s*"([^"]+)",\s*title:\s*"([^"]+)"(?:,\s*description:\s*"([^"]+)")?(?:,\s*robots:\s*"([^"]+)")?,?\s*\}/g;
-  const paginas = [...bloque.matchAll(entrada)].map(([, ruta, titulo, descripcion, robots]) => ({
+    /(\w+):\s*\{\s*path:\s*"([^"]+)",\s*title:\s*"([^"]+)"(?:,\s*description:\s*"([^"]+)")?(?:,\s*robots:\s*"([^"]+)")?,?\s*\}/g;
+  const paginas = [...bloque.matchAll(entrada)].map(([, clave, ruta, titulo, descripcion, robots]) => ({
     ruta,
     titulo,
     descripcion,
     robots,
     canonical: robots ? undefined : `${dominio}${ruta}`,
+    ogImage: `${dominio}${og}`,
+    jsonLd: robots ? undefined : ruta === "/" ? "home" : clavesMiga.includes(clave) ? "breadcrumb" : undefined,
   }));
   if (paginas.length === 0) throw new Error("No pages read from seo.ts");
   return paginas;
@@ -64,8 +72,14 @@ const etiquetas = (html, nombre) => [...html.matchAll(new RegExp(`<${nombre}\\b[
 export function comprobarHtml(html, pagina) {
   const errores = [];
 
+  if (!/<html\b[^>]*\slang=["']es["']/i.test(html)) errores.push('expected <html lang="es">');
+
   const h1 = (html.match(/<h1[\s>]/gi) ?? []).length;
   if (h1 !== 1) errores.push(`expected exactly one <h1>, found ${h1}`);
+  else {
+    const texto = (html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? "").replace(/<[^>]*>/g, "").trim();
+    if (texto === "") errores.push("the <h1> has no text (empty h1)");
+  }
 
   const titulos = [...html.matchAll(/<title\b[^>]*>([\s\S]*?)<\/title>/gi)].map((m) => decodificar(m[1]).trim());
   if (titulos.length !== 1 || titulos[0] !== pagina.titulo) {
@@ -80,6 +94,18 @@ export function comprobarHtml(html, pagina) {
     }
   }
 
+  const valores = (clave, valor) =>
+    metas.filter((m) => m[clave] === valor).map((m) => m.content);
+  const unico = (etiqueta, encontrados, esperado) => {
+    if (encontrados.length !== 1 || encontrados[0] !== esperado) {
+      errores.push(`expected exactly one ${etiqueta} "${esperado}", found ${JSON.stringify(encontrados)}`);
+    }
+  };
+  unico("og:title", valores("property", "og:title"), pagina.titulo);
+  unico("og:image", valores("property", "og:image"), pagina.ogImage);
+  unico("twitter:card", valores("name", "twitter:card"), "summary_large_image");
+  const ogUrl = valores("property", "og:url");
+
   const robots = metas.filter((m) => m.name === "robots").map((m) => m.content);
   const canonicals = etiquetas(html, "link")
     .filter((l) => l.rel === "canonical")
@@ -90,7 +116,12 @@ export function comprobarHtml(html, pagina) {
       errores.push(`expected exactly one meta robots "${pagina.robots}", found ${JSON.stringify(robots)}`);
     }
     if (canonicals.length > 0) errores.push(`a noindex page must not have a canonical, found ${JSON.stringify(canonicals)}`);
+    if (ogUrl.length > 0) errores.push(`a noindex page must not have og:url, found ${JSON.stringify(ogUrl)}`);
+    if (/<script\b[^>]*type=["']application\/ld\+json["']/i.test(html)) {
+      errores.push("a noindex page must not have JSON-LD");
+    }
   } else {
+    unico("og:url", ogUrl, pagina.canonical);
     if (robots.length > 0) errores.push(`an indexable page must not have meta robots, found ${JSON.stringify(robots)}`);
     if (canonicals.length !== 1 || canonicals[0] !== pagina.canonical) {
       errores.push(`expected exactly one canonical "${pagina.canonical}", found ${JSON.stringify(canonicals)}`);
@@ -99,12 +130,26 @@ export function comprobarHtml(html, pagina) {
     if (bloques.length === 0) {
       errores.push("expected JSON-LD (<script type=\"application/ld+json\">), found none");
     }
+    const datos = [];
     for (const [, contenido] of bloques) {
       try {
-        JSON.parse(contenido);
+        datos.push(JSON.parse(contenido));
       } catch {
         errores.push("JSON-LD is not valid JSON");
       }
+    }
+    const tipos = (nodo) => [].concat(nodo?.["@type"] ?? []);
+    if (pagina.jsonLd === "home") {
+      const nodos = datos.flatMap((d) => (Array.isArray(d?.["@graph"]) ? d["@graph"] : []));
+      if (nodos.length === 0) errores.push("expected JSON-LD with an @graph on the home");
+      for (const tipo of ["WebSite", "ProfessionalService"]) {
+        if (!nodos.some((n) => tipos(n).includes(tipo))) errores.push(`expected a ${tipo} in the JSON-LD @graph`);
+      }
+    } else if (pagina.jsonLd === "breadcrumb") {
+      const lista = datos.find((d) => tipos(d).includes("BreadcrumbList"));
+      const items = (lista?.itemListElement ?? []).filter((i) => tipos(i).includes("ListItem"));
+      if (!lista) errores.push("expected a BreadcrumbList in the JSON-LD");
+      else if (items.length !== 2) errores.push(`expected a BreadcrumbList with 2 ListItem, found ${items.length}`);
     }
   }
 

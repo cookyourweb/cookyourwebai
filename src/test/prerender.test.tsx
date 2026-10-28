@@ -32,7 +32,7 @@ async function prerender(path: string) {
     html,
     status: context.statusCode,
     title: helmet.title.toString(),
-    document: `<html><head>${[helmet.title, helmet.meta, helmet.link, helmet.script].map((t) => t.toString()).join("")}</head><body><div id="root">${html}</div></body></html>`,
+    document: `<html lang="es"><head>${[helmet.title, helmet.meta, helmet.link, helmet.script].map((t) => t.toString()).join("")}</head><body><div id="root">${html}</div></body></html>`,
     head: [helmet.meta, helmet.link, helmet.script].map((t) => t.toString()).join(""),
   };
 }
