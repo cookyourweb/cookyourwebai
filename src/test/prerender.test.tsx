@@ -1,4 +1,6 @@
 // @vitest-environment node
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { renderToString } from "react-dom/server";
 import { HelmetProvider, type HelmetServerState } from "react-helmet-async";
 import { createStaticHandler, createStaticRouter, StaticRouterProvider } from "react-router-dom/server";
@@ -6,6 +8,7 @@ import { describe, expect, it } from "vitest";
 
 import { routes } from "@/routes";
 import { PAGES, type PageKey } from "@/lib/seo";
+import { comprobarHtml, leerPaginasEsperadas } from "../../scripts/verificar-prerender.mjs";
 
 /**
  * Renders a route the way vite-react-ssg does at build time (static router +
@@ -29,6 +32,7 @@ async function prerender(path: string) {
     html,
     status: context.statusCode,
     title: helmet.title.toString(),
+    document: `<html><head>${[helmet.title, helmet.meta, helmet.link, helmet.script].map((t) => t.toString()).join("")}</head><body><div id="root">${html}</div></body></html>`,
     head: [helmet.meta, helmet.link, helmet.script].map((t) => t.toString()).join(""),
   };
 }
@@ -86,5 +90,21 @@ describe("consent check at prerender time", () => {
     const { hayConsentimientoEstadistica } = await import("@/lib/gtm");
 
     expect(hayConsentimientoEstadistica()).toBe(false);
+  });
+});
+
+/**
+ * The CI check (scripts/verificar-prerender.mjs) must accept what the real
+ * render produces: otherwise it would fail on the first real build, which
+ * nobody can run locally.
+ */
+describe("CI prerender check against the real render", () => {
+  const read = (file: string) => readFileSync(resolve(__dirname, "../..", file), "utf8");
+  const paginas = leerPaginasEsperadas(read("src/lib/seo.ts"), read("src/lib/rutas-publicas.ts"));
+
+  it.each(paginas.map((p) => [p.ruta, p] as const))("accepts the rendered %s", async (ruta, pagina) => {
+    const { document } = await prerender(ruta === "*" ? "/404" : ruta);
+
+    expect(comprobarHtml(document, pagina)).toEqual([]);
   });
 });

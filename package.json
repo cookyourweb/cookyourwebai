@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "node scripts/generar-sitemap.mjs && vite-react-ssg build",
     "sitemap": "node scripts/generar-sitemap.mjs",
+    "verify:prerender": "node scripts/verificar-prerender.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
