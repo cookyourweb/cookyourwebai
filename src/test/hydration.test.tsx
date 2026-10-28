@@ -85,3 +85,47 @@ describe.each(Object.values(PAGES).filter((p) => p.path !== "*"))("hydrating $pa
     expect(container.querySelectorAll("h1")).toHaveLength(1);
   });
 });
+
+/**
+ * dist/404.html is the prerender of "/404", but Vercel serves it at whatever
+ * URL missed (here /no-existe). The browser router then matches "*" instead of
+ * "404": both must render the same NotFound, or hydration would mismatch.
+ */
+describe("hydrating the 404 page at an arbitrary URL", () => {
+  let root: Root | undefined;
+
+  afterEach(() => {
+    act(() => root?.unmount());
+    document.head.innerHTML = "";
+    document.body.innerHTML = "";
+    vi.restoreAllMocks();
+  });
+
+  it("reports no hydration error and shows the not-found content", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const { html, head } = await serverRender("/404");
+    const errors = vi.mocked(console.error);
+    errors.mockClear();
+    window.history.pushState({}, "", "/no-existe");
+    document.head.innerHTML = `<meta charset="UTF-8" />${head}`;
+    const container = document.createElement("div");
+    container.id = "root";
+    container.innerHTML = html;
+    document.body.appendChild(container);
+
+    await act(async () => {
+      root = hydrateRoot(
+        container,
+        <HelmetProvider>
+          <RouterProvider router={createBrowserRouter(routes)} />
+        </HelmetProvider>,
+      );
+    });
+
+    const hydrationErrors = errors.mock.calls.filter((c) => /hydrat|did not match|server html/i.test(String(c[0])));
+    expect(hydrationErrors).toEqual([]);
+    expect(container.textContent).toContain("Página no encontrada");
+    expect(document.title).toBe(PAGES.notFound.title);
+    expect(count('meta[name="robots"]')).toBe(1);
+  });
+});
