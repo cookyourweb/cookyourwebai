@@ -4,10 +4,11 @@ import { Outlet } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Header from "@/components/Header";
 
 const queryClient = new QueryClient();
 
-/** Shell shared by every route: providers, skip link and toasters. */
+/** Shell shared by every route: providers, skip link, the single site header and toasters. */
 export default function Layout() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -18,6 +19,7 @@ export default function Layout() {
         >
           Saltar al contenido principal
         </a>
+        <Header />
         <Toaster />
         <Sonner />
         <Outlet />
