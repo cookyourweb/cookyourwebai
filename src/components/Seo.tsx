@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 
 import { OG_IMAGE, PAGES, SITE, canonical, jsonLdFor, type PageKey, type PageMeta } from "@/lib/seo";
 
@@ -18,7 +18,7 @@ export default function Seo({ page }: SeoProps) {
   const jsonLd = robots ? undefined : jsonLdFor(page);
 
   return (
-    <Helmet>
+    <Head>
       <title>{title}</title>
       {description && <meta name="description" content={description} />}
       {robots && <meta name="robots" content={robots} />}
@@ -40,6 +40,6 @@ export default function Seo({ page }: SeoProps) {
         // "<" is escaped so no string in the data can close the script tag.
         <script type="application/ld+json">{JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>
       )}
-    </Helmet>
+    </Head>
   );
 }

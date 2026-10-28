@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import App from "@/App";
 
@@ -66,5 +66,31 @@ describe("home lead capture modals", () => {
     const modal = await screen.findByRole("dialog");
     expect(within(modal).getByLabelText(/track de interés/i)).toBeInTheDocument();
     expect(document.querySelector('iframe[src*="tally.so"]')).toBeNull();
+  });
+});
+
+/**
+ * The page is prerendered, so the server HTML cannot know the visitor's choice
+ * (it lives in localStorage). The banner is therefore decided after mount:
+ * a returning visitor who already answered must not see it, and a new one must.
+ */
+describe("home cookie banner", () => {
+  afterEach(() => localStorage.clear());
+
+  it("shows the banner to a visitor who has not answered yet", async () => {
+    localStorage.clear();
+    window.history.pushState({}, "", "/");
+    render(<App />);
+
+    expect(await screen.findByRole("button", { name: /aceptar/i })).toBeInTheDocument();
+  });
+
+  it("does not show it to a visitor who already accepted", async () => {
+    localStorage.setItem("cookieConsent", "true");
+    window.history.pushState({}, "", "/");
+    render(<App />);
+
+    await screen.findByRole("navigation", { name: /principal/i });
+    expect(screen.queryByText(/usamos cookies para mejorar/i)).toBeNull();
   });
 });

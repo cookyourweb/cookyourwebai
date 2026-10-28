@@ -679,9 +679,18 @@ export default function OptimizedLandingPage() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [showDevForm, setShowDevForm] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
-  const [cookieConsent, setCookieConsent] = useState(localStorage.getItem('cookieConsent') === 'true');
+  // The page is prerendered, where there is no localStorage: the stored choice
+  // is read after mount, and the banner waits for it (no flash, no mismatch).
+  const [cookieConsent, setCookieConsent] = useState(false);
+  const [consentLoaded, setConsentLoaded] = useState(false);
   const [showPreferencesModal, setShowPreferencesModal] = useState(false);
-  const [statisticsCookies, setStatisticsCookies] = useState(localStorage.getItem('statisticsCookies') === 'true');
+  const [statisticsCookies, setStatisticsCookies] = useState(false);
+
+  useEffect(() => {
+    setCookieConsent(localStorage.getItem('cookieConsent') === 'true');
+    setStatisticsCookies(localStorage.getItem('statisticsCookies') === 'true');
+    setConsentLoaded(true);
+  }, []);
 
   const acceptCookies = () => {
     setCookieConsent(true);
@@ -1142,7 +1151,7 @@ export default function OptimizedLandingPage() {
       )}
 
       {/* BANNER DE CONSENTIMIENTO DE COOKIES */}
-      {!cookieConsent && (
+      {consentLoaded && !cookieConsent && (
         <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:bottom-8 z-50 bg-zinc-900 rounded-xl border border-zinc-700 p-4 max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-4 shadow-lg">
           <p className="text-zinc-300 text-sm flex-1">
             Usamos cookies para mejorar tu experiencia, analizar el tráfico y personalizar contenido. Más info en nuestra{' '}
