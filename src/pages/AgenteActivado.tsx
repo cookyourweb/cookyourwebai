@@ -1,7 +1,6 @@
 import { Check } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
 import Seo from "@/components/Seo";
 
 // Google Calendar booking page (hello.cookyourweb), 15-minute calls.
@@ -16,7 +15,6 @@ export default function AgenteActivado() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Seo page="thanks" />
-      <Header />
       <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-16 pb-16 max-w-2xl">
         <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-8 text-center">
           <Check className="w-16 h-16 text-green-500 mx-auto mb-4" aria-hidden="true" />

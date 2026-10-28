@@ -1,6 +1,5 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "../components/Header";
 import Seo from "@/components/Seo";
 
 const NotFound = () => {
@@ -16,7 +15,6 @@ const NotFound = () => {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Seo page="notFound" />
-      <Header />
       <main id="main-content" tabIndex={-1} className="container mx-auto px-4 py-16 max-w-4xl">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-8">

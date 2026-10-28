@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Check, AlertCircle, Loader2 } from 'lucide-react';
 import { sendLead } from '@/lib/leadsWebhook';
@@ -55,7 +54,6 @@ export default function Unsubscribe() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Seo page="unsubscribe" />
-      <Header />
       <main id="main-content" tabIndex={-1} className="container mx-auto px-4 pt-8 pb-16 max-w-2xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Baja de <span className="text-purple-400">Comunicaciones</span>

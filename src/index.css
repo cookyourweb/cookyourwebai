@@ -656,6 +656,11 @@
     scroll-margin-top: 100px; /* Para compensar el header fijo */
   }
 
+  /* The toaster regions are <section>s too: they must not push the page down. */
+  section[aria-label^="Notifications"] {
+    margin-bottom: 0;
+  }
+
   /* Asegurar que el texto en todas las cards sea legible */
   .card-service h3,
   .card-service-main h3 {
@@ -677,13 +682,13 @@
 
   /* Responsive para móviles */
   @media (max-width: 768px) {
-    body {
-      padding-top: 70px; /* Menos padding en móviles */
-    }
-
     section {
       margin-bottom: 4rem;
       scroll-margin-top: 80px;
+    }
+
+    section[aria-label^="Notifications"] {
+      margin-bottom: 0;
     }
 
     .btn-gradient-primary,

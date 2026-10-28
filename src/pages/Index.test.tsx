@@ -8,8 +8,8 @@ import App from "@/App";
 const EMPLEO_TECH = "https://empleo.cookyourwebai.es/es/";
 
 /**
- * The home page does not use components/Header: it has its own header inside
- * Index.tsx. Empleo Tech must be there, on desktop and on mobile.
+ * The home shares the single site header (mounted by Layout). Empleo Tech must
+ * be there, on desktop and on mobile.
  */
 describe("home menu", () => {
   it("ends with Empleo Tech on desktop, pointing to the job platform", () => {
@@ -24,7 +24,7 @@ describe("home menu", () => {
     expect(last).toHaveAttribute("href", EMPLEO_TECH);
   });
 
-  it("also offers Empleo Tech in the mobile dropdown", async () => {
+  it("also offers Empleo Tech in the mobile menu", async () => {
     const user = userEvent.setup();
     window.history.pushState({}, "", "/");
     render(<App />);
@@ -139,9 +139,9 @@ describe("home cookie banner", () => {
 /**
  * Nothing on the home may open a modal without a user action: on mobile an
  * auto-opening dialog traps focus and Google treats it as an intrusive
- * interstitial. The WhatsApp assistant opens only from its button.
+ * interstitial. The WhatsApp contact dialog opens only from the header button.
  */
-describe("home WhatsApp assistant", () => {
+describe("home WhatsApp contact", () => {
   afterEach(() => vi.useRealTimers());
 
   it("never opens a dialog on its own", async () => {
