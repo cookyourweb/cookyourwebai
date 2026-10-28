@@ -19,14 +19,13 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #12, publicada el 28-oct: JSON-LD. Grafo de la home (`WebSite`, `ProfessionalService`, `Person` sin `jobTitle`, 4 `Service`) y `BreadcrumbList` en las tres páginas legales, con la miga visible generada desde los mismos datos (`breadcrumbTrail` en `src/lib/seo.ts`). Validado: validator.schema.org con 0 errores y 0 avisos, y en la prueba de resultados enriquecidos de Google `/avisolegal` da «1 elemento válido» (28-oct). Los `url` de los `Service` apuntan a anclajes de la home hasta que la PR H los sustituya. Sus nombres siguen los textos visibles de `src/lib/servicios.ts`, que usan «AI».
   - PR #13, publicada el 28-oct: prerender con `vite-react-ssg@0.8.9`. Cada página pública llega con su HTML completo, una URL inexistente da 404 y `/x/` redirige a `/x`. La CI verifica el HTML generado en cada build (`scripts/verificar-prerender.mjs`). **Comprobado en producción con `curl`, sin JS:** las cuatro públicas dan 200 con `<h1>`, title, canonical y JSON-LD en el HTML; `/baja` y la 404 tienen noindex; `/no-existe` da 404; `/avisolegal/` da 308; los ficheros estáticos y el dominio viejo siguen bien. Formulario de auditoría enviado en producción: lleva a «¡Gracias!» y crea una sola fila «PRUEBA Claude prerender» en Notion (borrarla). Antes, en la vista previa: sin avisos de hidratación y GTM solo tras «Aceptar».
   - PR #14, publicada el 28-oct: consentimiento de cookies. «Guardar preferencias» con la casilla desmarcada guardaba `statisticsCookies=true` y cargaba GTM (el clic pasaba el evento como argumento), y «Rechazar todas» tras marcar la casilla también guardaba `true` (leía el estado anterior). El primer nivel ya tenía «Denegar»: el hallazgo anterior era erróneo. **Comprobado en producción con un navegador limpio:** al guardar con la casilla desmarcada queda `statisticsCookies=false` y no se pide `gtm.js`.
-- **En curso:** ninguna.
+- **En curso:** PR E · los 7 logos de tecnologías de la home (Devicon, MIT) pasan de `cdn.jsdelivr.net` a `public/logos/`. Un test garantiza que no queda `cdn.jsdelivr.net` en `src/` ni en `index.html`. **Hecho cuando:** está publicada y en producción la home carga los 7 logos desde `www.cookyourwebai.es/logos/` y no hace ninguna petición a jsDelivr.
 - **Pendiente de la responsable:** pedir a Search Console que inspeccione `/` y `/avisolegal` (Inspección de URL → Probar URL publicada) para que vea el HTML nuevo.
 - **Siguiente:**
-  1. PR E · Iconos de jsDelivr alojados en el propio dominio.
-  2. PR F · Cabecera única, CTA fija en móvil, bloque de cierre en cada página y casilla de privacidad en el diálogo de contacto.
-  3. PR G · IndexNow y `llms.txt`.
-  4. PR H · Fichas de proyecto por cliente y una página por servicio.
-  5. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
+  1. PR F · Cabecera única, CTA fija en móvil, bloque de cierre en cada página y casilla de privacidad en el diálogo de contacto.
+  2. PR G · IndexNow y `llms.txt`.
+  3. PR H · Fichas de proyecto por cliente y una página por servicio.
+  4. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
 - **Hecho cuando:** todo lo anterior está publicado y comprobado en producción, el sitemap está enviado en Search Console y Bing, y no queda ningún punto de la fase 6 sin cumplir.
 
 ## 1. Documentos
