@@ -16,15 +16,16 @@ const OpenAIColorIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Devicon logos (MIT), served from our own domain: no third-party CDN.
 const techLogos = [
-  { name: "React", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "React", src: "/logos/react.svg" },
   { name: "OpenAI", icon: OpenAIColorIcon },
-  { name: "Docker", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-  { name: "Python", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Next.js", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-  { name: "FastAPI", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
-  { name: "Node.js", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: "MongoDB", src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "Docker", src: "/logos/docker.svg" },
+  { name: "Python", src: "/logos/python.svg" },
+  { name: "Next.js", src: "/logos/nextjs.svg" },
+  { name: "FastAPI", src: "/logos/fastapi.svg" },
+  { name: "Node.js", src: "/logos/nodejs.svg" },
+  { name: "MongoDB", src: "/logos/mongodb.svg" },
 ];
 
 
