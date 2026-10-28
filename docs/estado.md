@@ -1,6 +1,6 @@
 # Estado del proyecto · léelo al empezar cada sesión
 
-Actualizado: 28-oct-2026 (PR D en borrador, #13). Producción = `main`.
+Actualizado: 28-oct-2026 (tras publicar #13). Producción = `main`.
 Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.md` §5).
 **El repositorio es público:** aquí no van datos personales ni de clientes.
 
@@ -17,28 +17,9 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #10 y #11, publicadas el 27-oct: `CLAUDE.md` y este `estado.md`; `cookyourweb.es` y `www.cookyourweb.es` redirigen con 308 a `https://www.cookyourwebai.es`, conservando la ruta e incluida la raíz (comprobado con curl); el HTML estático ya no lleva canonical ni `og:url`; timeout de los tests a 15 s.
   - Sitemap enviado en Search Console el 27-oct: «Se ha enviado correctamente».
   - PR #12, publicada el 28-oct: JSON-LD. Grafo de la home (`WebSite`, `ProfessionalService`, `Person` sin `jobTitle`, 4 `Service`) y `BreadcrumbList` en las tres páginas legales, con la miga visible generada desde los mismos datos (`breadcrumbTrail` en `src/lib/seo.ts`). Validado: validator.schema.org con 0 errores y 0 avisos, y en la prueba de resultados enriquecidos de Google `/avisolegal` da «1 elemento válido» (28-oct). Los `url` de los `Service` apuntan a anclajes de la home hasta que la PR H los sustituya. Sus nombres siguen los textos visibles de `src/lib/servicios.ts`, que usan «AI».
-- **En curso (rama `seo/prerender`, PR #13 en borrador):** PR D · Prerender con `vite-react-ssg@0.8.9` (la última versión que admite Vite 5). Aprobada por la responsable el 28-oct.
-  - **Hecho cuando:** (1) el build genera un HTML por ruta pública con su `<h1>`, `<title>`, canonical y JSON-LD ya escritos; (2) una URL inexistente responde 404 y no 200; (3) los formularios, el banner de cookies y GTM con consentimiento siguen funcionando, con los tests en verde; (4) la CI comprueba (1) después de cada build, porque el build no se hace en local; (5) comprobado en producción con `curl`, sin JS.
-  - **Plan B:** si `vite-react-ssg` no encaja, un prerender propio después del build. No se migra de framework.
-  - **Hecho en local (28-oct), 184 tests en verde, `tsc` y ESLint limpios; el build NO se ha ejecutado en local:**
-    - Rutas en `src/routes.tsx` bajo un `Layout` común (`src/components/Layout.tsx`); `src/App.tsx` queda solo para los tests; `src/main.tsx` exporta `createRoot` con `ViteReactSSG`.
-    - Código de render a prueba de SSR: el banner de cookies lee `localStorage` tras montar (no se pinta hasta saberlo) y `gtm.ts` tolera no tener `localStorage`; GTM solo se arranca en el navegador.
-    - `react-helmet-async` fijado a 1.3.0 (la que usa `vite-react-ssg`) para que haya una sola copia; `Seo.tsx` usa `Head` de `vite-react-ssg`.
-    - `dirStyle: "nested"` (`/avisolegal` sirve `avisolegal/index.html`; sin `cleanUrls`, que redirigiría el fichero de verificación de Google). `/404` se prerenderiza y `scripts/prerender-404.mjs` lo mueve a `dist/404.html`.
-    - `vercel.json`: fuera el rewrite global (soft 404); el bloque de redirección del dominio antiguo queda igual.
-    - Decidido: se quita de `index.html` el respaldo estático de la cabecera (title, description, Open Graph, Twitter). Con el prerender, los bots de enlaces ya reciben las etiquetas reales de cada ruta, y mantenerlo las duplicaría en todas las páginas (el prerender inserta las suyas al principio del `<head>` sin quitar las del plantilla).
-    - `scripts/verificar-prerender.mjs` (`npm run verify:prerender`, paso nuevo en `.github/workflows/tests.yml` tras el build): comprueba en `dist/` un único `<h1>`, `<title>` y description esperados (leídos como texto de `seo.ts`), canonical solo en las indexables, robots en las noindex, JSON-LD válido en las indexables y que existe `dist/404.html`.
-  - **Tras la revisión (28-oct):** la CI de la PR #13 pasa con el build real (7 páginas generadas y `verify:prerender` en verde). El verificador comprueba además `lang="es"`, h1 con texto, og:title, og:image y twitter:card una vez, og:url igual a la canonical solo en las indexables, y el JSON-LD por tipo (`WebSite` y `ProfessionalService` en la home, `BreadcrumbList` de 2 elementos en las legales, nada en las noindex). Hay un test de hidratación de la 404 servida en una URL cualquiera, y `vercel.json` lleva `"trailingSlash": false`.
-  - **Comprobado en la vista previa de Vercel (28-oct)**, con el navegador de la responsable y `fetch` desde la propia página (la vista previa pide login de Vercel):
-    1. ✅ `/`, `/politicadeprivacidad`, `/cookie-policy` y `/avisolegal` responden 200, y cada una trae en el HTML su `<h1>`, su title, su canonical, `lang="es"` y su JSON-LD.
-    2. ✅ `/baja` y `/agenteActivado?formulario=business` responden 200, con su robots noindex y sin canonical.
-    3. ✅ `/avisolegal/` redirige a `/avisolegal`.
-    4. ✅ `/no-existe` y `/no/existe/aun` responden 404 con la página 404 y noindex.
-    5. ✅ `/robots.txt`, `/sitemap.xml`, `/google7d656d4d04069df9.html`, `/favicon.ico` y `/og-cookyourwebai.png` responden 200.
-    6. ✅ Consola sin avisos de hidratación; tras hidratar hay una sola etiqueta de cada tipo; la navegación entre rutas funciona; GTM no carga sin consentimiento y sí carga tras pulsar «Aceptar».
-    7. ✅ Formulario de auditoría: en la vista previa, n8n rechaza el origen (no está entre los autorizados), así que no se guarda nada y la web muestra «No hemos podido registrar tu solicitud» sin fingir éxito. El envío con éxito se comprueba en producción.
-  - **Pendiente tras publicar en producción:** repetir 1 a 5 con `curl`, enviar un formulario de prueba (fila «PRUEBA» en Notion y aviso por email) y pedir a Search Console que inspeccione `/` y `/avisolegal`.
-  - **Hallazgo aparte (no es de esta PR):** el primer nivel del banner de cookies solo ofrece «Aceptar» y «Ver preferencias», sin «Rechazar». La AEPD exige que rechazar sea igual de fácil que aceptar, y la política de cookies habla de «Rechazar todas». Revisarlo en otra PR.
+  - PR #13, publicada el 28-oct: prerender con `vite-react-ssg@0.8.9`. Cada página pública llega con su HTML completo, una URL inexistente da 404 y `/x/` redirige a `/x`. La CI verifica el HTML generado en cada build (`scripts/verificar-prerender.mjs`). **Comprobado en producción con `curl`, sin JS:** las cuatro públicas dan 200 con `<h1>`, title, canonical y JSON-LD en el HTML; `/baja` y la 404 tienen noindex; `/no-existe` da 404; `/avisolegal/` da 308; los ficheros estáticos y el dominio viejo siguen bien. Formulario de auditoría enviado en producción: lleva a «¡Gracias!» y crea una sola fila «PRUEBA Claude prerender» en Notion (borrarla). Antes, en la vista previa: sin avisos de hidratación y GTM solo tras «Aceptar».
+- **En curso:** arreglo del consentimiento de cookies (rama `seo/siguiente`). El hallazgo anterior era erróneo: el primer nivel sí tiene «Denegar». El fallo real estaba en el modal. «Guardar preferencias» con la casilla desmarcada guardaba `statisticsCookies=true` y cargaba GTM, porque el clic pasaba el evento como argumento. «Rechazar todas» después de marcar la casilla también guardaba `true`, porque leía el estado anterior. Ya hay tests que lo cubren. **Hecho cuando:** está publicado y comprobado en producción con un navegador limpio: al guardar con la casilla desmarcada, ni se pide `gtm.js` ni queda `statisticsCookies=true`.
+- **Pendiente de la responsable:** pedir a Search Console que inspeccione `/` y `/avisolegal` (Inspección de URL → Probar URL publicada) para que vea el HTML nuevo.
 - **Siguiente:**
   1. PR E · Iconos de jsDelivr alojados en el propio dominio.
   2. PR F · Cabecera única, CTA fija en móvil, bloque de cierre en cada página y casilla de privacidad en el diálogo de contacto.

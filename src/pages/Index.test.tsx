@@ -93,4 +93,44 @@ describe("home cookie banner", () => {
     await screen.findByRole("navigation", { name: /principal/i });
     expect(screen.queryByText(/usamos cookies para mejorar/i)).toBeNull();
   });
+
+  it("rejecting from the first layer stores no statistics consent", async () => {
+    const user = userEvent.setup();
+    localStorage.clear();
+    window.history.pushState({}, "", "/");
+    render(<App />);
+
+    await user.click(await screen.findByRole("button", { name: "Denegar" }));
+
+    expect(localStorage.getItem("statisticsCookies")).toBe("false");
+    expect(screen.queryByText(/usamos cookies para mejorar/i)).toBeNull();
+  });
+
+  it("saving preferences with statistics unchecked stores no statistics consent", async () => {
+    const user = userEvent.setup();
+    localStorage.clear();
+    window.history.pushState({}, "", "/");
+    render(<App />);
+
+    await user.click(await screen.findByRole("button", { name: "Ver preferencias" }));
+    const modal = await screen.findByRole("dialog");
+    expect(within(modal).getByRole("checkbox", { name: /estadísticas/i })).not.toBeChecked();
+    await user.click(within(modal).getByRole("button", { name: "Guardar preferencias" }));
+
+    expect(localStorage.getItem("statisticsCookies")).toBe("false");
+  });
+
+  it("rejecting all after ticking statistics stores no statistics consent", async () => {
+    const user = userEvent.setup();
+    localStorage.clear();
+    window.history.pushState({}, "", "/");
+    render(<App />);
+
+    await user.click(await screen.findByRole("button", { name: "Ver preferencias" }));
+    const modal = await screen.findByRole("dialog");
+    await user.click(within(modal).getByRole("checkbox", { name: /estadísticas/i }));
+    await user.click(within(modal).getByRole("button", { name: "Rechazar todas" }));
+
+    expect(localStorage.getItem("statisticsCookies")).toBe("false");
+  });
 });

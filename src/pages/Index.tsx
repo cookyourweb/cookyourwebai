@@ -725,7 +725,7 @@ export default function OptimizedLandingPage() {
 
   const rejectAll = () => {
     setStatisticsCookies(false);
-    savePreferences();
+    savePreferences(false);
   };
 
   return (
@@ -1231,7 +1231,7 @@ export default function OptimizedLandingPage() {
 
             <div className="flex gap-2 mt-6">
               <button
-                onClick={savePreferences}
+                onClick={() => savePreferences()}
                 className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition flex-1"
               >
                 Guardar preferencias
