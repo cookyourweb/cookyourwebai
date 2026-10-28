@@ -6,6 +6,7 @@ const vercel = JSON.parse(readFileSync(resolve(__dirname, "../../vercel.json"), 
   redirects?: unknown[];
   rewrites?: { source: string; destination: string }[];
   cleanUrls?: boolean;
+  trailingSlash?: boolean;
 };
 
 /**
@@ -25,6 +26,12 @@ describe("vercel.json", () => {
 
   it("keeps the old-domain redirect", () => {
     expect(vercel.redirects).toHaveLength(1);
+  });
+
+  // Pages are prerendered as <route>/index.html, so Vercel would also answer
+  // /avisolegal/ with 200: a duplicate URL. trailingSlash:false redirects it.
+  it("redirects trailing-slash URLs to the canonical ones", () => {
+    expect(vercel.trailingSlash).toBe(false);
   });
 
   it("does not turn on cleanUrls, which would redirect the Google verification file", () => {
