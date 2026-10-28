@@ -1,6 +1,6 @@
 # Estado del proyecto · léelo al empezar cada sesión
 
-Actualizado: 28-oct-2026 (tras publicar #17). Producción = `main`.
+Actualizado: 28-oct-2026 (tras publicar #18). Producción = `main`.
 Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.md` §5).
 **El repositorio es público:** aquí no van datos personales ni de clientes.
 
@@ -22,11 +22,12 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #15, publicada el 28-oct (PR E): los 7 logos de tecnologías de la home (Devicon, MIT) se sirven desde `public/logos/`. **Comprobado en producción con un navegador limpio:** cargan los 7 desde `/logos/`, no hay ninguna petición a jsDelivr y la home solo pide recursos a `www.cookyourwebai.es`.
   - PR #16, publicada el 28-oct (PR F, primera parte): casilla de privacidad obligatoria en el diálogo de contacto por WhatsApp (`ContactDialog`) y arreglos de móvil revisados por los agentes Accessibility Auditor y Frontend Developer. **Comprobado en producción** en `/avisolegal` a 360×340 con emulación móvil (con `fetch` y `window.open` simulados, sin enviar nada): el diálogo cabe con 16 px de margen y se desplaza; sin la casilla no se envía nada; con la casilla, WhatsApp se abre en el mismo clic y el lead sale con `keepalive`; autocompletado `name`/`email`/`tel`; sin scroll horizontal.
   - PR #17, publicada el 28-oct: botón «Cerrar» con nombre accesible en el asistente de WhatsApp de la home y test que impide abrir diálogos sin acción del usuario. **Comprobado en producción:** tras 10 s sin interactuar no hay ningún diálogo abierto; el botón de cierre tiene `aria-label="Cerrar"` y, tras cerrarlo, no reaparece.
-- **En curso:** PR F, segunda parte: una sola cabecera (`components/Header.tsx`, montada una vez en `Layout`) en todas las páginas, hecha por el agente UI Designer. El logo enlaza a `/`; fuera de la home los anclajes van a `/#sección`; menú móvil con `aria-expanded` y botones de 44 px. **Hecho cuando:** publicada y comprobada en producción en móvil y escritorio.
+  - PR #18, publicada el 28-oct (PR F, segunda parte): una sola cabecera (`components/Header.tsx`, montada en `Layout`) en todas las páginas, hecha por el agente UI Designer; el botón de WhatsApp abre el formulario de contacto en todas partes y se retira el asistente de la home. **Comprobado en producción** en `/` y `/avisolegal`: a 375×740 hay una sola cabecera, el logo enlaza a `/`, el menú móvil abre (`aria-expanded=true`), lista los anclajes (`/#…` fuera de la home) y se cierra con Escape, y el botón de WhatsApp abre el formulario con casilla de privacidad; a 1280×800 se ve la navegación de escritorio y existen los 7 destinos de los anclajes; sin scroll horizontal.
+- **En curso:** ninguna.
 - **Descartado tras comprobarlo (28-oct):** el aviso de que el `WhatsAppForm` de la home «se abre solo y reaparece» era un falso positivo. El agente UX Architect no lo reprodujo en móvil ni en escritorio (espera de 15 s, scroll, cierre con X, Escape y clic fuera); solo se abre con un clic. Probablemente se confundió con el banner de cookies. Ahora un test impide que la home abra un diálogo sin acción del usuario, y el botón de cierre de ese diálogo tiene nombre accesible («Cerrar»).
 - **Pendiente de la responsable:** pedir a Search Console que inspeccione `/` y `/avisolegal` (Inspección de URL → Probar URL publicada) para que vea el HTML nuevo.
 - **Siguiente:**
-  1. PR F · Cabecera única, CTA fija en móvil, bloque de cierre en cada página y casilla de privacidad en el diálogo de contacto.
+  1. PR F (lo que falta) · CTA fija en móvil y bloque de cierre en cada página.
   2. PR G · IndexNow y `llms.txt`.
   3. PR H · Fichas de proyecto por cliente y una página por servicio.
   4. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
