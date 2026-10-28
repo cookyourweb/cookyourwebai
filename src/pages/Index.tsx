@@ -295,8 +295,8 @@ Vuestro asistente IA me identificó como: ${profile?.text}
       >
         <DialogTitle className="sr-only">Asistente AI cookYourWeb</DialogTitle>
         <DialogClose asChild>
-          <button className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors">
-            <X className="w-6 h-6" />
+          <button aria-label="Cerrar" className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors">
+            <X className="w-6 h-6" aria-hidden="true" />
           </button>
         </DialogClose>
 
