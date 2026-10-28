@@ -8,7 +8,10 @@ import ContactDialog from "./ContactDialog";
 
 vi.mock("@/lib/leadsWebhook", () => ({ sendLead: vi.fn().mockResolvedValue(true) }));
 
-afterEach(() => vi.restoreAllMocks());
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.mocked(sendLead).mockClear();
+});
 
 describe("ContactDialog", () => {
   it("opens the WhatsApp link built from COMPANY on submit, after storing the lead", async () => {
@@ -40,10 +43,14 @@ describe("ContactDialog", () => {
 
     const privacy = screen.getByRole("checkbox", { name: /he leído y acepto/i });
     expect(privacy).not.toBeChecked();
-    expect(screen.getByRole("button", { name: /enviar por whatsapp/i })).toBeDisabled();
+    const submit = screen.getByRole("button", { name: /enviar por whatsapp/i });
+    expect(submit).toHaveAttribute("aria-disabled", "true");
+    expect(submit).toHaveAccessibleDescription(/acepta la política de privacidad/i);
+    await user.click(submit);
+    expect(sendLead).not.toHaveBeenCalled();
 
     await user.click(privacy);
-    expect(screen.getByRole("button", { name: /enviar por whatsapp/i })).toBeEnabled();
+    expect(submit).toHaveAttribute("aria-disabled", "false");
   }, 15_000);
 
   it("links the privacy policy from the consent", () => {
@@ -53,5 +60,30 @@ describe("ContactDialog", () => {
       "href",
       "/politicadeprivacidad"
     );
+  });
+
+  // iOS Safari blocks window.open once the click handler has awaited the network:
+  // WhatsApp must open in the same tick as the click, even if the webhook hangs.
+  it("opens WhatsApp even when the leads webhook never answers", async () => {
+    vi.mocked(sendLead).mockReturnValueOnce(new Promise(() => {}));
+    const user = userEvent.setup({ delay: null });
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+    render(<ContactDialog isOpen onClose={vi.fn()} />);
+
+    await user.type(screen.getByLabelText("Tu nombre"), "Ana");
+    await user.type(screen.getByLabelText("Tu email"), "ana@acme.es");
+    await user.type(screen.getByLabelText("Tu número de teléfono"), "600111222");
+    await user.click(screen.getByRole("checkbox", { name: /he leído y acepto/i }));
+    await user.click(screen.getByRole("button", { name: /enviar por whatsapp/i }));
+
+    expect(open).toHaveBeenCalledTimes(1);
+  }, 15_000);
+
+  it("lets the mobile keyboard autofill name, email and phone", () => {
+    render(<ContactDialog isOpen onClose={vi.fn()} />);
+
+    expect(screen.getByLabelText("Tu nombre")).toHaveAttribute("autocomplete", "name");
+    expect(screen.getByLabelText("Tu email")).toHaveAttribute("autocomplete", "email");
+    expect(screen.getByLabelText("Tu número de teléfono")).toHaveAttribute("autocomplete", "tel");
   });
 });
