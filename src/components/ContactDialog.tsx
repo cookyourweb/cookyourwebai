@@ -17,6 +17,7 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
     email: "",
     phone: ""
   });
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -47,9 +48,11 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
       email: "",
       phone: ""
     });
+    setPrivacyAccepted(false);
   };
 
-  const isFormValid = formData.name.trim() && formData.email.trim() && formData.phone.trim();
+  const isFormValid =
+    formData.name.trim() && formData.email.trim() && formData.phone.trim() && privacyAccepted;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -107,6 +110,29 @@ export default function ContactDialog({ isOpen, onClose }: ContactDialogProps) {
                 className="pl-10 bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-400"
               />
             </div>
+          </div>
+
+          <div className="flex items-start gap-2 text-left">
+            <input
+              id="whatsapp-privacidad"
+              name="privacidad"
+              type="checkbox"
+              checked={privacyAccepted}
+              onChange={(e) => setPrivacyAccepted(e.target.checked)}
+              className="mt-1 h-4 w-4 shrink-0 accent-green-600"
+            />
+            <label htmlFor="whatsapp-privacidad" className="text-sm text-zinc-400">
+              He leído y acepto la{" "}
+              <a
+                href="/politicadeprivacidad"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-green-400 hover:text-green-300"
+              >
+                política de privacidad
+              </a>
+              . Solo usaremos tus datos para responderte por WhatsApp y atender tu consulta.
+            </label>
           </div>
 
           <Button
