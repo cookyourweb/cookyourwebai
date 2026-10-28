@@ -1,6 +1,6 @@
 # Estado del proyecto · léelo al empezar cada sesión
 
-Actualizado: 28-oct-2026 (tras publicar #13). Producción = `main`.
+Actualizado: 28-oct-2026 (tras publicar #14). Producción = `main`.
 Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.md` §5).
 **El repositorio es público:** aquí no van datos personales ni de clientes.
 
@@ -18,7 +18,8 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - Sitemap enviado en Search Console el 27-oct: «Se ha enviado correctamente».
   - PR #12, publicada el 28-oct: JSON-LD. Grafo de la home (`WebSite`, `ProfessionalService`, `Person` sin `jobTitle`, 4 `Service`) y `BreadcrumbList` en las tres páginas legales, con la miga visible generada desde los mismos datos (`breadcrumbTrail` en `src/lib/seo.ts`). Validado: validator.schema.org con 0 errores y 0 avisos, y en la prueba de resultados enriquecidos de Google `/avisolegal` da «1 elemento válido» (28-oct). Los `url` de los `Service` apuntan a anclajes de la home hasta que la PR H los sustituya. Sus nombres siguen los textos visibles de `src/lib/servicios.ts`, que usan «AI».
   - PR #13, publicada el 28-oct: prerender con `vite-react-ssg@0.8.9`. Cada página pública llega con su HTML completo, una URL inexistente da 404 y `/x/` redirige a `/x`. La CI verifica el HTML generado en cada build (`scripts/verificar-prerender.mjs`). **Comprobado en producción con `curl`, sin JS:** las cuatro públicas dan 200 con `<h1>`, title, canonical y JSON-LD en el HTML; `/baja` y la 404 tienen noindex; `/no-existe` da 404; `/avisolegal/` da 308; los ficheros estáticos y el dominio viejo siguen bien. Formulario de auditoría enviado en producción: lleva a «¡Gracias!» y crea una sola fila «PRUEBA Claude prerender» en Notion (borrarla). Antes, en la vista previa: sin avisos de hidratación y GTM solo tras «Aceptar».
-- **En curso:** arreglo del consentimiento de cookies (rama `seo/siguiente`). El hallazgo anterior era erróneo: el primer nivel sí tiene «Denegar». El fallo real estaba en el modal. «Guardar preferencias» con la casilla desmarcada guardaba `statisticsCookies=true` y cargaba GTM, porque el clic pasaba el evento como argumento. «Rechazar todas» después de marcar la casilla también guardaba `true`, porque leía el estado anterior. Ya hay tests que lo cubren. **Hecho cuando:** está publicado y comprobado en producción con un navegador limpio: al guardar con la casilla desmarcada, ni se pide `gtm.js` ni queda `statisticsCookies=true`.
+  - PR #14, publicada el 28-oct: consentimiento de cookies. «Guardar preferencias» con la casilla desmarcada guardaba `statisticsCookies=true` y cargaba GTM (el clic pasaba el evento como argumento), y «Rechazar todas» tras marcar la casilla también guardaba `true` (leía el estado anterior). El primer nivel ya tenía «Denegar»: el hallazgo anterior era erróneo. **Comprobado en producción con un navegador limpio:** al guardar con la casilla desmarcada queda `statisticsCookies=false` y no se pide `gtm.js`.
+- **En curso:** ninguna.
 - **Pendiente de la responsable:** pedir a Search Console que inspeccione `/` y `/avisolegal` (Inspección de URL → Probar URL publicada) para que vea el HTML nuevo.
 - **Siguiente:**
   1. PR E · Iconos de jsDelivr alojados en el propio dominio.
