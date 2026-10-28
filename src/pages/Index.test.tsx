@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it } from "vitest";
+import { act } from "react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import App from "@/App";
 
@@ -132,5 +133,40 @@ describe("home cookie banner", () => {
     await user.click(within(modal).getByRole("button", { name: "Rechazar todas" }));
 
     expect(localStorage.getItem("statisticsCookies")).toBe("false");
+  });
+});
+
+/**
+ * Nothing on the home may open a modal without a user action: on mobile an
+ * auto-opening dialog traps focus and Google treats it as an intrusive
+ * interstitial. The WhatsApp assistant opens only from its button.
+ */
+describe("home WhatsApp assistant", () => {
+  afterEach(() => vi.useRealTimers());
+
+  it("never opens a dialog on its own", async () => {
+    vi.useFakeTimers();
+    localStorage.setItem("cookieConsent", "true");
+    window.history.pushState({}, "", "/");
+    render(<App />);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(60_000);
+    });
+
+    expect(screen.queryByRole("dialog")).toBeNull();
+    localStorage.clear();
+  });
+
+  it("has a close button with an accessible name", async () => {
+    const user = userEvent.setup();
+    window.history.pushState({}, "", "/");
+    render(<App />);
+
+    const nav = screen.getByRole("navigation", { name: /principal/i }).closest("header") ?? document.body;
+    await user.click(within(nav as HTMLElement).getAllByTitle("Contactar por WhatsApp")[0]);
+
+    const dialog = await screen.findByRole("dialog");
+    expect(within(dialog).getByRole("button", { name: "Cerrar" })).toBeInTheDocument();
   });
 });
