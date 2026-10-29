@@ -25,14 +25,12 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #18, publicada el 28-oct (PR F, segunda parte): una sola cabecera (`components/Header.tsx`, montada en `Layout`) en todas las páginas, hecha por el agente UI Designer; el botón de WhatsApp abre el formulario de contacto en todas partes y se retira el asistente de la home. **Comprobado en producción** en `/` y `/avisolegal`: a 375×740 hay una sola cabecera, el logo enlaza a `/`, el menú móvil abre (`aria-expanded=true`), lista los anclajes (`/#…` fuera de la home) y se cierra con Escape, y el botón de WhatsApp abre el formulario con casilla de privacidad; a 1280×800 se ve la navegación de escritorio y existen los 7 destinos de los anclajes; sin scroll horizontal.
   - PR #19, publicada el 28-oct (PR F, última parte): botón fijo «Auditoría AI gratuita» en móvil y bloque de cierre antes del pie, hechos por el agente UI Designer. **Comprobado en producción:** en `/avisolegal` a 375×740 el botón aparece, abre el formulario de auditoría con casilla de privacidad, se oculta con el formulario abierto y mientras el bloque de cierre está a la vista; en `/` se oculta con el banner de cookies y aparece tras responder; a 1280×800 no se muestra; `/baja` y `/agenteActivado` no tienen bloque de cierre; sin scroll horizontal. **Con esto la PR F queda terminada.**
   - PR #20, publicada el 29-oct (PR G, fase 5): clave IndexNow en `public/`, `npm run indexnow` para lanzarlo a mano después de publicar y `public/llms.txt`, generado desde los mismos datos que el sitemap. Su texto (con «IA» en los nombres de los servicios) fue aprobado el 29-oct. **Comprobado en producción con `curl`:** `/llms.txt` y el fichero de la clave responden 200 en `text/plain` y con el contenido correcto.
-- **En curso:** ninguna.
-- IndexNow lanzado el 29-oct: respondió 202 para las 4 URL.
+  - IndexNow lanzado el 29-oct: respondió 202 para las 4 URL.
+- **En curso:** PR H · una página por cada uno de los 4 servicios, cada una con su `Service`, enlazada desde la home y el pie e incluida en el sitemap y en `llms.txt`. **Hecho cuando:** las 4 páginas están publicadas y comprobadas en producción con `curl` (200, `<h1>`, title, canonical y JSON-LD sin JS), y los `url` de los `Service` de la home apuntan a ellas.
 - **Descartado tras comprobarlo (28-oct):** el aviso de que el `WhatsAppForm` de la home «se abre solo y reaparece» era un falso positivo. El agente UX Architect no lo reprodujo en móvil ni en escritorio (espera de 15 s, scroll, cierre con X, Escape y clic fuera); solo se abre con un clic. Probablemente se confundió con el banner de cookies. Ahora un test impide que la home abra un diálogo sin acción del usuario, y el botón de cierre de ese diálogo tiene nombre accesible («Cerrar»).
 - **Pendiente de la responsable:** pedir a Search Console que inspeccione `/` y `/avisolegal` (Inspección de URL → Probar URL publicada) para que vea el HTML nuevo.
 - **Siguiente:**
-  1. PR G · IndexNow y `llms.txt`.
-  2. PR H · Fichas de proyecto por cliente y una página por servicio.
-  2. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
+  1. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
 - **Hecho cuando:** todo lo anterior está publicado y comprobado en producción, el sitemap está enviado en Search Console y Bing, y no queda ningún punto de la fase 6 sin cumplir.
 
 ## 1. Documentos
@@ -65,6 +63,8 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
 - Mientras no exista el agente de texto, el botón de WhatsApp de la cabecera abre en todas las páginas el formulario de contacto (`ContactDialog`: guarda el lead en Notion vía n8n, con casilla de privacidad, y abre WhatsApp). Se retira el asistente de la home (`WhatsAppForm`) y sus cifras de ROI no confirmadas (decidido el 28-oct).
 
 - Captación (fase 6): botón fijo «Auditoría AI gratuita» en móvil y bloque de cierre («Auditoría AI gratuita» / «Cuéntanos tu caso con un breve formulario y te contactamos.» / «Solicitar auditoría»), textos aprobados el 28-oct. Ambos abren el formulario de auditoría existente. `/baja` y `/agenteActivado` no llevan captación: «baja es baja».
+
+- PR H solo con las 4 páginas de servicio. Sin fichas de proyecto de cliente hasta tener un proyecto de IA o automatización publicable: la web posiciona una agencia tecnológica y los trabajos de otro sector (webs o formación) la diluyen (decidido el 29-oct).
 
 ### Descartado
 - Migrar a Next.js o a Astro para el SEO: es excesivo para 7 rutas.
