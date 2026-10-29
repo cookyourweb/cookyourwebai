@@ -23,9 +23,9 @@ const walk = (dir: string): string[] =>
  *   sitemap script reads that file as text).
  * - index.html: static fallback for bots that do not run JS (a test keeps it
  *   equal to seo.ts).
- * - public/robots.txt, public/sitemap.xml: generated from the source above.
+ * - public/robots.txt, public/sitemap.xml, public/llms.txt: generated from the source above.
  */
-const ALLOWED = ["src/lib/rutas-publicas.ts", "index.html", "public/robots.txt", "public/sitemap.xml"];
+const ALLOWED = ["src/lib/rutas-publicas.ts", "index.html", "public/robots.txt", "public/sitemap.xml", "public/llms.txt"];
 
 const isTest = (file: string) => /\.test\.(ts|tsx)$/.test(file) || file.endsWith("/test/setup.ts");
 

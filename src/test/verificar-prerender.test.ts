@@ -7,7 +7,7 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import { DOMINIO_POR_DEFECTO } from "@/lib/rutas-publicas";
 import { OG_IMAGE, PAGES } from "@/lib/seo";
-import { archivoDeRuta, comprobarDist, comprobarHtml, leerPaginasEsperadas } from "../../scripts/verificar-prerender.mjs";
+import { archivoDeRuta, comprobarDist, comprobarEstaticos, comprobarHtml, leerPaginasEsperadas } from "../../scripts/verificar-prerender.mjs";
 
 const root = resolve(__dirname, "../..");
 const seoSource = readFileSync(join(root, "src/lib/seo.ts"), "utf8");
@@ -252,5 +252,43 @@ describe("comprobarDist", () => {
 
     expect(errors).toContain("404.html");
     expect(errors).toContain("avisolegal/index.html");
+  });
+});
+
+describe("comprobarEstaticos", () => {
+  const KEY = "0123456789abcdef0123456789abcdef";
+  let base: string;
+  afterEach(() => rmSync(base, { recursive: true, force: true }));
+
+  const fixture = () => {
+    base = mkdtempSync(join(tmpdir(), "static-"));
+    for (const dir of ["public", "dist"]) {
+      mkdirSync(join(base, dir));
+      writeFileSync(join(base, dir, "llms.txt"), "# CookYourWebAI\n");
+      writeFileSync(join(base, dir, `${KEY}.txt`), KEY);
+    }
+    return { dist: join(base, "dist"), publicDir: join(base, "public") };
+  };
+
+  it("passes when dist carries llms.txt and the IndexNow key file untouched", () => {
+    const { dist, publicDir } = fixture();
+    expect(comprobarEstaticos(dist, publicDir)).toEqual([]);
+  });
+
+  it("reports a missing llms.txt, a missing key file and a changed one", () => {
+    const { dist, publicDir } = fixture();
+    rmSync(join(dist, "llms.txt"));
+    writeFileSync(join(dist, `${KEY}.txt`), "<html>spa fallback</html>");
+
+    const errors = comprobarEstaticos(dist, publicDir).join("\n");
+
+    expect(errors).toContain("llms.txt: file does not exist");
+    expect(errors).toContain(`${KEY}.txt: differs from public/`);
+  });
+
+  it("reports a public/ without exactly one key file", () => {
+    const { dist, publicDir } = fixture();
+    rmSync(join(publicDir, `${KEY}.txt`));
+    expect(comprobarEstaticos(dist, publicDir).join("\n")).toContain("exactly one IndexNow key file");
   });
 });

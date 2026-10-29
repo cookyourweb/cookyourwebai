@@ -1,5 +1,6 @@
 /**
- * Generates public/sitemap.xml and public/robots.txt from src/lib/rutas-publicas.ts.
+ * Generates public/sitemap.xml, public/robots.txt and public/llms.txt from
+ * src/lib/rutas-publicas.ts (llms.txt also reads seo.ts, servicios.ts and company.ts).
  *
  * Run by hand with `npm run sitemap` and automatically before `vite build`,
  * so a site cannot ship with a stale map. The routes file is read as text:
@@ -8,6 +9,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { generarLlmsTxt } from "./llms-txt.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const source = readFileSync(join(root, "src/lib/rutas-publicas.ts"), "utf8");
@@ -35,4 +38,13 @@ Sitemap: ${domain}/sitemap.xml
 
 writeFileSync(join(root, "public/sitemap.xml"), sitemap);
 writeFileSync(join(root, "public/robots.txt"), robots);
-console.log(`sitemap.xml and robots.txt generated: ${routes.length} routes on ${domain}`);
+
+const llms = generarLlmsTxt({
+  seoSource: readFileSync(join(root, "src/lib/seo.ts"), "utf8"),
+  rutasSource: source,
+  serviciosSource: readFileSync(join(root, "src/lib/servicios.ts"), "utf8"),
+  companySource: readFileSync(join(root, "src/lib/company.ts"), "utf8"),
+  rutas: routes,
+});
+writeFileSync(join(root, "public/llms.txt"), llms);
+console.log(`sitemap.xml, robots.txt and llms.txt generated: ${routes.length} routes on ${domain}`);

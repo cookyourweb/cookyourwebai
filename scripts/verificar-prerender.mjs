@@ -10,7 +10,7 @@
  * The pure checks (comprobarHtml, leerPaginasEsperadas) are unit-tested in
  * src/test/verificar-prerender.test.ts.
  */
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -171,6 +171,24 @@ export function comprobarDist(dist, seoSource, rutasSource) {
   return errores;
 }
 
+/**
+ * llms.txt and the IndexNow key file must reach dist/ byte for byte (Vercel
+ * serves them as text/plain from there; no rewrite may swallow them).
+ */
+export function comprobarEstaticos(dist, publicDir) {
+  const errores = [];
+  const claves = readdirSync(publicDir).filter((f) => /^[a-f0-9]{32}\.txt$/.test(f));
+  if (claves.length !== 1) errores.push(`expected exactly one IndexNow key file in public/, found ${claves.length}`);
+  for (const archivo of ["llms.txt", ...claves]) {
+    const ruta = join(dist, archivo);
+    if (!existsSync(ruta)) errores.push(`${archivo}: file does not exist`);
+    else if (readFileSync(ruta, "utf8") !== readFileSync(join(publicDir, archivo), "utf8")) {
+      errores.push(`${archivo}: differs from public/`);
+    }
+  }
+  return errores;
+}
+
 const esMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (esMain) {
   const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -179,14 +197,17 @@ if (esMain) {
     console.error("verificar-prerender: dist/ does not exist. Run `npm run build` first.");
     process.exit(1);
   }
-  const errores = comprobarDist(
-    dist,
-    readFileSync(join(root, "src/lib/seo.ts"), "utf8"),
-    readFileSync(join(root, "src/lib/rutas-publicas.ts"), "utf8"),
-  );
+  const errores = [
+    ...comprobarDist(
+      dist,
+      readFileSync(join(root, "src/lib/seo.ts"), "utf8"),
+      readFileSync(join(root, "src/lib/rutas-publicas.ts"), "utf8"),
+    ),
+    ...comprobarEstaticos(dist, join(root, "public")),
+  ];
   if (errores.length > 0) {
     console.error(`verificar-prerender: ${errores.length} problem(s)\n${errores.map((e) => `  - ${e}`).join("\n")}`);
     process.exit(1);
   }
-  console.log("verificar-prerender: every route is prerendered with its h1, title, description, canonical and JSON-LD");
+  console.log("verificar-prerender: every route is prerendered with its h1, title, description, canonical and JSON-LD, and llms.txt and the IndexNow key are in dist/");
 }
