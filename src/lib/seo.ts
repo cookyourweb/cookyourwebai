@@ -110,8 +110,9 @@ const AREA_SERVED = { "@type": "Country", name: "España" } as const;
  * as one linked graph (fixed @ids, references instead of copies).
  *
  * Left out on purpose (owner decisions, docs/estado.md section 3): address,
- * aggregateRating, review, priceRange, FAQPage (no visible FAQ) and sameAs (no
- * real profiles yet: add the key only when there are some).
+ * aggregateRating, review, priceRange, FAQPage (no visible FAQ), and sameAs on
+ * the business until it has its own profiles with content. The founder links
+ * her LinkedIn, which the footer also shows.
  */
 export function homeJsonLd() {
   return {
@@ -143,6 +144,7 @@ export function homeJsonLd() {
         "@id": ID.veronica,
         name: COMPANY.legalName,
         worksFor: { "@id": ID.negocio },
+        sameAs: [COMPANY.linkedinFounder],
       },
       ...mainServices.map(serviceNode),
     ],

@@ -17,6 +17,8 @@ export const COMPANY = {
   /** How the phone is shown on screen. */
   phoneDisplay: "+34 688 75 77 82",
   whatsapp: WHATSAPP,
+  /** The founder's LinkedIn: footer link and Person.sameAs. */
+  linkedinFounder: "https://www.linkedin.com/in/veronica4web/",
   /** Click-to-chat link with a prefilled message, built from the single number above. */
   whatsappUrl: (text: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`,
 } as const;

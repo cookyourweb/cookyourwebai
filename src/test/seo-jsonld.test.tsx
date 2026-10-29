@@ -57,9 +57,16 @@ describe("home JSON-LD graph", () => {
 
   it("never emits what the owner ruled out", () => {
     const json = JSON.stringify(homeJsonLd());
-    for (const banned of ["address", "aggregateRating", "review", "priceRange", "sameAs", "FAQPage"]) {
+    for (const banned of ["address", "aggregateRating", "review", "priceRange", "FAQPage"]) {
       expect(json, banned).not.toContain(banned);
     }
+  });
+
+  it("links the founder to her real LinkedIn profile, and only her", () => {
+    expect(byType("Person")[0].sameAs).toEqual([COMPANY.linkedinFounder]);
+    expect(COMPANY.linkedinFounder).toBe("https://www.linkedin.com/in/veronica4web/");
+    // The business gets sameAs only once it has its own profiles with content.
+    expect(byType("ProfessionalService")[0]).not.toHaveProperty("sameAs");
   });
 
   it("has exactly one Service per main service, named as the home names it", () => {
