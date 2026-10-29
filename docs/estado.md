@@ -30,9 +30,10 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
 - **En curso:** ninguna.
   - IndexNow lanzado el 29-oct tras la PR #21: respondió 200 para las 8 URL.
   - Search Console, 29-oct: la prueba de URL publicada da «disponible» y se solicitó la indexación de `/`, `/avisolegal` y las 4 páginas de servicio.
+  - Bing Webmaster Tools, 29-oct: web dada de alta importándola desde Search Console.
   - PR #22, publicada el 29-oct (PR I): LinkedIn de la responsable en el pie y en el `sameAs` de su `Person`. **Comprobado en producción con `curl`:** la home lleva `"sameAs":["https://www.linkedin.com/in/veronica4web/"]`, el pie de `/avisolegal` lo enlaza con `target="_blank"` y `rel="noopener noreferrer"`, y no hay enlaces a Instagram.
 - **Descartado tras comprobarlo (28-oct):** el aviso de que el `WhatsAppForm` de la home «se abre solo y reaparece» era un falso positivo. El agente UX Architect no lo reprodujo en móvil ni en escritorio (espera de 15 s, scroll, cierre con X, Escape y clic fuera); solo se abre con un clic. Probablemente se confundió con el banner de cookies. Ahora un test impide que la home abra un diálogo sin acción del usuario, y el botón de cierre de ese diálogo tiene nombre accesible («Cerrar»).
-- **Pendiente de la responsable:** dar de alta la web en Bing Webmaster Tools («Importar desde Search Console»); crear la página de empresa en LinkedIn; publicar en Instagram; confirmar que el número de WhatsApp es de WhatsApp Business, con los mismos nombre, web y email.
+- **Pendiente de la responsable:** crear la página de empresa en LinkedIn; publicar en Instagram; confirmar que el número de WhatsApp es de WhatsApp Business, con los mismos nombre, web y email.
 - **Siguiente:** con las PR A-I publicadas, queda pendiente:
   - el `sameAs` de la empresa, cuando existan la página de LinkedIn y un Instagram con contenido;
   - el agente de texto con IA (§3), que hay que diseñar antes;
