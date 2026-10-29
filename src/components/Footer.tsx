@@ -24,6 +24,13 @@ export default function Footer() {
           <h4 className="text-lg font-semibold mb-2 text-white">Contacto</h4>
           <p className="text-sm text-zinc-300">Teléfono: <a href={`tel:${COMPANY.phone}`} className="text-purple-400 hover:underline">{COMPANY.phoneDisplay}</a></p>
           <p className="text-sm text-zinc-300">Email: <a href={`mailto:${COMPANY.email}`} className="text-purple-400 hover:underline">{COMPANY.email}</a></p>
+          <p className="text-sm text-zinc-300">
+            LinkedIn:{" "}
+            <a href={COMPANY.linkedinFounder} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
+              {COMPANY.legalName}
+              <span className="sr-only"> en LinkedIn (se abre en una pestaña nueva)</span>
+            </a>
+          </p>
         </div>
         <nav aria-label="Servicios" className="text-center md:text-left">
           <h4 className="text-lg font-semibold mb-2 text-white">Servicios</h4>
