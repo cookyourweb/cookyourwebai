@@ -62,7 +62,7 @@ describe("llms.txt content", () => {
     expect(mainServices).toHaveLength(4);
     const ia = (s: string) => s.replace(/\bAI\b/g, "IA");
     for (const service of mainServices) {
-      expect(llms).toContain(`- ${ia(service.title)}: ${ia(service.description)}`);
+      expect(llms).toContain(`- [${ia(service.title)}](${DOMINIO_POR_DEFECTO}${service.path}): ${ia(service.description)}`);
     }
   });
 

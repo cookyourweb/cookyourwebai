@@ -8,10 +8,10 @@
 
 ## Servicios
 
-- Automatización Empresarial IA: Transforma tu empresa con IA que opera 24/7 optimizando procesos críticos
-- Funnels IA Avanzados: Sistema de ventas inteligente que se optimiza automáticamente para maximizar conversiones
-- IA Influencer & Avatares: Crea tu gemelo digital inteligente que genera contenido y construye tu marca personal automáticamente
-- Consultoría Transformación IA: Auditoría completa para identificar oportunidades, implementar soluciones y medir ROI real
+- [Automatización Empresarial IA](https://www.cookyourwebai.es/servicios/automatizacion-ia-empresas): Transforma tu empresa con IA que opera 24/7 optimizando procesos críticos
+- [Funnels IA Avanzados](https://www.cookyourwebai.es/servicios/funnels-ventas-ia): Sistema de ventas inteligente que se optimiza automáticamente para maximizar conversiones
+- [IA Influencer & Avatares](https://www.cookyourwebai.es/servicios/avatares-ia): Crea tu gemelo digital inteligente que genera contenido y construye tu marca personal automáticamente
+- [Consultoría Transformación IA](https://www.cookyourwebai.es/servicios/consultoria-ia): Auditoría completa para identificar oportunidades, implementar soluciones y medir ROI real
 
 ## Información legal
 

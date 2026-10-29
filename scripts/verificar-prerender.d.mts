@@ -5,7 +5,7 @@ export interface PaginaEsperada {
   robots: string | undefined;
   canonical: string | undefined;
   ogImage: string;
-  jsonLd: "home" | "breadcrumb" | undefined;
+  jsonLd: "home" | "breadcrumb" | "service" | undefined;
 }
 export function archivoDeRuta(ruta: string): string;
 export function leerPaginasEsperadas(seoSource: string, rutasSource: string): PaginaEsperada[];

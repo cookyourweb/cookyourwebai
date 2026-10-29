@@ -22,6 +22,10 @@ export const RUTAS_PUBLICAS: readonly string[] = [
   "/politicadeprivacidad",
   "/cookie-policy",
   "/avisolegal",
+  "/servicios/automatizacion-ia-empresas",
+  "/servicios/funnels-ventas-ia",
+  "/servicios/avatares-ia",
+  "/servicios/consultoria-ia",
 ];
 
 /** Absolute canonical URL. Routes carry no trailing slash; the home is "/". */

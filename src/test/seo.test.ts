@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import { DOMINIO_POR_DEFECTO, RUTAS_PUBLICAS } from "@/lib/rutas-publicas";
-import { PAGES, SITE, canonical } from "@/lib/seo";
+import { PAGES, SERVICE_PAGES, SITE, canonical } from "@/lib/seo";
+import { mainServices } from "@/lib/servicios";
 
 const pages = Object.values(PAGES);
 
@@ -40,6 +41,12 @@ describe("SEO meta table", () => {
     for (const page of pages) {
       expect(`${page.title} ${page.description ?? ""}`).not.toMatch(/madrid|\bAI\b/i);
     }
+  });
+});
+
+describe("service pages", () => {
+  it("has one SEO entry per service, in the same order and at the path of servicios.ts", () => {
+    expect(SERVICE_PAGES.map((key) => PAGES[key].path)).toEqual(mainServices.map((s) => s.path));
   });
 });
 

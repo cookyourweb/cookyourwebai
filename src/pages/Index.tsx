@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Check, X } from "lucide-react";
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import GuaranteeNote from '@/components/GuaranteeNote';
 import AuditDialog from '@/components/AuditDialog';
 import { useAudit } from '@/components/audit-context';
 import DeveloperContactForm from '../components/DeveloperContactForm';
@@ -207,11 +209,13 @@ const developerTracks = [
 // Service Card Component
 type MainService = {
   id: string;
+  path: string;
   title: string;
   price: string;
   description: string;
   gradient: string;
   features: string[];
+  guarantee: boolean;
 };
 
 const ServiceCard = ({ service, onContactClick }: { service: MainService; onContactClick: () => void }) => (
@@ -219,7 +223,9 @@ const ServiceCard = ({ service, onContactClick }: { service: MainService; onCont
     <div className="bg-black/80 rounded-3xl p-6 md:p-8 h-full flex flex-col">
       <div className="mb-6">
         <h3 className="text-xl md:text-2xl font-bold text-white mb-3" id={service.id}>
-          {service.title}
+          <Link to={service.path} className="inline-block min-h-11 py-2 hover:underline">
+            {service.title}
+          </Link>
         </h3>
         <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
           {service.description}
@@ -236,9 +242,10 @@ const ServiceCard = ({ service, onContactClick }: { service: MainService; onCont
             </li>
           ))}
         </ul>
+        {service.guarantee && <GuaranteeNote className="mb-8" />}
       </div>
-      
-      <button 
+
+      <button
         onClick={onContactClick}
         className="w-full py-3 md:py-4 px-6 rounded-xl text-sm md:text-base font-bold text-white bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:scale-105 transition-all shadow-lg"
       >
@@ -418,7 +425,7 @@ export default function OptimizedLandingPage() {
             </p>
             <div className="bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-full px-6 py-3 inline-block">
               <span className="text-base md:text-lg text-emerald-400 font-bold">
-                💡 85% de nuestros clientes recupera la inversión en las primeras 4 semanas
+                🛡️ Garantía de 6 meses en todos nuestros servicios de pago
               </span>
             </div>
           </div>
@@ -675,7 +682,7 @@ export default function OptimizedLandingPage() {
             <p className="text-white/90 mb-6 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
               <strong>Automatiza procesos, incrementa ventas y reduce costos</strong> con soluciones de AI diseñadas específicamente para tu empresa. 
               <br className="hidden sm:block" />
-              85% de nuestros clientes recupera la inversión en las primeras 4 semanas.
+              Garantía de 6 meses en todos nuestros servicios de pago.
             </p>
             <button 
               onClick={() => setShowContactForm(true)}

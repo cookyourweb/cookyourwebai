@@ -9,8 +9,7 @@
  * src/lib/company.ts. Sources are read as text (no TypeScript compiler needed).
  *
  * Rules (docs/estado.md section 3): "IA", not "AI"; no city or address. Only
- * sitemap URLs are linked: the services have no page of their own yet (they
- * are anchors of the home), so they are listed without a link. Prices are left
+ * sitemap URLs are linked: each service links to its own page. Prices are left
  * out on purpose. Tested in src/test/llms-txt.test.ts.
  */
 import { leerPaginasEsperadas } from "./verificar-prerender.mjs";
@@ -19,9 +18,9 @@ import { leerPaginasEsperadas } from "./verificar-prerender.mjs";
 const ia = (texto) => texto.replace(/\bAI\b/g, "IA");
 
 function leerServicios(source) {
-  const servicios = [...source.matchAll(/title:\s*"([^"]+)",\s*price:\s*"[^"]*",\s*description:\s*"([^"]+)"/g)].map(
-    ([, titulo, descripcion]) => ({ titulo, descripcion }),
-  );
+  const servicios = [
+    ...source.matchAll(/path:\s*"([^"]+)",\s*title:\s*"([^"]+)",\s*price:\s*"[^"]*",\s*description:\s*"([^"]+)"/g),
+  ].map(([, ruta, titulo, descripcion]) => ({ ruta, titulo, descripcion }));
   if (servicios.length === 0) throw new Error("No servicios read from servicios.ts");
   return servicios;
 }
@@ -56,11 +55,16 @@ export function generarLlmsTxt({ seoSource, rutasSource, serviciosSource, compan
   };
   const esLegal = (ruta) => paginas.find((p) => p.ruta === ruta)?.jsonLd === "breadcrumb";
 
+  const esServicio = (ruta) => servicios.some((s) => s.ruta === ruta);
+
   const secciones = [
     ["Web", rutas.filter((r) => r === "/").map(enlace)],
-    ["Servicios", servicios.map((s) => `- ${ia(s.titulo)}: ${ia(s.descripcion)}`)],
+    ["Servicios", servicios.map((s) => {
+        const nombre = rutas.includes(s.ruta) ? `[${ia(s.titulo)}](${dominio}${s.ruta})` : ia(s.titulo);
+        return `- ${nombre}: ${ia(s.descripcion)}`;
+      })],
     ["Información legal", rutas.filter((r) => r !== "/" && esLegal(r)).map(enlace)],
-    ["Otras páginas", rutas.filter((r) => r !== "/" && !esLegal(r)).map(enlace)],
+    ["Otras páginas", rutas.filter((r) => r !== "/" && !esLegal(r) && !esServicio(r)).map(enlace)],
     ["Contacto", [`- Correo: ${empresa.email}`, `- Teléfono y WhatsApp: ${empresa.telefono}`]],
   ].filter(([, lineas]) => lineas.length > 0);
 
