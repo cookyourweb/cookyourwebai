@@ -28,7 +28,7 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - IndexNow lanzado el 29-oct: respondió 202 para las 4 URL.
   - PR #21, publicada el 29-oct (PR H): una página por servicio en `/servicios/…`, hecha por el agente Frontend Developer; la garantía de 6 meses con sus condiciones; sin «ROI garantizado» ni «85%»; y en el pie, Empleo Tech y el botón «¿Eres empresa y buscas desarrolladores?». **Comprobado en producción con `curl`, sin JS:** las 4 páginas dan 200 con su `<h1>`, title, description, su propia canonical, JSON-LD `Service` y `BreadcrumbList`, y la garantía en las 3 de pago; `/servicios/no-existe` da 404; la home ya no tiene «85%» ni «ROI garantizado»; el sitemap tiene 8 URL; `llms.txt` enlaza las 4 páginas; el pie de `/avisolegal` enlaza los 4 servicios y muestra el botón para empresas.
 - **En curso:** ninguna.
-- **Pendiente de la responsable:** `npm run indexnow` para las páginas nuevas.
+  - IndexNow lanzado el 29-oct tras la PR #21: respondió 200 para las 8 URL.
 - **Descartado tras comprobarlo (28-oct):** el aviso de que el `WhatsAppForm` de la home «se abre solo y reaparece» era un falso positivo. El agente UX Architect no lo reprodujo en móvil ni en escritorio (espera de 15 s, scroll, cierre con X, Escape y clic fuera); solo se abre con un clic. Probablemente se confundió con el banner de cookies. Ahora un test impide que la home abra un diálogo sin acción del usuario, y el botón de cierre de ese diálogo tiene nombre accesible («Cerrar»).
 - **Pendiente de la responsable:** pedir a Search Console que inspeccione `/` y `/avisolegal` (Inspección de URL → Probar URL publicada) para que vea el HTML nuevo.
 - **Siguiente:**
