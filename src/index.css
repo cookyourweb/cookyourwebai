@@ -226,6 +226,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px; /* Compensar el header fijo */
+    scroll-padding-bottom: 5rem; /* Barra fija de auditoria en movil */
   }
 
   body {

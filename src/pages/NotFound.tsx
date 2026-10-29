@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import ClosingCta from "@/components/ClosingCta";
 import Seo from "@/components/Seo";
 
 const NotFound = () => {
@@ -26,6 +27,7 @@ const NotFound = () => {
           </a>
         </div>
       </main>
+      <ClosingCta />
     </div>
   );
 };

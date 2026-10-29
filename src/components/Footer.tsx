@@ -1,8 +1,16 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
+import ClosingCta from "@/components/ClosingCta";
 import { COMPANY } from "@/lib/company";
+import { RUTAS_PUBLICAS } from "@/lib/rutas-publicas";
 
 export default function Footer() {
+  const { pathname } = useLocation();
+  // The home ends with its own audit call to action; /baja and /agenteActivado get none.
+  const showClosingCta = pathname !== "/" && RUTAS_PUBLICAS.includes(pathname);
   return (
+    <>
+    {showClosingCta && <ClosingCta />}
     <footer className="mt-24 pt-12 pb-8 border-t border-zinc-800">
       <div className="container mx-auto max-w-4xl flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left">
         <div>
@@ -45,5 +53,6 @@ export default function Footer() {
       </div>
       <p className="mt-4 text-center text-zinc-500 text-sm">Hecho con <span className="text-purple-400">❤</span> y mucha AI</p>
     </footer>
+    </>
   );
 }
