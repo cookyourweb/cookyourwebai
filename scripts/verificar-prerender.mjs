@@ -35,6 +35,10 @@ export function leerPaginasEsperadas(seoSource, rutasSource) {
   const clavesMiga = [...(migas ?? "").matchAll(/"([^"]+)"/g)].map((m) => m[1]);
   if (clavesMiga.length === 0) throw new Error("BREADCRUMB_PAGES not found in seo.ts");
 
+  const servicios = seoSource.match(/SERVICE_PAGES = \[([^\]]*)\]/)?.[1];
+  const clavesServicio = [...(servicios ?? "").matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+  if (clavesServicio.length === 0) throw new Error("SERVICE_PAGES not found in seo.ts");
+
   const entrada =
     /(\w+):\s*\{\s*path:\s*"([^"]+)",\s*title:\s*"([^"]+)"(?:,\s*description:\s*"([^"]+)")?(?:,\s*robots:\s*"([^"]+)")?,?\s*\}/g;
   const paginas = [...bloque.matchAll(entrada)].map(([, clave, ruta, titulo, descripcion, robots]) => ({
@@ -44,7 +48,15 @@ export function leerPaginasEsperadas(seoSource, rutasSource) {
     robots,
     canonical: robots ? undefined : `${dominio}${ruta}`,
     ogImage: `${dominio}${og}`,
-    jsonLd: robots ? undefined : ruta === "/" ? "home" : clavesMiga.includes(clave) ? "breadcrumb" : undefined,
+    jsonLd: robots
+      ? undefined
+      : ruta === "/"
+        ? "home"
+        : clavesServicio.includes(clave)
+          ? "service"
+          : clavesMiga.includes(clave)
+            ? "breadcrumb"
+            : undefined,
   }));
   if (paginas.length === 0) throw new Error("No pages read from seo.ts");
   return paginas;
@@ -145,6 +157,20 @@ export function comprobarHtml(html, pagina) {
       for (const tipo of ["WebSite", "ProfessionalService"]) {
         if (!nodos.some((n) => tipos(n).includes(tipo))) errores.push(`expected a ${tipo} in the JSON-LD @graph`);
       }
+    } else if (pagina.jsonLd === "service") {
+      const nodos = datos.flatMap((d) => (Array.isArray(d?.["@graph"]) ? d["@graph"] : []));
+      const servicio = nodos.find((n) => tipos(n).includes("Service"));
+      if (!servicio) errores.push("expected a Service in the JSON-LD @graph");
+      else {
+        if (!servicio.provider?.["@id"]) errores.push("the Service in the JSON-LD has no provider @id");
+        if (servicio.url !== pagina.canonical) {
+          errores.push(`expected the Service url "${pagina.canonical}", found ${JSON.stringify(servicio.url)}`);
+        }
+      }
+      const lista = nodos.find((n) => tipos(n).includes("BreadcrumbList"));
+      const items = (lista?.itemListElement ?? []).filter((i) => tipos(i).includes("ListItem"));
+      if (!lista) errores.push("expected a BreadcrumbList in the JSON-LD @graph");
+      else if (items.length !== 2) errores.push(`expected a BreadcrumbList with 2 ListItem, found ${items.length}`);
     } else if (pagina.jsonLd === "breadcrumb") {
       const lista = datos.find((d) => tipos(d).includes("BreadcrumbList"));
       const items = (lista?.itemListElement ?? []).filter((i) => tipos(i).includes("ListItem"));

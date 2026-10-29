@@ -34,6 +34,7 @@ const noindex = {
 };
 
 const ld = `<script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1},{"@type":"ListItem","position":2}]}</script>`;
+const serviceLd = `<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Service","@id":"https://www.cookyourwebai.es/#servicio-x","name":"X","url":"https://www.cookyourwebai.es/servicios/x","provider":{"@id":"https://www.cookyourwebai.es/#negocio"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1},{"@type":"ListItem","position":2}]}]}</script>`;
 const homeLd = `<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite"},{"@type":"ProfessionalService"}]}</script>`;
 const pageHtml = (head: string, body = "<main><h1>Aviso legal</h1></main>", lang = ' lang="es"') =>
   `<!DOCTYPE html><html${lang}><head>${head}<meta charset="UTF-8"></head><body><div id="root">${body}</div></body></html>`;
@@ -189,11 +190,38 @@ describe("comprobarHtml: language, h1 text, social tags and JSON-LD", () => {
   });
 });
 
+describe("comprobarHtml: service page JSON-LD", () => {
+  const servicePage = {
+    ...indexable,
+    ruta: "/servicios/x",
+    canonical: "https://www.cookyourwebai.es/servicios/x",
+    jsonLd: "service" as const,
+  };
+  const head = goodHead.replace(ld, serviceLd).replaceAll("/avisolegal", "/servicios/x");
+  const check = (html: string) => comprobarHtml(html, servicePage).join("\n");
+
+  it("accepts a Service with its provider plus a two-item BreadcrumbList", () => {
+    expect(check(pageHtml(head))).toBe("");
+  });
+
+  it("fails without the Service, without the provider, or with another url", () => {
+    expect(check(pageHtml(head.replace('"@type":"Service"', '"@type":"Thing"')))).toMatch(/Service/);
+    expect(check(pageHtml(head.replace('"provider":{"@id":"https://www.cookyourwebai.es/#negocio"}', '"x":1')))).toMatch(/provider/);
+    expect(check(pageHtml(head.replace('"url":"https://www.cookyourwebai.es/servicios/x"', '"url":"https://www.cookyourwebai.es/#x"')))).toMatch(/url/);
+  });
+
+  it("fails without the BreadcrumbList or with one item", () => {
+    expect(check(pageHtml(head.replace("BreadcrumbList", "Thing")))).toMatch(/BreadcrumbList/);
+    expect(check(pageHtml(head.replace(',{"@type":"ListItem","position":2}', "")))).toMatch(/BreadcrumbList/);
+  });
+});
+
 describe("archivoDeRuta", () => {
   it("maps routes to the nested files and the 404", () => {
     expect(archivoDeRuta("/")).toBe("index.html");
     expect(archivoDeRuta("/avisolegal")).toBe("avisolegal/index.html");
     expect(archivoDeRuta("*")).toBe("404.html");
+    expect(archivoDeRuta("/servicios/avatares-ia")).toBe("servicios/avatares-ia/index.html");
   });
 });
 
@@ -208,7 +236,14 @@ describe("leerPaginasEsperadas", () => {
       robots: "robots" in p ? p.robots : undefined,
       canonical: "robots" in p ? undefined : `${DOMINIO_POR_DEFECTO}${p.path}`,
       ogImage: OG_IMAGE.url,
-      jsonLd: p.path === "/" ? "home" : ["privacy", "cookies", "legal"].includes(key) ? "breadcrumb" : undefined,
+      jsonLd:
+        p.path === "/"
+          ? "home"
+          : p.path.startsWith("/servicios/")
+            ? "service"
+            : ["privacy", "cookies", "legal"].includes(key)
+              ? "breadcrumb"
+              : undefined,
     }));
 
     expect(paginas).toEqual(esperado);
@@ -233,7 +268,7 @@ describe("comprobarDist", () => {
         `<meta name="twitter:card" content="summary_large_image"/>` +
         (p.robots
           ? `<meta name="robots" content="${p.robots}"/>`
-          : `<link rel="canonical" href="${p.canonical}"/><meta property="og:url" content="${p.canonical}"/>${p.jsonLd === "home" ? homeLd : ld}`);
+          : `<link rel="canonical" href="${p.canonical}"/><meta property="og:url" content="${p.canonical}"/>${p.jsonLd === "home" ? homeLd : p.jsonLd === "service" ? serviceLd.replace("/servicios/x", p.ruta) : ld}`);
       write(archivoDeRuta(p.ruta), pageHtml(head, "<h1>x</h1>"));
     }
   };

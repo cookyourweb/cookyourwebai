@@ -42,6 +42,10 @@ const ROUTES: Array<[string, PageKey]> = [
   ["/politicadeprivacidad", "privacy"],
   ["/cookie-policy", "cookies"],
   ["/avisolegal", "legal"],
+  ["/servicios/automatizacion-ia-empresas", "servicioAutomatizacion"],
+  ["/servicios/funnels-ventas-ia", "servicioFunnels"],
+  ["/servicios/avatares-ia", "servicioAvatares"],
+  ["/servicios/consultoria-ia", "servicioConsultoria"],
   ["/baja", "unsubscribe"],
   ["/agenteActivado", "thanks"],
 ];
@@ -69,7 +73,16 @@ describe.each(ROUTES)("prerendered %s", (path, key) => {
 });
 
 describe("prerendered JSON-LD", () => {
-  it.each(["/", "/politicadeprivacidad", "/cookie-policy", "/avisolegal"])("%s carries it in the head", async (path) => {
+  it.each([
+    "/",
+    "/politicadeprivacidad",
+    "/cookie-policy",
+    "/avisolegal",
+    "/servicios/automatizacion-ia-empresas",
+    "/servicios/funnels-ventas-ia",
+    "/servicios/avatares-ia",
+    "/servicios/consultoria-ia",
+  ])("%s carries it in the head", async (path) => {
     const { head } = await prerender(path);
 
     expect(head).toContain('type="application/ld+json"');

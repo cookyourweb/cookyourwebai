@@ -1,4 +1,14 @@
 /**
+ * The guarantee of the paid services, approved by the owner on 29-oct-2026.
+ * It is always shown together with its conditions (components/GuaranteeNote).
+ */
+export const GUARANTEE = {
+  text: "Garantía de 6 meses: si en 6 meses no recuperas lo que pagaste por la implementación, seguimos trabajando gratis hasta conseguirlo o te devolvemos el importe.",
+  conditions:
+    "Medimos juntos el ahorro y las ventas desde el inicio. No incluye herramientas de terceros y aplica si el sistema se usa como acordamos.",
+};
+
+/**
  * The four main services. The home renders them and the structured data
  * (lib/seo.ts) describes them, both from here, so they cannot drift apart.
  */
@@ -6,6 +16,7 @@ export const mainServices = [
   {
     id: "automatizacion-empresarial",
     slug: "automatizacion",
+    path: "/servicios/automatizacion-ia-empresas",
     title: "Automatización Empresarial AI",
     price: "€799",
     description: "Transforma tu empresa con AI que opera 24/7 optimizando procesos críticos",
@@ -15,13 +26,14 @@ export const mainServices = [
       "Automatización completa de procesos administrativos",
       "Análisis predictivo de datos empresariales",
       "Integración con CRM, ERP y sistemas existentes",
-      "Formación especializada del equipo incluida",
-      "ROI visible desde la primera semana"
-    ]
+      "Formación especializada del equipo incluida"
+    ],
+    guarantee: true
   },
   {
     id: "funnels-ia-avanzados",
     slug: "funnels",
+    path: "/servicios/funnels-ventas-ia",
     title: "Funnels AI Avanzados",
     price: "€1.299",
     description: "Sistema de ventas inteligente que se optimiza automáticamente para maximizar conversiones",
@@ -33,11 +45,13 @@ export const mainServices = [
       "Seguimiento predictivo para maximizar cierres",
       "CRM inteligente completamente integrado",
       "Dashboard de métricas y KPIs en tiempo real"
-    ]
+    ],
+    guarantee: true
   },
   {
     id: "ia-influencer-avatares",
     slug: "avatares",
+    path: "/servicios/avatares-ia",
     title: "AI Influencer & Avatares",
     price: "€4.999",
     description: "Crea tu gemelo digital inteligente que genera contenido y construye tu marca personal automáticamente",
@@ -49,11 +63,13 @@ export const mainServices = [
       "Presencia digital 24/7 en todas las redes sociales",
       "Multiplica tu alcance sin multiplicar tu tiempo",
       "Integración completa email y WhatsApp Business"
-    ]
+    ],
+    guarantee: true
   },
   {
     id: "consultoria-transformacion-ia",
     slug: "consultoria",
+    path: "/servicios/consultoria-ia",
     title: "Consultoría Transformación AI",
     price: "GRATIS",
     description: "Auditoría completa para identificar oportunidades, implementar soluciones y medir ROI real",
@@ -62,9 +78,10 @@ export const mainServices = [
       "Auditoría profunda de procesos automatizables",
       "Estrategia de implementación gradual y escalable",
       "Formación especializada de equipos en herramientas AI",
-      "ROI garantizado en todas las implementaciones",
+      "Medimos el retorno de cada implementación",
       "Consulta estratégica de 60 minutos incluida",
       "Documento ejecutivo con recomendaciones"
-    ]
+    ],
+    guarantee: false
   }
 ];

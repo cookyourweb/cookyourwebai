@@ -53,6 +53,30 @@ export const PAGES = {
     title: "Aviso legal | CookYourWebAI",
     description: "Titular, datos de contacto y condiciones de uso de cookyourwebai.es conforme a la LSSI-CE.",
   },
+  servicioAutomatizacion: {
+    path: "/servicios/automatizacion-ia-empresas",
+    title: "Automatización con IA para empresas | CookYourWebAI",
+    description:
+      "Automatización empresarial con IA: chatbots 24/7, procesos administrativos, análisis de datos e integración con CRM y ERP. Auditoría gratuita.",
+  },
+  servicioFunnels: {
+    path: "/servicios/funnels-ventas-ia",
+    title: "Funnels de ventas con IA para empresas | CookYourWebAI",
+    description:
+      "Funnels de ventas con IA: lead magnets automáticos, nurturing personalizado, agendado y cualificación automática, CRM integrado y métricas en tiempo real.",
+  },
+  servicioAvatares: {
+    path: "/servicios/avatares-ia",
+    title: "Avatares con IA para tu marca personal | CookYourWebAI",
+    description:
+      "Avatares digitales con IA para CEOs y fundadores: contenido automático, respuestas en tiempo real y presencia 24/7 en redes, email y WhatsApp Business.",
+  },
+  servicioConsultoria: {
+    path: "/servicios/consultoria-ia",
+    title: "Consultoría de IA para empresas | CookYourWebAI",
+    description:
+      "Consultoría de IA: auditoría de procesos automatizables, estrategia de implementación gradual, formación de equipos y consulta estratégica de 60 minutos.",
+  },
   unsubscribe: {
     path: "/baja",
     title: "Darme de baja | CookYourWebAI",
@@ -120,20 +144,45 @@ export function homeJsonLd() {
         name: COMPANY.legalName,
         worksFor: { "@id": ID.negocio },
       },
-      ...mainServices.map((service) => ({
-        "@type": "Service",
-        "@id": `${DOMINIO_POR_DEFECTO}/#servicio-${service.slug}`,
-        name: service.title,
-        url: `${DOMINIO_POR_DEFECTO}/#${service.id}`,
-        provider: { "@id": ID.negocio },
-        areaServed: AREA_SERVED,
-      })),
+      ...mainServices.map(serviceNode),
     ],
   };
 }
 
+/** One Service node. The home graph and the service's own page emit the same node. */
+function serviceNode(service: (typeof mainServices)[number]) {
+  return {
+    "@type": "Service",
+    "@id": `${DOMINIO_POR_DEFECTO}/#servicio-${service.slug}`,
+    name: service.title,
+    url: canonical(service.path),
+    provider: { "@id": ID.negocio },
+    areaServed: AREA_SERVED,
+  };
+}
+
+/**
+ * The pages of the four services, in the order of lib/servicios.ts (the
+ * entry at the same position has the same path: a test keeps them aligned).
+ */
+export const SERVICE_PAGES = [
+  "servicioAutomatizacion",
+  "servicioFunnels",
+  "servicioAvatares",
+  "servicioConsultoria",
+] as const satisfies readonly PageKey[];
+
+export type ServicePageKey = (typeof SERVICE_PAGES)[number];
+
+/** The SEO entry of a service: the PAGES key whose path is the service's own. */
+export function servicePageKey(service: (typeof mainServices)[number]): ServicePageKey {
+  const key = SERVICE_PAGES.find((k) => PAGES[k].path === service.path);
+  if (!key) throw new Error(`No PAGES entry for the service path ${service.path}`);
+  return key;
+}
+
 /** Pages that carry an "Inicio > page" breadcrumb. The home carries none. */
-const BREADCRUMB_PAGES = ["privacy", "cookies", "legal"] as const satisfies readonly PageKey[];
+const BREADCRUMB_PAGES = ["privacy", "cookies", "legal", ...SERVICE_PAGES] as const satisfies readonly PageKey[];
 
 export type BreadcrumbPageKey = (typeof BREADCRUMB_PAGES)[number];
 
@@ -163,9 +212,18 @@ export function breadcrumbJsonLd(page: BreadcrumbPageKey) {
   };
 }
 
+/** A service page: its Service and the breadcrumb, as one graph. */
+export function servicePageJsonLd(page: ServicePageKey) {
+  const service = mainServices.find((s) => s.path === PAGES[page].path);
+  if (!service) throw new Error(`No service for the page ${page}`);
+  const { "@context": context, ...breadcrumb } = breadcrumbJsonLd(page);
+  return { "@context": context, "@graph": [serviceNode(service), breadcrumb] };
+}
+
 /** The JSON-LD of a page, or undefined when it has none (noindex pages). */
 export function jsonLdFor(page: PageKey): object | undefined {
   if (page === "home") return homeJsonLd();
+  if ((SERVICE_PAGES as readonly PageKey[]).includes(page)) return servicePageJsonLd(page as ServicePageKey);
   if ((BREADCRUMB_PAGES as readonly PageKey[]).includes(page)) {
     return breadcrumbJsonLd(page as BreadcrumbPageKey);
   }

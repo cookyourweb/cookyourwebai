@@ -1,6 +1,7 @@
 import { Menu, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { EMPLEO_TECH } from "@/lib/empleo-tech";
 import ContactDialog from "./ContactDialog";
 import { Sheet, SheetClose, SheetContent, SheetTitle } from "./ui/sheet";
 
@@ -18,7 +19,7 @@ const sections = [
 ];
 
 // A separate site in the ecosystem, not a home section: kept apart from the anchors.
-const empleoTech = { label: "Empleo Tech", href: "https://empleo.cookyourwebai.es/es/" };
+const empleoTech = EMPLEO_TECH;
 
 const focusRing =
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neonblue";

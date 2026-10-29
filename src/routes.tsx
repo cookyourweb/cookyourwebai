@@ -8,6 +8,8 @@ import LegalNotice from "./pages/LegalNotice";
 import Unsubscribe from "./pages/Unsubscribe";
 import AgenteActivado from "./pages/AgenteActivado";
 import NotFound from "./pages/NotFound";
+import ServicePage from "./pages/ServicePage";
+import { mainServices } from "./lib/servicios";
 
 /**
  * The route table, shared by the browser entry (main.tsx) and the build-time
@@ -22,6 +24,11 @@ export const routes: RouteRecord[] = [
       { path: "politicadeprivacidad", element: <PrivacyPolicy /> },
       { path: "cookie-policy", element: <CookiePolicy /> },
       { path: "avisolegal", element: <LegalNotice /> },
+      // One prerendered page per service, at the path declared in lib/servicios.ts.
+      ...mainServices.map((service) => ({
+        path: service.path.slice(1),
+        element: <ServicePage service={service} />,
+      })),
       { path: "baja", element: <Unsubscribe /> },
       { path: "agenteActivado", element: <AgenteActivado /> },
       // Prerendered as dist/404.html, which Vercel serves with a real 404 status.

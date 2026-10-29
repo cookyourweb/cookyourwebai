@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import App from "@/App";
 import { COMPANY } from "@/lib/company";
-import { DOMINIO_POR_DEFECTO } from "@/lib/rutas-publicas";
+import { DOMINIO_POR_DEFECTO, RUTAS_PUBLICAS } from "@/lib/rutas-publicas";
 import { OG_IMAGE, PAGES, canonical, homeJsonLd } from "@/lib/seo";
 import { mainServices } from "@/lib/servicios";
 
@@ -68,17 +68,15 @@ describe("home JSON-LD graph", () => {
     expect(services.map((s) => s.name)).toEqual(mainServices.map((s) => s.title));
     for (const [i, s] of mainServices.entries()) {
       expect(services[i]["@id"]).toBe(`${DOMINIO_POR_DEFECTO}/#servicio-${s.slug}`);
-      expect(services[i].url).toBe(`${DOMINIO_POR_DEFECTO}/#${s.id}`);
+      expect(services[i].url).toBe(`${DOMINIO_POR_DEFECTO}${s.path}`);
     }
   });
 
-  it("only links to anchors that exist in the rendered home", async () => {
-    open("/");
-    await waitFor(() => expect(document.title).toBe(PAGES.home.title));
-
+  it("links every Service to a public page of the sitemap, not to an anchor", () => {
     for (const service of byType("Service")) {
-      const anchor = String(service.url).split("#")[1];
-      expect(document.getElementById(anchor), anchor).not.toBeNull();
+      const path = String(service.url).replace(DOMINIO_POR_DEFECTO, "");
+      expect(path).not.toContain("#");
+      expect(RUTAS_PUBLICAS).toContain(path);
     }
   });
 });
