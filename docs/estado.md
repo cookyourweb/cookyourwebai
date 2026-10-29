@@ -1,6 +1,6 @@
 # Estado del proyecto · léelo al empezar cada sesión
 
-Actualizado: 28-oct-2026 (tras publicar #18). Producción = `main`.
+Actualizado: 29-oct-2026 (tras publicar #19). Producción = `main`.
 Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.md` §5).
 **El repositorio es público:** aquí no van datos personales ni de clientes.
 
@@ -23,14 +23,14 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
   - PR #16, publicada el 28-oct (PR F, primera parte): casilla de privacidad obligatoria en el diálogo de contacto por WhatsApp (`ContactDialog`) y arreglos de móvil revisados por los agentes Accessibility Auditor y Frontend Developer. **Comprobado en producción** en `/avisolegal` a 360×340 con emulación móvil (con `fetch` y `window.open` simulados, sin enviar nada): el diálogo cabe con 16 px de margen y se desplaza; sin la casilla no se envía nada; con la casilla, WhatsApp se abre en el mismo clic y el lead sale con `keepalive`; autocompletado `name`/`email`/`tel`; sin scroll horizontal.
   - PR #17, publicada el 28-oct: botón «Cerrar» con nombre accesible en el asistente de WhatsApp de la home y test que impide abrir diálogos sin acción del usuario. **Comprobado en producción:** tras 10 s sin interactuar no hay ningún diálogo abierto; el botón de cierre tiene `aria-label="Cerrar"` y, tras cerrarlo, no reaparece.
   - PR #18, publicada el 28-oct (PR F, segunda parte): una sola cabecera (`components/Header.tsx`, montada en `Layout`) en todas las páginas, hecha por el agente UI Designer; el botón de WhatsApp abre el formulario de contacto en todas partes y se retira el asistente de la home. **Comprobado en producción** en `/` y `/avisolegal`: a 375×740 hay una sola cabecera, el logo enlaza a `/`, el menú móvil abre (`aria-expanded=true`), lista los anclajes (`/#…` fuera de la home) y se cierra con Escape, y el botón de WhatsApp abre el formulario con casilla de privacidad; a 1280×800 se ve la navegación de escritorio y existen los 7 destinos de los anclajes; sin scroll horizontal.
-- **En curso:** PR F, última parte: botón fijo de auditoría en móvil y bloque de cierre, hechos por el agente UI Designer y comprobados en local a 375×740 y 1280×800. **Hecho cuando:** publicados y comprobados en producción.
+  - PR #19, publicada el 28-oct (PR F, última parte): botón fijo «Auditoría AI gratuita» en móvil y bloque de cierre antes del pie, hechos por el agente UI Designer. **Comprobado en producción:** en `/avisolegal` a 375×740 el botón aparece, abre el formulario de auditoría con casilla de privacidad, se oculta con el formulario abierto y mientras el bloque de cierre está a la vista; en `/` se oculta con el banner de cookies y aparece tras responder; a 1280×800 no se muestra; `/baja` y `/agenteActivado` no tienen bloque de cierre; sin scroll horizontal. **Con esto la PR F queda terminada.**
+- **En curso:** ninguna.
 - **Descartado tras comprobarlo (28-oct):** el aviso de que el `WhatsAppForm` de la home «se abre solo y reaparece» era un falso positivo. El agente UX Architect no lo reprodujo en móvil ni en escritorio (espera de 15 s, scroll, cierre con X, Escape y clic fuera); solo se abre con un clic. Probablemente se confundió con el banner de cookies. Ahora un test impide que la home abra un diálogo sin acción del usuario, y el botón de cierre de ese diálogo tiene nombre accesible («Cerrar»).
 - **Pendiente de la responsable:** pedir a Search Console que inspeccione `/` y `/avisolegal` (Inspección de URL → Probar URL publicada) para que vea el HTML nuevo.
 - **Siguiente:**
-  1. PR F (lo que falta) · CTA fija en móvil y bloque de cierre en cada página.
-  2. PR G · IndexNow y `llms.txt`.
-  3. PR H · Fichas de proyecto por cliente y una página por servicio.
-  4. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
+  1. PR G · IndexNow y `llms.txt`.
+  2. PR H · Fichas de proyecto por cliente y una página por servicio.
+  3. PR I · Fichas y perfiles (LinkedIn, Instagram, WhatsApp Business) y `sameAs`.
 - **Hecho cuando:** todo lo anterior está publicado y comprobado en producción, el sitemap está enviado en Search Console y Bing, y no queda ningún punto de la fase 6 sin cumplir.
 
 ## 1. Documentos
