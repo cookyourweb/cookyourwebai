@@ -65,6 +65,7 @@ Este fichero manda sobre la memoria, los resúmenes y los informes (ver `CLAUDE.
 - Captación (fase 6): botón fijo «Auditoría AI gratuita» en móvil y bloque de cierre («Auditoría AI gratuita» / «Cuéntanos tu caso con un breve formulario y te contactamos.» / «Solicitar auditoría»), textos aprobados el 28-oct. Ambos abren el formulario de auditoría existente. `/baja` y `/agenteActivado` no llevan captación: «baja es baja».
 
 - PR H solo con las 4 páginas de servicio. Sin fichas de proyecto de cliente hasta tener un proyecto de IA o automatización publicable: la web posiciona una agencia tecnológica y los trabajos de otro sector (webs o formación) la diluyen (decidido el 29-oct).
+- Empleo Tech es, por ahora, solo para candidatos y vive en su subdominio: sin página propia en esta web. En el pie, junto a su enlace, va un botón «¿Eres empresa y buscas desarrolladores?» que abre el formulario de contacto. Va en la PR H. La página para empresas («contratar desarrolladores») se hará cuando esa oferta esté definida (decidido el 29-oct).
 
 ### Descartado
 - Migrar a Next.js o a Astro para el SEO: es excesivo para 7 rutas.
