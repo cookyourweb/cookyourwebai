@@ -30,6 +30,11 @@ export default function Footer() {
               {COMPANY.legalName}
               <span className="sr-only"> en LinkedIn (se abre en una pestaña nueva)</span>
             </a>
+            {" · "}
+            <a href={COMPANY.linkedinCompany} target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:underline">
+              {COMPANY.name}
+              <span className="sr-only"> en LinkedIn (se abre en una pestaña nueva)</span>
+            </a>
           </p>
         </div>
         <nav aria-label="Servicios" className="text-center md:text-left">
