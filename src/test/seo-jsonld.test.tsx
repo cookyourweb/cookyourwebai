@@ -65,8 +65,12 @@ describe("home JSON-LD graph", () => {
   it("links the founder to her real LinkedIn profile, and only her", () => {
     expect(byType("Person")[0].sameAs).toEqual([COMPANY.linkedinFounder]);
     expect(COMPANY.linkedinFounder).toBe("https://www.linkedin.com/in/veronica4web/");
-    // The business gets sameAs only once it has its own profiles with content.
-    expect(byType("ProfessionalService")[0]).not.toHaveProperty("sameAs");
+  });
+
+  it("links the business to its own LinkedIn page, and only that profile", () => {
+    // Instagram joins only once it has posts (docs/estado.md section 3).
+    expect(byType("ProfessionalService")[0].sameAs).toEqual([COMPANY.linkedinCompany]);
+    expect(COMPANY.linkedinCompany).toBe("https://www.linkedin.com/company/cookyourwebai/");
   });
 
   it("has exactly one Service per main service, named as the home names it", () => {

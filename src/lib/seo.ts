@@ -110,9 +110,9 @@ const AREA_SERVED = { "@type": "Country", name: "España" } as const;
  * as one linked graph (fixed @ids, references instead of copies).
  *
  * Left out on purpose (owner decisions, docs/estado.md section 3): address,
- * aggregateRating, review, priceRange, FAQPage (no visible FAQ), and sameAs on
- * the business until it has its own profiles with content. The founder links
- * her LinkedIn, which the footer also shows.
+ * aggregateRating, review, priceRange and FAQPage (no visible FAQ). sameAs
+ * lists only profiles the footer also shows: the company's LinkedIn page on the
+ * business, the founder's LinkedIn on her Person.
  */
 export function homeJsonLd() {
   return {
@@ -138,6 +138,7 @@ export function homeJsonLd() {
         image: OG_IMAGE.url,
         areaServed: AREA_SERVED,
         founder: { "@id": ID.veronica },
+        sameAs: [COMPANY.linkedinCompany],
       },
       {
         "@type": "Person",

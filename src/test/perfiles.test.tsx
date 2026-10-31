@@ -15,8 +15,19 @@ describe("profiles in the footer", () => {
     render(<App />);
 
     const footer = screen.getByRole("contentinfo");
-    const link = within(footer).getByRole("link", { name: /linkedin/i });
+    const link = within(footer).getByRole("link", { name: /Verónica Serna Pérez\s*en LinkedIn/ });
     expect(link).toHaveAttribute("href", COMPANY.linkedinFounder);
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link.getAttribute("rel")).toMatch(/noopener/);
+  });
+
+  it("links the company's LinkedIn page, opening in a new tab safely", () => {
+    window.history.pushState({}, "", "/avisolegal");
+    render(<App />);
+
+    const footer = screen.getByRole("contentinfo");
+    const link = within(footer).getByRole("link", { name: /CookYourWebAI\s*en LinkedIn/ });
+    expect(link).toHaveAttribute("href", COMPANY.linkedinCompany);
     expect(link).toHaveAttribute("target", "_blank");
     expect(link.getAttribute("rel")).toMatch(/noopener/);
   });

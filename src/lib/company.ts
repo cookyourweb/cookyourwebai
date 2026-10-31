@@ -19,6 +19,8 @@ export const COMPANY = {
   whatsapp: WHATSAPP,
   /** The founder's LinkedIn: footer link and Person.sameAs. */
   linkedinFounder: "https://www.linkedin.com/in/veronica4web/",
+  /** The company's LinkedIn page: footer link and the business sameAs. */
+  linkedinCompany: "https://www.linkedin.com/company/cookyourwebai/",
   /** Click-to-chat link with a prefilled message, built from the single number above. */
   whatsappUrl: (text: string) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`,
 } as const;
